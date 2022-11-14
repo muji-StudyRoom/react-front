@@ -1,38 +1,140 @@
-.App {
+#header-app {
+  background-image: url(./img/world_map.png);
+  background-position: top left;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position-x: 200px;
+  height: 400px;
+  padding-left: 120px;
+  padding-top: 150px;
+}
+
+#header-title {
+  font-size: 60px;
+  font-weight: 700;
+  color: #00184a;
+  margin-bottom: 30px;
+}
+
+#header-text {
+  font-size: 20px;
+  font-weight: 600;
+  color: #505f98;
+  margin-bottom: 50px;
+}
+
+#start-button {
+  background-color: #00184a;
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
+  font-size: 20px;
+  font-weight: 700;
+  height: 50px;
+  width: 200px;
 }
 
-.App-link {
-  color: #61dafb;
+#start-button:hover {
+  cursor: pointer;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#search-box {
+  position: relative;
+  width: 500px;
+  height: 50px;
+  margin-top: 100px;
+  margin-left: 80px;
+}
+
+input[id=search-input] {
+  width: 100%;
+  height: 100%;
+  border: solid 2px #ffffff;
+  background-color: #EDEDF0;
+  border-radius: 20px;
+  color: gray;
+  text-indent: 40px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+input[id=search-input]:focus {
+  outline: 4px solid #505f98;
+}
+
+#icon {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  left: 20px;
+}
+
+#search {
+  color: #00184a;
+}
+
+#delete {
+  display: inline-block;
+  margin-left: 5px;
+  color: #00184a;
+}
+
+#delete:hover {
+  cursor: pointer;
+}
+
+input[id=search-input]::placeholder {
+  color: gray;
+  font-size: 20px;
+  font-weight: bold;
+  text-indent: 40px;
+}
+
+#rooms {
+  margin-left: 30px;
+}
+
+.room {
+  background-color: #eaefff;
+  height: 350px;
+  width: 300px;
+  border-radius: 15px;
+  display: inline-block;
+  margin-top: 30px;
+  margin-left: 50px;
+  margin-bottom: 30px;
+  position: relative;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  overflow: hidden;
+}
+
+.room:hover {
+  cursor: pointer;
+}
+
+.room-header {
+  width: 100%;
+  height: 270px;
+  border-radius: 15px 15px 0 0;
+  background-image: url("./img/pengsu.jpg");
+  background-size: 100% 280px;
+  background-repeat: no-repeat;
+}
+
+.room-body {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 25px;
+  margin: 10px 20px 0px 20px;
+}
+
+.room-footer {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+#first-footer {
+  height: 150px;
+  background-color: #eaefff;
 }
