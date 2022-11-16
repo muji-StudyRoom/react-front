@@ -1,9 +1,10 @@
 import Input from '../components/Input';
 import ChattingList from "../components/ChattingList";
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import io from 'socket.io-client';
 import { socket } from '../socket';
-
+import "../css/Meetingpage.css";
 var protocol = window.location.protocol;
 // var socket = io(protocol + '//' + document.domain + ':' + window.location.port, {autoConnect: true});
 
@@ -13,7 +14,6 @@ var protocol = window.location.protocol;
 //   //   test: 5555
 //   // }
 // });
-
 var myVideo;
 var audioMuted = false;
 var videoMuted = false;
@@ -23,10 +23,10 @@ var myID;
 var _peer_list = {};
 
 /// 방 정보
-var display_name = "myDisplay"
-var mute_audio = "0"
-var mute_video = "0"
-var room_id = "999"
+var display_name
+var mute_audio
+var mute_video
+var room_id
 
 var PC_CONFIG = {
     iceServers: [
@@ -202,7 +202,7 @@ function startCamera() //카메라 시작
             setVideoMuteState(videoMuted);
             myVideo.autoplay = true;
             //start the socketio connection
-            // socket.connect(); // 상관없는듯
+            socket.connect();
         })
         .catch((e) => {
             console.log("getUserMedia Error! ", e);
@@ -251,6 +251,48 @@ function getMyVideo() {
     //document.getElementById("room_link").innerHTML=`or the link: <span class="heading-mark">${window.location.href}</span>`;
 
 }
+function checkVideoLayout() {
+
+    const video_grid = document.getElementById("video_grid");
+    const videos = video_grid.querySelectorAll("video");
+    const video_count = videos.length;
+
+    if (video_count == 0) { } else if (video_count == 1) {
+        videos[0].style.width = "100%";
+        videos[0].style.height = "100vh";
+        videos[0].style.objectFit = "cover";
+    } else if (video_count == 2) {
+        videos[0].style.width = "100%";
+        videos[0].style.height = "50vh";
+        videos[0].style.objectFit = "cover";
+        videos[1].style.width = "100%";
+        videos[1].style.height = "50vh";
+        videos[1].style.objectFit = "cover";
+    } else if (video_count == 3) {
+        videos[0].style.width = "100%";
+        videos[0].style.height = "50vh";
+        videos[0].style.objectFit = "cover";
+        videos[1].style.width = "50%";
+        videos[1].style.height = "50vh";
+        videos[1].style.objectFit = "cover";
+        videos[2].style.width = "50%";
+        videos[2].style.height = "50vh";
+        videos[2].style.objectFit = "cover";
+    } else {
+        videos[0].style.width = "50%";
+        videos[0].style.height = "50vh";
+        videos[0].style.objectFit = "cover";
+        videos[1].style.width = "50%";
+        videos[1].style.height = "50vh";
+        videos[1].style.objectFit = "cover";
+        videos[2].style.width = "50%";
+        videos[2].style.height = "50vh";
+        videos[2].style.objectFit = "cover";
+        videos[3].style.width = "50%";
+        videos[3].style.height = "50vh";
+        videos[3].style.objectFit = "cover";
+    }
+}
 function addVideoElement(element_id, display_name) {
     document.getElementById("video_grid").appendChild(makeVideoElementCustom(element_id, display_name));
     //checkVideoLayout();
@@ -276,6 +318,10 @@ function removeVideoElement(element_id) {
 }
 
 const MeetingPage = () => {
+    const location = useLocation();
+    console.log('state', location.state);
+
+    // socket.connect();
     useEffect(() => {
         getMyVideo();
         startCamera();
@@ -290,16 +336,16 @@ const MeetingPage = () => {
             // console.log(socket)
             // console.log("socket id is ", socket.id)
             let dataToServer = {
-                "display_name": display_name,
-                "mute_audio": mute_audio,
-                "mute_video": mute_video,
-                "room_id": room_id
+                "display_name": location.state["room_nickname"],
+                "mute_audio": location.state["mute_audio"],
+                "mute_video": location.state["mute_video"],
+                "room_id": location.state["room_id"]
             }
             socket.emit("create-room", dataToServer);
         });
 
         socket.on("join-request", () => {
-            socket.emit("join-room", { "room_id": room_id })
+            socket.emit("join-room", { "room_id": location.state["room_id"] })
             console.log("join-room active")
         })
 
@@ -352,15 +398,22 @@ const MeetingPage = () => {
         });
     }, [])
     return (
-        <div>
-            <Input />
-            <ChattingList />
-            <p>protocol: {protocol}</p>
-            <p>socket: {protocol}//{document.domain}:{window.location.port}</p>
-            <div id="video_grid" className="video-grid"></div>
-            <button id="mic_mute_btn">mic_off</button>
-            <button id="vid_mute_btn">videocam_off</button>
-            <video id="local_vid" autoplay muted></video>
+        <div className='meet-root'>
+            <div className='left'>
+                <div id="videos">
+                    <div id="video_grid" className="video-grid"></div>
+                    <video id="local_vid" autoplay muted></video>
+                </div>
+                <div>
+                    <button id="mic_mute_btn">mic_off</button>
+                    <button id="vid_mute_btn">videocam_off</button>
+                </div>
+
+            </div>
+            <div className='right'>
+                <Input />
+                <ChattingList />
+            </div>
         </div>
     );
 };

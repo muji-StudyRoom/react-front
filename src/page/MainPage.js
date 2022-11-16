@@ -72,7 +72,7 @@ const App = () =>  {
     <div className="App">
       <Header></Header>
       <Search></Search>
-      <Paging></Paging>
+      <Paging ></Paging>
       <footer id="first-footer"></footer>
     </div>
   );

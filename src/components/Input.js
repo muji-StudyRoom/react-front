@@ -1,28 +1,25 @@
 import React from 'react';
-import {socket} from '../socket';
+import { socket } from '../socket';
 
-let myID = 'test';
-let myRoomID = '123';
-let inputID = 'chatting';
+let myID = 'energy-been';
+let myRoomID = '999';
 
 const Input = () => {
-    console.log(socket);
-
-    const sendMessage =() => { // chatting 보내기
+    const sendMessage = () => { // chatting 보내기
         // 보내야할 데이터 -  myRoomId(내 방 Id) + myID
-        console.log("send Message Called");
+        console.log("I am sender!");
         const data = {
-            "sender" : myID,
-            "text": document.getElementById("chatting").value,
-            "room_id" : myRoomID
+            "sender": myID,
+            "text": document.getElementById(myID).value,
+            "room_id": myRoomID
         }
         console.log(data);
-        socket.emit("chatting",data);
+        socket.emit("chatting", data);
     }
 
     return (
         <div className='input'>
-            <input id={inputID}/>
+            <input id={myID} />
             <button onClick={sendMessage}>채팅 전송</button>
         </div>
     );

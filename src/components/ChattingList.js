@@ -8,14 +8,13 @@ const ChattingList = React.memo(() =>{
     socket.on("chatting", (data)=>{  // chatting 받기
         console.log("received from server");
         chat = {
-            Id : Math.random(),
             sender : data["sender"],
             text : data["text"],
             room_id : data["room_id"]
         }
-        console.log(chat);
+        // console.log(chat);
         setChatList([...chatList,chat]);
-        console.log(chatList)
+        // console.log(chatList)
     })
 
     console.log(chatList);

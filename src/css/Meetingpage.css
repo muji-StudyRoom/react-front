@@ -1,0 +1,27 @@
+div.left {
+    width: 70%;
+    height: 100%;
+    float: left;
+    box-sizing: border-box;
+    background: #8977ad;
+}
+
+div.right {
+    width: 30%;
+    height: 100%;
+    float: right;
+    box-sizing: border-box;
+    background: #ece6cc;
+}
+
+div.meet-root {
+    height: 700px;
+}
+
+#videos {
+    transform: scaleX(-1);
+    -webkit-transform: rotateY(180deg);
+    /* Safari and Chrome */
+    -moz-transform: rotateY(180deg);
+    /* Firefox */
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import '../Modal.css';
-import {redirect} from 'react-router-dom'
+import { redirect, useNavigate } from 'react-router-dom'
 const Modal = (props) => {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, header } = props;
@@ -10,7 +10,7 @@ const Modal = (props) => {
     const micList = document.getElementsByName('mic_info');
     let mic_info;
     micList.forEach((mic) => {
-      if(mic.checked)  {
+      if (mic.checked) {
         console.log(mic.value);
         mic_info = mic.value
       }
@@ -22,7 +22,7 @@ const Modal = (props) => {
     const genderNodeList = document.getElementsByName('video_info');
     let video_info;
     genderNodeList.forEach((video) => {
-      if(video.checked)  {
+      if (video.checked) {
         console.log(video.value);
         video_info = video.value
       }
@@ -30,21 +30,37 @@ const Modal = (props) => {
     return video_info;
   }
 
-  const createRoom = async () => {
+  // const createRoom = async () => {
+  //   console.log("방을 생성합니다. ");
+  //   axios.post('http://localhost:5000/join', {
+  //     display_name : document.getElementById("room_nickname").value,
+  //     room_allowed : document.getElementById("room_allowed").value,
+  //     mute_audio : getMicInfo(),
+  //     mute_video : getVideoInfo(),
+  //     room_id : document.getElementById("room_id").value
+  //   }).then(function (response) {
+  //     console.log(response);
+  //     redirect("/meeting");
+  //   }).catch(function (error) {
+  //         console.log(error);
+  //   });
+  // }
+
+  const navigate = useNavigate();
+  const createRoom = () => {
     console.log("방을 생성합니다. ");
-    axios.post('http://localhost:5000/join', {
-      display_name : document.getElementById("room_nickname").value,
-      room_allowed : document.getElementById("room_allowed").value,
-      mute_audio : getMicInfo(),
-      mute_video : getVideoInfo(),
-      room_id : document.getElementById("room_id").value
-    }).then(function (response) {
-      console.log(response);
-      redirect("/meeting");
-    }).catch(function (error) {
-          console.log(error);
-    });
+    navigate("/meeting", {
+      state: {
+        room_id: document.getElementById("room_id").value,
+        room_allowed: document.getElementById("room_allowed").value,
+        room_nickname: document.getElementById("room_nickname").value,
+        room_pwd: document.getElementById("room_password").value,
+        mute_audio: getMicInfo(),
+        mute_video: getVideoInfo()
+      }
+    })
   }
+
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
     <div className={open ? 'openModal modal' : 'modal'}>
@@ -63,7 +79,7 @@ const Modal = (props) => {
             </div>
             <div className='modal-text'>수용 인원</div>
             <div>
-              <input className="modal-input" placeholder='수용 인원을 입력해주세요'id="room_allowed"></input>
+              <input className="modal-input" placeholder='수용 인원을 입력해주세요' id="room_allowed"></input>
             </div>
             <div className='modal-text'>닉네임</div>
             <div>
@@ -74,12 +90,12 @@ const Modal = (props) => {
               <input type="password" className="modal-input" placeholder='비밀번호를 입력해주세요' id="room_password"></input>
             </div>
             <div className='modal-text'>마이크ON/OFF</div>
-            <input type="radio" name="mic_info" value="mic_on" /> ON
-            <input type="radio" name="mic_info" value="mic_off" /> OFF
+            <input type="radio" name="mic_info" value="0" /> ON
+            <input type="radio" name="mic_info" value="1" /> OFF
 
             <div className='modal-text'>비디오 ON/OFF</div>
-            <input type="radio" name="video_info" value="video_on"  /> ON
-            <input type="radio" name="video_info" value="video_off" /> OFF
+            <input type="radio" name="video_info" value="0" /> ON
+            <input type="radio" name="video_info" value="1" /> OFF
 
           </main>
           <footer>
