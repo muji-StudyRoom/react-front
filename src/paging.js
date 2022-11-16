@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons"
-import './paging.css';
-import './App.css';
+import './css/paging.css';
+import './css/App.css';
 import Pagination from "react-js-pagination";
 
 const Paging = () => {
