@@ -6,4 +6,3 @@ export const socket = io('http://localhost:5000', {
         origin: "*",
     }
 });
-export const SocketContext = React.createContext();
