@@ -6,10 +6,18 @@ import { faEye } from "@fortawesome/free-solid-svg-icons"
 import Paging from "../paging.js"
 import { useState } from 'react';
 import Modal from '../components/Modal';
-
+import { RoomContext } from '../App';
 import '../Modal.css';
 
-const Header = ()=> {
+var rooms = [<div className="room" key={50}>
+  <div className='room-header'></div>
+  <div className='room-body'>EBS 1타 강사</div>
+  <div className='room-footer'>
+    <FontAwesomeIcon icon={faEye} /> 1234
+  </div>
+</div>];
+
+const Header = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const openModal = () => {
     setModalOpen(true);
@@ -17,7 +25,6 @@ const Header = ()=> {
   const closeModal = () => {
     setModalOpen(false);
   };
-
 
   return <header>
     <div id="header-app">
@@ -31,7 +38,7 @@ const Header = ()=> {
   </header>
 }
 
-const Search= () => {
+const Search = () => {
   const [text, setText] = useState("");
   return <div id="search-box">
     <input type="text" id="search-input" placeholder='검색어를 입력하세요' value={text} onChange={event => {
@@ -51,7 +58,7 @@ const Search= () => {
 }
 
 
-const Rooms = () =>  {
+const Rooms = () => {
   const [roomCount, setRoomcount] = useState(1);
   const [rooms, setRooms] = useState([<div className="room" key={roomCount}>
     <div className='room-header'></div>
@@ -66,17 +73,24 @@ const Rooms = () =>  {
   </div>
 }
 
-const App = () =>  {
-
+const App = () => {
+  const [rooms, setRooms] = useState([<div className="room" key={1}>
+  <div className='room-header'></div>
+  <div className='room-body'>test1234</div>
+  <div className='room-footer'>
+    <FontAwesomeIcon icon={faEye} /> {777}
+  </div>
+</div>]);
   return (
-    <div className="App">
-      <Header></Header>
-      <Search></Search>
-      <Paging ></Paging>
-      <footer id="first-footer"></footer>
-    </div>
+    <RoomContext.Provider value={{ rooms, setRooms }}>
+      <div className="App">
+        <Header></Header>
+        <Search></Search>
+        <Paging></Paging>
+        <footer id="first-footer"></footer>
+      </div>
+    </RoomContext.Provider>
   );
 }
-
 
 export default App;
