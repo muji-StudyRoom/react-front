@@ -1,6 +1,7 @@
 import io from "socket.io-client";
-
-export const socket = io('http://localhost:5000', {
+const url = "/socket";
+const test = process.env.REACT_APP_API_URL;
+export const socket = io( url, {
     cors: {
         origin: "*",
     },

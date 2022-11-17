@@ -1,17 +1,21 @@
-import React from 'react';
-import axios from 'axios';
+import React, { useContext } from 'react';
 import '../Modal.css';
-import { redirect, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { RoomContext } from '../App';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons"
+
 const Modal = (props) => {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, header } = props;
+
+  const { rooms, setRooms } = useContext(RoomContext)
 
   const getMicInfo = () => {
     const micList = document.getElementsByName('mic_info');
     let mic_info;
     micList.forEach((mic) => {
       if (mic.checked) {
-        console.log(mic.value);
         mic_info = mic.value
       }
     })
@@ -23,31 +27,26 @@ const Modal = (props) => {
     let video_info;
     genderNodeList.forEach((video) => {
       if (video.checked) {
-        console.log(video.value);
         video_info = video.value
       }
     })
     return video_info;
   }
 
-  // const createRoom = async () => {
-  //   console.log("방을 생성합니다. ");
-  //   axios.post('http://localhost:5000/join', {
-  //     display_name : document.getElementById("room_nickname").value,
-  //     room_allowed : document.getElementById("room_allowed").value,
-  //     mute_audio : getMicInfo(),
-  //     mute_video : getVideoInfo(),
-  //     room_id : document.getElementById("room_id").value
-  //   }).then(function (response) {
-  //     console.log(response);
-  //     redirect("/meeting");
-  //   }).catch(function (error) {
-  //         console.log(error);
-  //   });
-  // }
-
   const navigate = useNavigate();
   const createRoom = () => {
+    let newRoom = <div className="room" key={document.getElementById("room_id").value}>
+      <div className='room-header'></div>
+      <div className='room-body'>{document.getElementById("room_id").value}</div>
+      <div className='room-footer'>
+        <FontAwesomeIcon icon={faEye} /> {777}
+      </div>
+    </div>
+    console.log("newRoom : ", newRoom)
+    console.log("rooms before: ", rooms)
+    setRooms(prevState => [newRoom, ...prevState]);
+    console.log("rooms after: ", rooms)
+
     console.log("방을 생성합니다. ");
     navigate("/meeting", {
       state: {

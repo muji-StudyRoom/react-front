@@ -1,18 +1,22 @@
-import {createProxyMiddleware} from 'http-proxy-middleware'
+const {createProxyMiddleware} =require('http-proxy-middleware')
 
-module.exports = function (app) {
+const SOCKET_IP = process.env.REACT_APP_SOCKET_API_URL;
+const HTTP_IP = process.env.REACT_APP_HTTP_API_URL
+  //  SOCKET_SERVER
+
+
+module.exports = function(app){
     app.use(
-        '/',
-        createProxyMiddleware({
-            target: 'http://python_chatting:5000',
-            changeOrigin: true,
-        })
+        createProxyMiddleware(
+            ['/socket', '/socket.io'],
+            {
+                target: HTTP_IP,
+                changeOrigin: true,
+                ws: true,
+                router: {
+                    '/socket.io': SOCKET_IP
+                }
+            }
+        )
     );
-    app.use(
-        '/meeting',
-        createProxyMiddleware({
-            target: 'http://python_chatting:5000',
-            changeOrigin: true,
-        })
-    );
-};
+}

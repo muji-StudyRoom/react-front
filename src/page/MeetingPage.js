@@ -1,10 +1,14 @@
 import Input from '../components/Input';
 import ChattingList from "../components/ChattingList";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext, createContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import io from 'socket.io-client';
 import { socket } from '../socket';
 import "../css/Meetingpage.css";
+import { RoomContext } from '../App';
+
+export const DataContext = createContext();
+
 var protocol = window.location.protocol;
 // var socket = io(protocol + '//' + document.domain + ':' + window.location.port, {autoConnect: true});
 
@@ -203,6 +207,7 @@ function startCamera() //카메라 시작
             myVideo.autoplay = true;
             //start the socketio connection
             socket.connect();
+            console.log(socket);
         })
         .catch((e) => {
             console.log("getUserMedia Error! ", e);
@@ -321,6 +326,8 @@ const MeetingPage = () => {
     const location = useLocation();
     console.log('state', location.state);
 
+    const [dataToServer, setDataToServer] = useState({});
+
     // socket.connect();
     useEffect(() => {
         getMyVideo();
@@ -333,20 +340,18 @@ const MeetingPage = () => {
     useEffect(() => {
         socket.on("connect", () => {
             console.log("socket connected from client");
-            // console.log(socket)
-            // console.log("socket id is ", socket.id)
-            let dataToServer = {
+            let _dataToServer = {
                 "display_name": location.state["room_nickname"],
                 "mute_audio": location.state["mute_audio"],
                 "mute_video": location.state["mute_video"],
                 "room_id": location.state["room_id"]
             }
-            socket.emit("create-room", dataToServer);
+            setDataToServer(_dataToServer)
+            socket.emit("create-room", _dataToServer);
         });
 
         socket.on("join-request", () => {
             socket.emit("join-room", { "room_id": location.state["room_id"] })
-            console.log("join-room active")
         })
 
         return () => {
@@ -360,12 +365,10 @@ const MeetingPage = () => {
 
     useEffect(() => {
         socket.on("user-connect", (data) => {
-            console.log("user-connect ", data);
             let peer_id = data["sid"];
             console.log(peer_id)
             let display_name = data["name"];
             _peer_list[peer_id] = undefined; // add new user to user list
-            console.log(_peer_list)
             addVideoElement(peer_id, display_name);
         });
     })
@@ -397,6 +400,7 @@ const MeetingPage = () => {
             }
         });
     }, [])
+
     return (
         <div className='meet-root'>
             <div className='left'>
@@ -411,8 +415,10 @@ const MeetingPage = () => {
 
             </div>
             <div className='right'>
-                <Input />
-                <ChattingList />
+                <DataContext.Provider value={dataToServer}>
+                    <Input />
+                    <ChattingList />
+                </DataContext.Provider>
             </div>
         </div>
     );
