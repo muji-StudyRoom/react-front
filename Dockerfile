@@ -1,7 +1,7 @@
 FROM node:18-alpine3.15 AS build
 WORKDIR /app
 COPY . /app
-ENV REACT_APP_HTTP_API_URL "https://192.168.5.204:30000"
+ENV REACT_APP_BACK_URL "https://192.168.5.204:30000"
 RUN npm install && npm run build
 
 
