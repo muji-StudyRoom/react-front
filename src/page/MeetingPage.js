@@ -385,12 +385,16 @@ const MeetingPage = () => {
             }
         });
     }, [])
-
+    let defaultStyle = {
+        width:"100%",
+        height:"100vh",
+        objectFit:"cover"
+    }
     return (
         <div className='meet-root'>
             <div className='left'>
                 <div id="video_grid" className="video-grid">
-                    <video id="local_vid" autoplay muted></video>
+                    <video id="local_vid" autoplay muted style={defaultStyle}></video>
                 </div>
                 <div>
                     <button id="mic_mute_btn">mic_off</button>
