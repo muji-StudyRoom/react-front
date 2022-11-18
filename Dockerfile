@@ -1,12 +1,11 @@
-FROM python:3.8.15-slim
+FROM node:18-alpine3.15 AS build
+WORKDIR /app
+COPY . /app
+ENV REACT_APP_HTTP_API_URL "https://python_chatting:5000"
+RUN npm install && npm run build
 
-LABEL maintainer="rhj0830@gmail.com"
-# 파일 옮기기
-COPY . /app/server
 
-WORKDIR /app/server
-
-RUN pip3 install -r requirements.txt
-
-EXPOSE 5000
-ENTRYPOINT ["python", "app.py"]
+FROM nginx:stable-alpine
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
