@@ -18,7 +18,7 @@ div.meet-root {
     height: 700px;
 }
 
-#videos {
+video {
     transform: scaleX(-1);
     -webkit-transform: rotateY(180deg);
     /* Safari and Chrome */

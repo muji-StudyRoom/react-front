@@ -4,18 +4,11 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons"
 import Paging from "../paging.js"
-import { useState } from 'react';
+import { useState, createContext } from 'react';
 import Modal from '../components/Modal';
-import { RoomContext } from '../App';
 import '../Modal.css';
 
-var rooms = [<div className="room" key={50}>
-  <div className='room-header'></div>
-  <div className='room-body'>EBS 1타 강사</div>
-  <div className='room-footer'>
-    <FontAwesomeIcon icon={faEye} /> 1234
-  </div>
-</div>];
+export const RoomContext = createContext();
 
 const Header = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -78,9 +71,10 @@ const App = () => {
   <div className='room-header'></div>
   <div className='room-body'>test1234</div>
   <div className='room-footer'>
-    <FontAwesomeIcon icon={faEye} /> {777}
+    <FontAwesomeIcon icon={faEye} /> {78}
   </div>
 </div>]);
+
   return (
     <RoomContext.Provider value={{ rooms, setRooms }}>
       <div className="App">

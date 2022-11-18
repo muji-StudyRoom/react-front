@@ -3,16 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons"
 import './css/paging.css';
 import './css/App.css';
-import Pagination from "react-js-pagination";
-import { RoomContext } from "./App";
+import Pagination from "react-js-pagination"
+import { RoomContext } from "./page/MainPage";
 
 
 const Paging = () => {
-
-
     const {rooms, setRooms} = useContext(RoomContext)
 
-    console.log(rooms)
+    console.log("rooms ::::::: ", rooms)
 
     const [currentRooms, setCurrentRooms] = useState(rooms)
     const [page, setPage] = useState(1);

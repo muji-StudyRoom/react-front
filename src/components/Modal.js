@@ -1,15 +1,13 @@
 import React, { useContext } from 'react';
 import '../Modal.css';
 import { useNavigate } from 'react-router-dom'
-import { RoomContext } from '../App';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons"
+import { RoomContext } from '../page/MainPage';
 
 const Modal = (props) => {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, header } = props;
-
-  const { rooms, setRooms } = useContext(RoomContext)
 
   const getMicInfo = () => {
     const micList = document.getElementsByName('mic_info');
@@ -33,19 +31,19 @@ const Modal = (props) => {
     return video_info;
   }
 
+  const { rooms, setRooms } = useContext(RoomContext);
+
   const navigate = useNavigate();
+
   const createRoom = () => {
     let newRoom = <div className="room" key={document.getElementById("room_id").value}>
       <div className='room-header'></div>
       <div className='room-body'>{document.getElementById("room_id").value}</div>
       <div className='room-footer'>
-        <FontAwesomeIcon icon={faEye} /> {777}
+        <FontAwesomeIcon icon={faEye} /> {888}
       </div>
     </div>
-    console.log("newRoom : ", newRoom)
-    console.log("rooms before: ", rooms)
-    setRooms(prevState => [newRoom, ...prevState]);
-    console.log("rooms after: ", rooms)
+  // -> 추후 이 데이터를 DB에 저장해야 함
 
     console.log("방을 생성합니다. ");
     navigate("/meeting", {

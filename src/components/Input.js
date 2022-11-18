@@ -1,8 +1,6 @@
 import React, {useContext} from 'react';
 import { DataContext } from '../page/MeetingPage';
 import { socket } from '../socket';
-let myID = 'energy-been';
-let myRoomID = '999';
 
 const Input = () => {
     const roomData = useContext(DataContext);
@@ -12,6 +10,7 @@ const Input = () => {
             "text": document.getElementById(roomData["display_name"]).value,
             "room_id": roomData["room_id"]
         }
+        document.getElementById(roomData["display_name"]).value = "";
         socket.emit("chatting", data);
     }
 
