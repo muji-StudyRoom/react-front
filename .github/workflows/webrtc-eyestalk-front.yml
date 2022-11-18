@@ -29,8 +29,8 @@ jobs:
         uses: crazy-max/ghaction-docker-meta@v1
         with:
           images: kimnamju/webrtc-eyestalk-front
-          tags: ${{ steps.auto_tag.outputs.tags  }} 
-          labels: ${{ steps.extract_version_name.outputs.version }}   
+          tags: ${{ steps.auto_tag.outputs.tag_name.tags }} 
+          labels: ${{ steps.auto_tag.outputs.tag_name.tags }}   
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
