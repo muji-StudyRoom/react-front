@@ -28,7 +28,7 @@ jobs:
         uses: crazy-max/ghaction-docker-meta@v1
         with:
           images: kimnamju/webrtc-eyestalk-front
-          tags: ${{ steps.extract_version_name.outputs.version }} 
+          tags: ${{ steps.tag_version.outputs.new_tag }} 
           labels: ${{ steps.extract_version_name.outputs.version }}   
       -
         name: Set up Docker Buildx
@@ -47,5 +47,5 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64
           push: true
-          tags: ${{ steps.tag_version.outputs.new_tag }}
+          tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
