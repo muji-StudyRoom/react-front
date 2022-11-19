@@ -31,7 +31,7 @@ jobs:
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: kimnamju/webrtc-eyestalk-front    
+          images: kimnamju/eyestalk-front    
       
       -
         name: Build and push
@@ -41,4 +41,4 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64
           push: true
-          tags: kimnamju/webrtc-eyestalk-front:latest, kimnamju/webrtc-eyestalk-front:${{ steps.version-bump.outputs.newTag }}
+          tags: roheejae/eyestalk-front:latest, roheejae/eyestalk-front:${{ steps.version-bump.outputs.newTag }}
