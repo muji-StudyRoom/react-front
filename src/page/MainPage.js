@@ -2,13 +2,12 @@ import '../css/App.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { faX } from "@fortawesome/free-solid-svg-icons";
-import { faEye } from "@fortawesome/free-solid-svg-icons"
 import Paging from "../paging.js"
-import { useState, createContext } from 'react';
+import { useState } from 'react';
 import Modal from '../components/Modal';
-import '../Modal.css';
-
-export const RoomContext = createContext();
+import "../css/Modal.css"
+import { Switch } from '@mui/material';
+// export const RoomContext = createContext();
 
 const Header = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -49,41 +48,31 @@ const Search = () => {
     </div>
   </div>
 }
+// const Rooms = () => {
+//   const [roomCount, setRoomcount] = useState(1);
+//   const [rooms, setRooms] = useState([<div className="room" key={roomCount}>
+//     <div className='room-header'></div>
+//     <div className='room-body'>EBS {roomCount}타 강사</div>
+//     <div className='room-footer'>
+//       <FontAwesomeIcon icon={faEye} /> 179
+//     </div>
+//   </div>])
 
-
-const Rooms = () => {
-  const [roomCount, setRoomcount] = useState(1);
-  const [rooms, setRooms] = useState([<div className="room" key={roomCount}>
-    <div className='room-header'></div>
-    <div className='room-body'>EBS {roomCount}타 강사</div>
-    <div className='room-footer'>
-      <FontAwesomeIcon icon={faEye} /> 179
-    </div>
-  </div>])
-
-  return <div id="rooms">
-    {rooms}
-  </div>
-}
+//   return <div id="rooms">
+//     {rooms}
+//   </div>
+// }
 
 const App = () => {
-  const [rooms, setRooms] = useState([<div className="room" key={1}>
-  <div className='room-header'></div>
-  <div className='room-body'>test1234</div>
-  <div className='room-footer'>
-    <FontAwesomeIcon icon={faEye} /> {78}
-  </div>
-</div>]);
-
   return (
-    <RoomContext.Provider value={{ rooms, setRooms }}>
-      <div className="App">
-        <Header></Header>
-        <Search></Search>
-        <Paging></Paging>
-        <footer id="first-footer"></footer>
-      </div>
-    </RoomContext.Provider>
+    <div className="App">
+      <Header></Header>
+      <Search></Search>
+      <Paging></Paging>
+      <footer id="first-footer"></footer>
+      <div>
+    </div>
+    </div>
   );
 }
 

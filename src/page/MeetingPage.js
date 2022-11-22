@@ -1,9 +1,14 @@
 import Input from '../components/Input';
 import ChattingList from "../components/ChattingList";
-import React, { useState, useEffect, useContext, createContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect, createContext, createElement } from 'react';
+import { Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { socket } from '../socket';
 import "../css/Meetingpage.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMicrophone } from '@fortawesome/free-solid-svg-icons';
+import { faMicrophoneSlash } from '@fortawesome/free-solid-svg-icons';
+import { faVideo } from '@fortawesome/free-solid-svg-icons';
+import { faVideoSlash } from '@fortawesome/free-solid-svg-icons';
 
 export const DataContext = createContext();
 
@@ -184,12 +189,12 @@ var mediaConstraints = {
 function startCamera() //카메라 시작
 {
     navigator.mediaDevices.getUserMedia(mediaConstraints)
-        .then((stream) => { // 2번 실행되는 이유는 strict
+        .then((stream) => {
             myVideo.srcObject = stream;
             //camera_allowed = true;
             setAudioMuteState(audioMuted);
             setVideoMuteState(videoMuted);
-            myVideo.autoplay = true;
+            myVideo.autoPlay = true;
             //start the socketio connection
             socket.connect();
         })
@@ -205,7 +210,6 @@ function setAudioMuteState(flag) {
         }
 
     });
-    document.getElementById("mic_mute_btn").innerText = (!flag) ? "mic_off" : "mic_on";
 }
 function setVideoMuteState(flag) {
     let local_stream = myVideo.srcObject;
@@ -215,25 +219,12 @@ function setVideoMuteState(flag) {
         }
 
     });
-    document.getElementById("vid_mute_btn").innerText = (!flag) ? "videocam_off" : "videocam_on";
 }
 function getMyVideo() {
     myVideo = document.getElementById("local_vid");
     myVideo.onloadeddata = () => { console.log("W,H: ", myVideo.videoWidth, ", ", myVideo.videoHeight); };
 
-    var muteBttn = document.getElementById("mic_mute_btn");
-    var muteVidBttn = document.getElementById("vid_mute_btn");
     //var callEndBttn = document.getElementById("call_end");
-
-    muteBttn.addEventListener("click", (event) => {
-        console.log("audioMuted : ", audioMuted)
-        audioMuted = !audioMuted;
-        setAudioMuteState(audioMuted);
-    });
-    muteVidBttn.addEventListener("click", (event) => {
-        videoMuted = !videoMuted;
-        setVideoMuteState(videoMuted);
-    });
 
     // 종료버튼
     // callEndBttn.addEventListener("click", (event)=>{
@@ -243,45 +234,44 @@ function getMyVideo() {
 
 }
 function checkVideoLayout() {
-
+    console.log("checkVideoLayout")
     const video_grid = document.getElementById("video_grid");
     const videos = video_grid.querySelectorAll("video");
     const video_count = videos.length;
-    console.log("videos : ", videos)
     if (video_count == 0) { }
     else if (video_count == 1) {
-        videos[0].style.width = "100%";
-        videos[0].style.height = "100vh";
+        videos[0].style.width = "50%";
+        videos[0].style.height = "50%";
         videos[0].style.objectFit = "cover";
     } else if (video_count == 2) {
         videos[0].style.width = "50%";
-        videos[0].style.height = "50vh";
+        videos[0].style.height = "50%";
         videos[0].style.objectFit = "cover";
         videos[1].style.width = "50%";
-        videos[1].style.height = "50vh";
+        videos[1].style.height = "50%";
         videos[1].style.objectFit = "cover";
     } else if (video_count == 3) {
         videos[0].style.width = "50%";
-        videos[0].style.height = "50vh";
+        videos[0].style.height = "50%";
         videos[0].style.objectFit = "cover";
         videos[1].style.width = "50%";
-        videos[1].style.height = "50vh";
+        videos[1].style.height = "50%";
         videos[1].style.objectFit = "cover";
         videos[2].style.width = "50%";
-        videos[2].style.height = "50vh";
+        videos[2].style.height = "50%";
         videos[2].style.objectFit = "cover";
     } else {
         videos[0].style.width = "50%";
-        videos[0].style.height = "50vh";
+        videos[0].style.height = "50%";
         videos[0].style.objectFit = "cover";
         videos[1].style.width = "50%";
-        videos[1].style.height = "50vh";
+        videos[1].style.height = "50%";
         videos[1].style.objectFit = "cover";
         videos[2].style.width = "50%";
-        videos[2].style.height = "50vh";
+        videos[2].style.height = "50%";
         videos[2].style.objectFit = "cover";
         videos[3].style.width = "50%";
-        videos[3].style.height = "50vh";
+        videos[3].style.height = "50%";
         videos[3].style.objectFit = "cover";
     }
 }
@@ -292,7 +282,7 @@ function addVideoElement(element_id, display_name) {
 function makeVideoElementCustom(element_id, display_name) {
     let vid = document.createElement("video");
     vid.id = "vid_" + element_id;
-    vid.autoplay = true;
+    vid.autoPlay = true;
     return vid;
 }
 function getVideoObj(element_id) {
@@ -307,6 +297,7 @@ function removeVideoElement(element_id) {
     v.removeAttribute("src");
 
     document.getElementById("vid_" + element_id).remove();
+    checkVideoLayout();
 }
 
 const MeetingPage = () => {
@@ -386,29 +377,79 @@ const MeetingPage = () => {
         });
     }, [])
     let defaultStyle = {
-        width:"100%",
-        height:"100vh",
-        objectFit:"cover"
+        width: "100%",
+        height: "100%",
+        objectFit: "cover"
     }
-    return (
-        <div className='meet-root'>
-            <div className='left'>
-                <div id="video_grid" className="video-grid">
-                    <video id="local_vid" autoplay muted style={defaultStyle}></video>
-                </div>
-                <div>
-                    <button id="mic_mute_btn">mic_off</button>
-                    <button id="vid_mute_btn">videocam_off</button>
-                </div>
 
+    useEffect(() => {
+        let mic_src = document.getElementById("mic_mute_btn")
+    }, [audioMuted])
+
+    
+    const navigate = useNavigate();
+    const exitRoom = () => {
+        //navigate("/")
+        window.location.replace("/")
+        console.log("exit")
+    }
+
+    const [audioIcon, setAudioIcon] = useState(audioMuted);
+    const modAudioIcon = () => {
+        setAudioIcon(!audioIcon);
+        let local_stream = myVideo.srcObject;
+        local_stream.getAudioTracks().forEach((track) => {
+            if (track.kind === "audio") {
+                track.enabled = audioIcon;
+            }
+    
+        });
+    }
+
+    const [videoIcon, setVideoIcon] = useState(videoMuted);
+    const modVedioIcon = () => {
+        setVideoIcon(!videoIcon);
+        let local_stream = myVideo.srcObject;
+        local_stream.getVideoTracks().forEach((track) => {
+            if (track.kind === "video") {
+                track.enabled = videoIcon;
+            }
+    
+        });
+    }
+
+    return (
+        <div className='fake-root'>
+            <div className='meet-root'>
+                <div className='left'>
+                    <div id="video_grid" className="video-grid" style={defaultStyle}>
+                        <video id="local_vid" autoPlay muted style={defaultStyle} className="vid-icon-1"></video>
+                        <div className='vid-icon-2'>
+                            <button id="exit_btn" onClick={exitRoom}>exit_btn</button>
+                            <div id="mic_mute_btn_2" onClick={modAudioIcon}>
+                                {!audioIcon ? <FontAwesomeIcon icon={faMicrophone}></FontAwesomeIcon> : <FontAwesomeIcon icon={faMicrophoneSlash}></FontAwesomeIcon>}
+                            </div>
+                            <div id="vid_mute_btn_2" onClick={modVedioIcon}>
+                                {!videoIcon ? <FontAwesomeIcon icon={faVideo}></FontAwesomeIcon> : <FontAwesomeIcon icon={faVideoSlash}></FontAwesomeIcon>}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className='right'>
+                    <DataContext.Provider value={dataToServer}>
+                        <div className='chatting-list'>
+                            <ChattingList />
+                        </div>
+                        <div className='chat-input'>
+                            <Input />
+                        </div>
+                    </DataContext.Provider>
+                </div>
             </div>
-            <div className='right'>
-                <DataContext.Provider value={dataToServer}>
-                    <Input />
-                    <ChattingList />
-                </DataContext.Provider>
+            <div className='meet-footer'>
             </div>
         </div>
+
     );
 };
 

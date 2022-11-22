@@ -16,7 +16,11 @@ const Input = () => {
 
     return (
         <div className='input'>
-            <input id={roomData["display_name"]} />
+            <input id={roomData["display_name"]} onKeyPress={(event) => {
+                if(event.key=='Enter') {
+                    sendMessage();
+                }
+            }}/>
             <button onClick={sendMessage}>채팅 전송</button>
         </div>
     );

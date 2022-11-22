@@ -1,4 +1,4 @@
-div.left {
+.left {
     width: 70%;
     height: 100%;
     float: left;
@@ -6,7 +6,7 @@ div.left {
     background: #8977ad;
 }
 
-div.right {
+.right {
     width: 30%;
     height: 100%;
     float: right;
@@ -14,8 +14,12 @@ div.right {
     background: #ece6cc;
 }
 
-div.meet-root {
-    height: 700px;
+.fake-root {
+    height: 100vh;
+}
+
+.meet-root {
+    height: 80%;
 }
 
 video {
@@ -24,4 +28,35 @@ video {
     /* Safari and Chrome */
     -moz-transform: rotateY(180deg);
     /* Firefox */
+}
+
+.meet-footer {
+    height: 20%;
+    background-color: #eaefff;
+}
+
+.chatting-list {
+    height: 90%;
+    background-color: white;
+    overflow: auto;
+}
+
+.chat-input {
+    height: 10%;
+}
+
+.vid-icon-1 {
+    position: relative;
+    z-index: 1;
+}
+
+.vid-icon-2 {
+    position: relative;
+    z-index: 2;
+    bottom: 28px;
+    float: right;
+}
+
+#mic_mute_btn {
+    font-size: 40px;
 }
