@@ -1,12 +1,12 @@
 import React from 'react';
-import '../css/Modal.css';
+import '../css/EnterModal.css';
 import { useNavigate } from 'react-router-dom'
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faEye } from "@fortawesome/free-solid-svg-icons"
 const EnterModal = (props) => {
     // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
     const { open, close, header, roomName } = props;
-    // console.log(props)
+    console.log(props)
     const getMicInfo = () => {
         const micList = document.getElementsByName('mic_info');
         let mic_info;
@@ -50,20 +50,12 @@ const EnterModal = (props) => {
             {open ? (
                 <section>
                     <header>
-                        {header}
+                        {"[" + roomName + "] 입장하기"}
                         <button className="close" onClick={close}>
                             &times;
                         </button>
                     </header>
                     <main id="room-create">
-                        <div className='modal-text' >{roomName}</div>
-                        <div>
-                            <input className="modal-input" placeholder='방 제목을 입력주세요' id="room_id"></input>
-                        </div>
-                        <div className='modal-text'>수용 인원</div>
-                        <div>
-                            <input className="modal-input" placeholder='수용 인원을 입력해주세요' id="room_allowed"></input>
-                        </div>
                         <div className='modal-text'>닉네임</div>
                         <div>
                             <input className="modal-input" placeholder='닉네임을 입력해주세요' id="room_nickname"></input>

@@ -11,12 +11,12 @@ import axios from "axios";
 const Paging = () => {
     const [responseRoom, setResponseRoom] = useState();
     const [modalOpen, setModalOpen] = useState(false);
-    let propRoomName = "";
+    const [propRoomName, setPropRoomName] = useState("");
     let roomList = [];
     useEffect( () => {
         async function getData() {
             const response = await axios.get("http://127.0.0.1:8080/room")
-            console.log(response.data)
+            // console.log(response.data)
             setResponseRoom(response.data)
             for (let i = 0; i < response.data.length; i++) {
                 roomList.push([<>
@@ -34,7 +34,7 @@ const Paging = () => {
     }, [])
     
     const openModal = (event) => {
-        propRoomName = document.getElementById(event.target.id).nextSibling.innerText
+        setPropRoomName(document.getElementById(event.target.id).nextSibling.innerText)
         setModalOpen(true);
     };
     const closeModal = () => {
