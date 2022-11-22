@@ -5,7 +5,6 @@ textarea {
     background-color: white;
     border-radius: 5px;
     resize: none;
-    -webkit-box-sizing: border-box;
     /* color: gray;
     text-indent: 40px;
     font-size: 20px;

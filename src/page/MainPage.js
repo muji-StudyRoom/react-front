@@ -47,22 +47,9 @@ const Search = () => {
     </div>
   </div>
 }
-// const Rooms = () => {
-//   const [roomCount, setRoomcount] = useState(1);
-//   const [rooms, setRooms] = useState([<div className="room" key={roomCount}>
-//     <div className='room-header'></div>
-//     <div className='room-body'>EBS {roomCount}타 강사</div>
-//     <div className='room-footer'>
-//       <FontAwesomeIcon icon={faEye} /> 179
-//     </div>
-//   </div>])
-
-//   return <div id="rooms">
-//     {rooms}
-//   </div>
-// }
 
 const App = () => {
+
   return (
     <div className="App">
       <Header></Header>

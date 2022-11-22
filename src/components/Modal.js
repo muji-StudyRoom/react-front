@@ -31,15 +31,6 @@ const Modal = (props) => {
   const navigate = useNavigate();
 
   const createRoom = () => {
-    // let newRoom = <div className="room" key={document.getElementById("room_id").value}>
-    //   <div className='room-header'></div>
-    //   <div className='room-body'>{document.getElementById("room_id").value}</div>
-    //   <div className='room-footer'>
-    //     <FontAwesomeIcon icon={faEye} /> {888}
-    //   </div>
-    // </div>
-    // -> 추후 이 데이터를 DB에 저장해야 함
-
     console.log("방을 생성합니다. ");
     navigate("/meeting", {
       state: {

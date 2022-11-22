@@ -6,34 +6,43 @@ import './css/App.css';
 import Pagination from "react-js-pagination"
 import EnterModal from './components/EnterModal';
 import "../src/css/Modal.css"
+import axios from "axios";
 
 const Paging = () => {
-    //새로 렌더링 될 때 다시 false 상태로 돌아감! 
-    let tmp_len = 20;
+    const [responseRoom, setResponseRoom] = useState();
     const [modalOpen, setModalOpen] = useState(false);
-
-    const openModal = (i) => {
-        let enterModal = document.getElementById({i})
+    let propRoomName = "";
+    let roomList = [];
+    useEffect( () => {
+        async function getData() {
+            const response = await axios.get("http://127.0.0.1:8080/room")
+            console.log(response.data)
+            setResponseRoom(response.data)
+            for (let i = 0; i < response.data.length; i++) {
+                roomList.push([<>
+                    <div className="room">
+                        <div className='room-header' onClick={openModal} id={response.data[i].roomId}></div>
+                        <div className='room-body'>{response.data[i].roomName}</div>
+                        <div className='room-footer'>
+                            <FontAwesomeIcon icon={faEye} /> {response.data[i].roomEnterUser}
+                        </div>
+                    </div>
+                </>])
+            }
+        }
+        getData();
+    }, [])
+    
+    const openModal = (event) => {
+        propRoomName = document.getElementById(event.target.id).nextSibling.innerText
+        setModalOpen(true);
     };
     const closeModal = () => {
-        //setModalOpen(false);
+        //console.log("close")
+        setModalOpen(false);
     };
 
-    let tmplist = [];
-    for (let i = 0; i < tmp_len; i++) {
-        tmplist.push([<>
-            <div className="room" key={i}>
-                <div className='room-header' onClick={openModal}></div>
-                <div className='room-body'>testroom</div>
-                <div className='room-footer'>
-                    <FontAwesomeIcon icon={faEye} /> {i * 100}
-                </div>
-            </div>
-            <EnterModal open={false} close={closeModal} header="방 입장하기"></EnterModal>
-        </>])
-    }
-
-    const [rooms] = useState(tmplist)
+    const [rooms] = useState(roomList)
     const [currentRooms, setCurrentRooms] = useState([])
     // 첫 렌더링 시 setCurrentRooms에 의해 currentRooms의 상태가 변하므로 렌더링이 추가로 1회 일어난다.
     const [page, setPage] = useState(1);
@@ -41,16 +50,17 @@ const Paging = () => {
         setPage(page);
     };
 
-    const [roomPerPage] = useState(2)
+    const [roomPerPage] = useState(5)
     const indexOfLastRoom = page * roomPerPage
     const indexOfFirstRoom = indexOfLastRoom - roomPerPage
 
     useEffect(() => {
         setCurrentRooms(rooms.slice(indexOfFirstRoom, indexOfLastRoom))
-    }, [indexOfFirstRoom, indexOfLastRoom, page, rooms])
+    }, [indexOfFirstRoom, indexOfLastRoom, page, rooms, responseRoom])
 
 
     return (<>
+        <EnterModal open={modalOpen ? true : false} close={closeModal} header="방 입장하기" roomName={propRoomName}></EnterModal>
         <div id="rooms">
             {currentRooms}
         </div>

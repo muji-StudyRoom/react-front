@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom'
 // import { faEye } from "@fortawesome/free-solid-svg-icons"
 const EnterModal = (props) => {
     // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-    const { open, close, header } = props;
-    console.log(props)
+    const { open, close, header, roomName } = props;
+    // console.log(props)
     const getMicInfo = () => {
         const micList = document.getElementsByName('mic_info');
         let mic_info;
@@ -32,15 +32,6 @@ const EnterModal = (props) => {
     const navigate = useNavigate();
 
     const createRoom = () => {
-        // let newRoom = <div className="room" key={document.getElementById("room_id").value}>
-        //   <div className='room-header'></div>
-        //   <div className='room-body'>{document.getElementById("room_id").value}</div>
-        //   <div className='room-footer'>
-        //     <FontAwesomeIcon icon={faEye} /> {888}
-        //   </div>
-        // </div>
-        // -> 추후 이 데이터를 DB에 저장해야 함
-
         navigate("/meeting", {
             state: {
                 room_id: document.getElementById("room_id").value,
@@ -65,7 +56,7 @@ const EnterModal = (props) => {
                         </button>
                     </header>
                     <main id="room-create">
-                        <div className='modal-text' >방 제목</div>
+                        <div className='modal-text' >{roomName}</div>
                         <div>
                             <input className="modal-input" placeholder='방 제목을 입력주세요' id="room_id"></input>
                         </div>
@@ -106,7 +97,7 @@ const EnterModal = (props) => {
                     </main>
                     <footer>
                         <button className="close" onClick={createRoom}>
-                            생성
+                            입장
                         </button>
                     </footer>
                 </section>

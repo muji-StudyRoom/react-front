@@ -9,6 +9,7 @@ import { faMicrophone, faRightFromBracket } from '@fortawesome/free-solid-svg-ic
 import { faMicrophoneSlash } from '@fortawesome/free-solid-svg-icons';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import { faVideoSlash } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 export const DataContext = createContext();
 
@@ -318,12 +319,12 @@ const MeetingPage = () => {
             console.log("socket connected from client");
             console.log(location.state)
             let _dataToServer = {
-                "user_nickname": location.state["room_nickname"],
+                "userNickname": location.state["room_nickname"],
                 "mute_audio": location.state["mute_audio"],
                 "mute_video": location.state["mute_video"],
-                "room_id": location.state["room_id"],
-                "room_allowed":location.state["room_allowed"],
-                "room_pwd": location.state["room_pwd"]
+                "roomName": location.state["room_id"],
+                "roomCapacity":location.state["room_allowed"],
+                "roomPassword": location.state["room_pwd"]
             }
             setDataToServer(_dataToServer)
             socket.emit("create-room", _dataToServer);
