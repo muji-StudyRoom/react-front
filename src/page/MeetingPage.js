@@ -389,7 +389,6 @@ const MeetingPage = () => {
     
     const navigate = useNavigate();
     const exitRoom = () => {
-        //navigate("/")
         window.location.replace("/")
         console.log("exit")
     }
