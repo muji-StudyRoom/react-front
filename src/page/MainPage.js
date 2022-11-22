@@ -6,7 +6,6 @@ import Paging from "../paging.js"
 import { useState } from 'react';
 import Modal from '../components/Modal';
 import "../css/Modal.css"
-import { Switch } from '@mui/material';
 // export const RoomContext = createContext();
 
 const Header = () => {
