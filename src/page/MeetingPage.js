@@ -5,7 +5,7 @@ import { Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { socket } from '../socket';
 import "../css/Meetingpage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMicrophone } from '@fortawesome/free-solid-svg-icons';
+import { faMicrophone, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { faMicrophoneSlash } from '@fortawesome/free-solid-svg-icons';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import { faVideoSlash } from '@fortawesome/free-solid-svg-icons';
@@ -308,19 +308,22 @@ const MeetingPage = () => {
     useEffect(() => {
         getMyVideo();
         startCamera();
-        return () => {
-            console.log("getMyVideo active")
-        }
+        // return () => {
+        //     console.log("getMyVideo active")
+        // }
     }, [])
 
     useEffect(() => {
         socket.on("connect", () => {
             console.log("socket connected from client");
+            console.log(location.state)
             let _dataToServer = {
-                "display_name": location.state["room_nickname"],
+                "user_nickname": location.state["room_nickname"],
                 "mute_audio": location.state["mute_audio"],
                 "mute_video": location.state["mute_video"],
-                "room_id": location.state["room_id"]
+                "room_id": location.state["room_id"],
+                "room_allowed":location.state["room_allowed"],
+                "room_pwd": location.state["room_pwd"]
             }
             setDataToServer(_dataToServer)
             socket.emit("create-room", _dataToServer);
@@ -424,11 +427,13 @@ const MeetingPage = () => {
                     <div id="video_grid" className="video-grid" style={defaultStyle}>
                         <video id="local_vid" autoPlay muted style={defaultStyle} className="vid-icon-1"></video>
                         <div className='vid-icon-2'>
-                            <button id="exit_btn" onClick={exitRoom}>exit_btn</button>
-                            <div id="mic_mute_btn_2" onClick={modAudioIcon}>
+                            <div className='user_btns'>
+                                <FontAwesomeIcon icon={faRightFromBracket} onClick={exitRoom}></FontAwesomeIcon>
+                            </div>
+                            <div className="user_btns" onClick={modAudioIcon}>
                                 {!audioIcon ? <FontAwesomeIcon icon={faMicrophone}></FontAwesomeIcon> : <FontAwesomeIcon icon={faMicrophoneSlash}></FontAwesomeIcon>}
                             </div>
-                            <div id="vid_mute_btn_2" onClick={modVedioIcon}>
+                            <div className="user_btns" onClick={modVedioIcon}>
                                 {!videoIcon ? <FontAwesomeIcon icon={faVideo}></FontAwesomeIcon> : <FontAwesomeIcon icon={faVideoSlash}></FontAwesomeIcon>}
                             </div>
                         </div>

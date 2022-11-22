@@ -67,19 +67,19 @@ const Modal = (props) => {
           <main id="room-create">
             <div className='modal-text' >방 제목</div>
             <div>
-              <input className="modal-input" placeholder='방 제목을 입력주세요' id="room_id"></input>
+              <input className="modal-input" placeholder='방 제목을 입력주세요' id="room_id" required></input>
             </div>
             <div className='modal-text'>수용 인원</div>
             <div>
-              <input className="modal-input" placeholder='수용 인원을 입력해주세요' id="room_allowed"></input>
+              <input className="modal-input" placeholder='수용 인원을 입력해주세요' id="room_allowed" required></input>
             </div>
             <div className='modal-text'>닉네임</div>
             <div>
-              <input className="modal-input" placeholder='닉네임을 입력해주세요' id="room_nickname"></input>
+              <input className="modal-input" placeholder='닉네임을 입력해주세요' id="room_nickname" required></input>
             </div>
             <div className='modal-text'>비밀번호</div>
             <div>
-              <input type="password" className="modal-input" placeholder='비밀번호를 입력해주세요' id="room_password"></input>
+              <input type="password" className="modal-input" placeholder='비밀번호를 입력해주세요' id="room_password" required></input>
             </div>
             <div className='modal-text'>비디오</div>
             <div className='radios'>

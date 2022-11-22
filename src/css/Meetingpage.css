@@ -36,13 +36,13 @@ video {
 }
 
 .chatting-list {
-    height: 90%;
+    height: 80%;
     background-color: white;
     overflow: auto;
 }
 
 .chat-input {
-    height: 10%;
+    height: 20%;
 }
 
 .vid-icon-1 {
@@ -53,10 +53,24 @@ video {
 .vid-icon-2 {
     position: relative;
     z-index: 2;
-    bottom: 28px;
+    bottom: 75px;
+    right: 10px;
     float: right;
 }
 
-#mic_mute_btn {
+.user_btns {
     font-size: 40px;
+    background-color: white;
+    margin-left: 10px;
+    color: #505f98;
+    display: inline-flex;
+    width: 65px;
+    height: 65px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 65px;
+}
+
+.user_btns:hover {
+    cursor: pointer;
 }
