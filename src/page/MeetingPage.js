@@ -1,7 +1,7 @@
 import Input from '../components/Input';
 import ChattingList from "../components/ChattingList";
-import React, { useState, useEffect, createContext, createElement } from 'react';
-import { Navigate, useNavigate, useLocation } from 'react-router-dom';
+import React, { useState, useEffect, createContext } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { socket } from '../socket';
 import "../css/Meetingpage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,8 +9,6 @@ import { faMicrophone, faRightFromBracket } from '@fortawesome/free-solid-svg-ic
 import { faMicrophoneSlash } from '@fortawesome/free-solid-svg-icons';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import { faVideoSlash } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
-
 export const DataContext = createContext();
 
 var myVideo;
@@ -224,15 +222,6 @@ function setVideoMuteState(flag) {
 function getMyVideo() {
     myVideo = document.getElementById("local_vid");
     myVideo.onloadeddata = () => { console.log("W,H: ", myVideo.videoWidth, ", ", myVideo.videoHeight); };
-
-    //var callEndBttn = document.getElementById("call_end");
-
-    // 종료버튼
-    // callEndBttn.addEventListener("click", (event)=>{
-    //     window.location.replace("/");
-    // });
-    //document.getElementById("room_link").innerHTML=`or the link: <span class="heading-mark">${window.location.href}</span>`;
-
 }
 function checkVideoLayout() {
     console.log("checkVideoLayout")
@@ -309,9 +298,6 @@ const MeetingPage = () => {
     useEffect(() => {
         getMyVideo();
         startCamera();
-        // return () => {
-        //     console.log("getMyVideo active")
-        // }
     }, [])
 
     useEffect(() => {
@@ -386,12 +372,6 @@ const MeetingPage = () => {
         objectFit: "cover"
     }
 
-    useEffect(() => {
-        let mic_src = document.getElementById("mic_mute_btn")
-    }, [audioMuted])
-
-    
-    const navigate = useNavigate();
     const exitRoom = () => {
         window.location.replace("/")
         console.log("exit")
