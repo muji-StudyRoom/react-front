@@ -5,8 +5,6 @@ import { faX } from "@fortawesome/free-solid-svg-icons";
 import Paging from "../paging.js"
 import { useState } from 'react';
 import Modal from '../components/Modal';
-import "../css/Modal.css"
-// export const RoomContext = createContext();
 
 const Header = () => {
   const [modalOpen, setModalOpen] = useState(false);

@@ -5,7 +5,6 @@ import './css/paging.css';
 import './css/App.css';
 import Pagination from "react-js-pagination"
 import EnterModal from './components/EnterModal';
-import "../src/css/Modal.css"
 import axios from "axios";
 
 const Paging = () => {
@@ -18,6 +17,7 @@ const Paging = () => {
             const response = await axios.get("http://127.0.0.1:8080/room")
             // console.log(response.data)
             setResponseRoom(response.data)
+            console.log(response.data)
             for (let i = 0; i < response.data.length; i++) {
                 roomList.push([<>
                     <div className="room">

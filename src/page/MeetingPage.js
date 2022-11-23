@@ -330,9 +330,9 @@ const MeetingPage = () => {
             socket.emit("create-room", _dataToServer);
         });
 
-        socket.on("join-request", () => {
-            socket.emit("join-room", { "room_id": location.state["room_id"] })
-        })
+        // socket.on("join-request", () => {
+        //     socket.emit("join-room", { "room_id": location.state["room_id"] })
+        // })
 
         return () => {
             socket.off("connect")

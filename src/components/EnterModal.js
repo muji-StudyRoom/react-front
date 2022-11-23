@@ -55,7 +55,7 @@ const EnterModal = (props) => {
                             &times;
                         </button>
                     </header>
-                    <main id="room-create">
+                    <main id="room-enter">
                         <div className='modal-text'>닉네임</div>
                         <div>
                             <input className="modal-input" placeholder='닉네임을 입력해주세요' id="room_nickname"></input>
