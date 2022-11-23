@@ -306,8 +306,6 @@ const MeetingPage = () => {
             console.log(location.state)
             let _dataToServer = {
                 "userNickname": location.state["room_nickname"],
-                "mute_audio": location.state["mute_audio"],
-                "mute_video": location.state["mute_video"],
                 "roomName": location.state["room_id"],
                 "roomCapacity":location.state["room_allowed"],
                 "roomPassword": location.state["room_pwd"]

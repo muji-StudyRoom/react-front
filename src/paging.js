@@ -10,31 +10,31 @@ import axios from "axios";
 const Paging = () => {
     const [responseRoom, setResponseRoom] = useState();
     const [modalOpen, setModalOpen] = useState(false);
-    const [propRoomName, setPropRoomName] = useState("");
+    const [propRoomInfo, setPropRoomInfo] = useState({});
     let roomList = [];
-    useEffect( () => {
+    useEffect(() => {
         async function getData() {
             const response = await axios.get("http://127.0.0.1:8080/room")
             // console.log(response.data)
             setResponseRoom(response.data)
             console.log(response.data)
-            for (let i = 0; i < response.data.length; i++) {
-                roomList.push([<>
-                    <div className="room">
+            for (let i = response.data.length - 1; i >= 0 ; i--) {
+                roomList.push([
+                    <div className="room" key={response.data[i].roomId}>
                         <div className='room-header' onClick={openModal} id={response.data[i].roomId}></div>
                         <div className='room-body'>{response.data[i].roomName}</div>
                         <div className='room-footer'>
                             <FontAwesomeIcon icon={faEye} /> {response.data[i].roomEnterUser}
                         </div>
                     </div>
-                </>])
+                ])
             }
         }
         getData();
     }, [])
-    
+
     const openModal = (event) => {
-        setPropRoomName(document.getElementById(event.target.id).nextSibling.innerText)
+        setPropRoomInfo({roomName:document.getElementById(event.target.id).nextSibling.innerText, roomId:event.target.id})
         setModalOpen(true);
     };
     const closeModal = () => {
@@ -60,7 +60,7 @@ const Paging = () => {
 
 
     return (<>
-        <EnterModal open={modalOpen ? true : false} close={closeModal} header="방 입장하기" roomName={propRoomName}></EnterModal>
+        <EnterModal open={modalOpen ? true : false} close={closeModal} roomInfo={propRoomInfo}></EnterModal>
         <div id="rooms">
             {currentRooms}
         </div>

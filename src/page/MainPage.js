@@ -29,8 +29,14 @@ const Header = () => {
 
 const Search = () => {
   const [text, setText] = useState("");
+  const searchRoom = (event) => {
+    if(event.key == "Enter") {
+      
+    }
+  }
+
   return <div id="search-box">
-    <input type="text" id="search-input" placeholder='검색어를 입력하세요' value={text} onChange={event => {
+    <input type="text" id="search-input" placeholder='검색어를 입력하세요' value={text} onKeyPress={searchRoom} onChange={event => {
       setText(event.target.value)
     }}></input>
     <div id='icon'>
