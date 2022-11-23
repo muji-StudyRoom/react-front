@@ -54,7 +54,7 @@ const Modal = (props) => {
       })
     }
     else {
-      let room_id = document.getElementById("room_id").value
+      let roomName = document.getElementById("room_id").value
       let room_allowed = document.getElementById("room_allowed").value
       let room_nickname = document.getElementById("room_nickname").value
       let room_pwd = document.getElementById("room_password").value
@@ -63,11 +63,11 @@ const Modal = (props) => {
         icon: 'success',
         title: '방이 생성되었습니다.',
         showConfirmButton: false,
-        timer: 1500
+        timer: 2000
       })
       navigate("/meeting", {
         state: {
-          room_id: room_id,
+          roomName: roomName,
           room_allowed: room_allowed,
           room_nickname: room_nickname,
           room_pwd: room_pwd,

@@ -26,6 +26,7 @@ const Paging = () => {
                         <div className='room-footer'>
                             <FontAwesomeIcon icon={faEye} /> {response.data[i].roomEnterUser}
                         </div>
+                        <div style={{display: 'none'}} className={response.data[i].roomCapacity}></div>
                     </div>
                 ])
             }
@@ -34,7 +35,7 @@ const Paging = () => {
     }, [])
 
     const openModal = (event) => {
-        setPropRoomInfo({roomName:document.getElementById(event.target.id).nextSibling.innerText, roomId:event.target.id})
+        setPropRoomInfo({roomName:document.getElementById(event.target.id).nextSibling.innerText, roomId:event.target.id, roomCapacity: document.getElementById(event.target.id).nextSibling.nextSibling.nextSibling.className})
         setModalOpen(true);
     };
     const closeModal = () => {

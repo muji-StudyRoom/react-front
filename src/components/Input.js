@@ -5,26 +5,27 @@ import "../css/inputbox.css"
 
 const Input = () => {
     const roomData = useContext(DataContext);
+    console.log(roomData)
     const sendMessage = () => { // chatting 보내기
         const data = {
-            "sender": roomData["display_name"],
-            "text": document.getElementById(roomData["display_name"]).value,
-            "room_id": roomData["room_id"]
+            "sender": roomData["userNickname"],
+            "text": document.getElementById(roomData["userNickname"]).value,
+            "room_id": roomData["roomName"]
         }
-        document.getElementById(roomData["display_name"]).value = "";
-        document.getElementById(roomData["display_name"]).focus();
+        document.getElementById(roomData["userNickname"]).value = "";
+        document.getElementById(roomData["userNickname"]).focus();
         socket.emit("chatting", data);
     }
 
     const deleteMessage = () => {
-        document.getElementById(roomData["display_name"]).value = ""
-        document.getElementById(roomData["display_name"]).focus();
+        document.getElementById(roomData["userNickname"]).value = ""
+        document.getElementById(roomData["userNickname"]).focus();
     }
 
     return (
         <div className='input-box'>
             <div>
-                <textarea id={roomData["display_name"]} onKeyPress={(event) => {
+                <textarea id={roomData["userNickname"]} onKeyPress={(event) => {
                     if (event.key == 'Enter') {
                         sendMessage();
                     }

@@ -5,7 +5,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 const EnterModal = (props) => {
     const { open, close, roomInfo } = props;
-
+    console.log(roomInfo)
     const [enterEnable, setEnterEnable] = useState(false);
 
     const Toast = Swal.mixin({
@@ -52,10 +52,17 @@ const EnterModal = (props) => {
             })
         }
         else {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: '방이 생성되었습니다.',
+                showConfirmButton: false,
+                timer: 2000
+            })
             navigate("/meeting", {
                 state: {
-                    room_id: roomInfo["roomId"],
-                    room_allowed: document.getElementById("room_allowed").value,
+                    room_id: roomInfo["roomName"],
+                    room_allowed: roomInfo["roomCapacity"],
                     room_nickname: document.getElementById("room_nickname").value,
                     room_pwd: document.getElementById("room_password").value,
                     mute_audio: getMicInfo(),
@@ -76,7 +83,7 @@ const EnterModal = (props) => {
                 title: '닉네임은 1이상 10 이하의 길이만 입력 가능합니다.'
             })
         }
-        else if (password == "" || password > 10) {
+        else if (password == "" || password.length > 10) {
             document.getElementById("room_password").focus()
             Toast.fire({
                 icon: 'error',
@@ -91,10 +98,33 @@ const EnterModal = (props) => {
             }
             axios.post("http://127.0.0.1:8080/room/valid/enter", postData)
                 .then(response => {
-                    if (response.data == true) {
+                    if (response.status == 200) {
                         setEnterEnable(true)
+                        Toast.fire({
+                            icon: 'success',
+                            title: '입장 가능합니다.'
+                        })
                     }
-                    console.log(response)
+                })
+                .catch(error => {
+                    if (error.response.data == "nickname_error") {
+                        Toast.fire({
+                            icon: 'error',
+                            title: '중복된 닉네임입니다.'
+                        })
+                    }
+                    else if (error.response.data == 'password_error') {
+                        Toast.fire({
+                            icon: 'error',
+                            title: '일치하지 않는 비밀번호입니다.'
+                        })
+                    }
+                    else if (error.response.data == 'capacity_error') {
+                        Toast.fire({
+                            icon: 'error',
+                            title: '수용 인원을 초과하였습니다.'
+                        })
+                    }
                 })
         }
 

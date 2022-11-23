@@ -9,6 +9,9 @@ import { faMicrophone, faRightFromBracket } from '@fortawesome/free-solid-svg-ic
 import { faMicrophoneSlash } from '@fortawesome/free-solid-svg-icons';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import { faVideoSlash } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
+import axios from 'axios';
+
 export const DataContext = createContext();
 
 var myVideo;
@@ -32,7 +35,6 @@ var PC_CONFIG = {
         },
     ]
 };
-
 // ===============[webrtc]=================
 function sendViaServer(data) {
     socket.emit("data", data);
@@ -306,7 +308,7 @@ const MeetingPage = () => {
             console.log(location.state)
             let _dataToServer = {
                 "userNickname": location.state["room_nickname"],
-                "roomName": location.state["room_id"],
+                "roomName": location.state["roomName"],
                 "roomCapacity":location.state["room_allowed"],
                 "roomPassword": location.state["room_pwd"]
             }
@@ -320,7 +322,7 @@ const MeetingPage = () => {
 
         return () => {
             socket.off("connect")
-            socket.off("join-request")
+            // socket.off("join-request")
         }
     }, []);
 
@@ -371,6 +373,8 @@ const MeetingPage = () => {
     }
 
     const exitRoom = () => {
+        // let url = "https://127.0.0.1:8080/room/"
+        // axios.post("")
         window.location.replace("/")
         console.log("exit")
     }
@@ -398,6 +402,18 @@ const MeetingPage = () => {
     
         });
     }
+
+    const preventClose = (event) => {
+        event.preventDefault();
+        event.returnValue = "";
+      };
+      useEffect(() => {(() => {
+          window.addEventListener("beforeunload", preventClose);
+        })();
+        return () => {
+          window.removeEventListener("beforeunload", preventClose);
+        };
+      }, []);
 
     return (
         <div className='fake-root'>
