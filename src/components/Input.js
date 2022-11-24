@@ -13,6 +13,7 @@ const Input = () => {
         }
         if(data["text"].length > 50 || data["text"].length === 0) {
             document.getElementById(roomData["userNickname"]).focus();
+            document.getElementById(roomData["userNickname"]).value = null;
             Swal.fire({
                 position: 'bottom-end',
                 icon: 'warning',
@@ -23,7 +24,7 @@ const Input = () => {
         }
         else {
             document.getElementById(roomData["userNickname"]).focus();
-            document.getElementById(roomData["userNickname"]).value = '';
+            document.getElementById(roomData["userNickname"]).value = null;
             socket.emit("chatting", data);
         }
 

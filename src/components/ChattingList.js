@@ -1,9 +1,9 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useState, useRef} from 'react';
 import Chat from './Chat';
 import {socket} from '../socket';
 
 const ChattingList = React.memo(() =>{
-    let [chatList,setChatList] = useState([]);
+    const [chatList,setChatList] = useState([]);
     let chat = useState("");
     const chatbox = useRef()
     socket.on("chatting", (data)=>{  // chatting 받기
@@ -13,7 +13,7 @@ const ChattingList = React.memo(() =>{
             room_id : data["room_id"]
         }
         setChatList([...chatList,chat]);
-        document.getElementById("chat_scroll").scrollTop = document.getElementById("chat_scroll").scrollHeight;
+        //document.getElementById("chatting-list").scrollTop = document.getElementById("chatting-list").scrollHeight;
         console.log("scroll")
     })
 
