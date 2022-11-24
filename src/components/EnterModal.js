@@ -5,9 +5,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 const EnterModal = (props) => {
     const { open, close, roomInfo } = props;
-    console.log(roomInfo)
     const [enterEnable, setEnterEnable] = useState(false);
-
     const Toast = Swal.mixin({
         toast: true,
         position: 'center',
@@ -45,7 +43,7 @@ const EnterModal = (props) => {
     const navigate = useNavigate();
 
     const createRoom = () => {
-        if (enterEnable == false) {
+        if (enterEnable === false) {
             Toast.fire({
                 icon: 'error',
                 title: '확인 버튼을 먼저 눌러주세요.'
@@ -61,7 +59,8 @@ const EnterModal = (props) => {
             })
             navigate("/meeting", {
                 state: {
-                    room_id: roomInfo["roomName"],
+                    type : "join",
+                    roomName: roomInfo["roomName"],
                     room_allowed: roomInfo["roomCapacity"],
                     room_nickname: document.getElementById("room_nickname").value,
                     room_pwd: document.getElementById("room_password").value,
@@ -76,14 +75,14 @@ const EnterModal = (props) => {
     const validInfo = () => {
         let nickname = document.getElementById("room_nickname").value
         let password = document.getElementById("room_password").value
-        if (nickname == "" || nickname.length > 10) {
+        if (nickname === "" || nickname.length > 10) {
             document.getElementById("room_nickname").focus()
             Toast.fire({
                 icon: 'error',
                 title: '닉네임은 1이상 10 이하의 길이만 입력 가능합니다.'
             })
         }
-        else if (password == "" || password.length > 10) {
+        else if (password === "" || password.length > 10) {
             document.getElementById("room_password").focus()
             Toast.fire({
                 icon: 'error',
@@ -98,7 +97,7 @@ const EnterModal = (props) => {
             }
             axios.post("http://127.0.0.1:8080/room/valid/enter", postData)
                 .then(response => {
-                    if (response.status == 200) {
+                    if (parseInt(response.status) === 200) {
                         setEnterEnable(true)
                         Toast.fire({
                             icon: 'success',
@@ -107,19 +106,19 @@ const EnterModal = (props) => {
                     }
                 })
                 .catch(error => {
-                    if (error.response.data == "nickname_error") {
+                    if (error.response.data === "nickname_error") {
                         Toast.fire({
                             icon: 'error',
                             title: '중복된 닉네임입니다.'
                         })
                     }
-                    else if (error.response.data == 'password_error') {
+                    else if (error.response.data === 'password_error') {
                         Toast.fire({
                             icon: 'error',
                             title: '일치하지 않는 비밀번호입니다.'
                         })
                     }
-                    else if (error.response.data == 'capacity_error') {
+                    else if (error.response.data === 'capacity_error') {
                         Toast.fire({
                             icon: 'error',
                             title: '수용 인원을 초과하였습니다.'
@@ -144,7 +143,7 @@ const EnterModal = (props) => {
                     <main id="room-enter">
                         <div className='modal-text'>닉네임</div>
                         <div>
-                            <input className="modal-title" placeholder='닉네임을 입력해주세요' id="room_nickname"></input><button onClick={validInfo}>확인</button>
+                            <input className="modal-title" placeholder='닉네임을 입력해주세요' id="room_nickname"></input><button onClick={validInfo} className="verify_btn">확인</button>
                         </div>
                         <div className='modal-text'>비밀번호</div>
                         <div>

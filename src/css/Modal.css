@@ -75,6 +75,15 @@
   animation: modal-bg-show 0.3s;
 }
 
+.verify_btn {
+  padding: 6px 12px;
+  color: #fff;
+  background-color: #505f98;
+  border-radius: 5px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
 @keyframes modal-show {
   from {
     opacity: 0;

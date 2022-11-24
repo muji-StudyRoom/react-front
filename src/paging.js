@@ -15,10 +15,8 @@ const Paging = () => {
     useEffect(() => {
         async function getData() {
             const response = await axios.get("http://127.0.0.1:8080/room")
-            // console.log(response.data)
             setResponseRoom(response.data)
-            console.log(response.data)
-            for (let i = response.data.length - 1; i >= 0 ; i--) {
+            for (let i = response.data.length - 1; i >= 0; i--) {
                 roomList.push([
                     <div className="room" key={response.data[i].roomId}>
                         <div className='room-header' onClick={openModal} id={response.data[i].roomId}></div>
@@ -26,16 +24,18 @@ const Paging = () => {
                         <div className='room-footer'>
                             <FontAwesomeIcon icon={faEye} /> {response.data[i].roomEnterUser}
                         </div>
-                        <div style={{display: 'none'}} className={response.data[i].roomCapacity}></div>
+                        <div style={{ display: 'none' }} className={response.data[i].roomCapacity}></div>
                     </div>
                 ])
             }
         }
         getData();
+        // eslint-disable-next-line
     }, [])
 
     const openModal = (event) => {
-        setPropRoomInfo({roomName:document.getElementById(event.target.id).nextSibling.innerText, roomId:event.target.id, roomCapacity: document.getElementById(event.target.id).nextSibling.nextSibling.nextSibling.className})
+        console.log("roomName : ", document.getElementById(event.target.id).nextSibling.innerText)
+        setPropRoomInfo({ roomName: document.getElementById(event.target.id).nextSibling.innerText, roomId: event.target.id, roomCapacity: document.getElementById(event.target.id).nextSibling.nextSibling.nextSibling.className })
         setModalOpen(true);
     };
     const closeModal = () => {
@@ -51,7 +51,7 @@ const Paging = () => {
         setPage(page);
     };
 
-    const [roomPerPage] = useState(5)
+    const [roomPerPage] = useState(4)
     const indexOfLastRoom = page * roomPerPage
     const indexOfFirstRoom = indexOfLastRoom - roomPerPage
 

@@ -1,7 +1,7 @@
 import Input from '../components/Input';
 import ChattingList from "../components/ChattingList";
 import React, { useState, useEffect, createContext } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { socket } from '../socket';
 import "../css/Meetingpage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,8 +9,6 @@ import { faMicrophone, faRightFromBracket } from '@fortawesome/free-solid-svg-ic
 import { faMicrophoneSlash } from '@fortawesome/free-solid-svg-icons';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import { faVideoSlash } from '@fortawesome/free-solid-svg-icons';
-import Swal from 'sweetalert2';
-import axios from 'axios';
 
 export const DataContext = createContext();
 
@@ -128,6 +126,7 @@ function closeConnection(peer_id) {
 
 // ===============[Send Data]==============
 socket.on("data", (msg) => {
+    // eslint-disable-next-line
     switch (msg["type"]) {
         case "offer":
             handleOfferMsg(msg);
@@ -187,7 +186,7 @@ var mediaConstraints = {
         height: 360
     }
 };
-function startCamera() //카메라 시작
+function startCamera()
 {
     navigator.mediaDevices.getUserMedia(mediaConstraints)
         .then((stream) => {
@@ -230,19 +229,19 @@ function checkVideoLayout() {
     const video_grid = document.getElementById("video_grid");
     const videos = video_grid.querySelectorAll("video");
     const video_count = videos.length;
-    if (video_count == 0) { }
-    else if (video_count == 1) {
+    if (parseInt(video_count) === 0) { }
+    else if (parseInt(video_count) === 1) {
         videos[0].style.width = "50%";
         videos[0].style.height = "50%";
         videos[0].style.objectFit = "cover";
-    } else if (video_count == 2) {
+    } else if (parseInt(video_count) === 2) {
         videos[0].style.width = "50%";
         videos[0].style.height = "50%";
         videos[0].style.objectFit = "cover";
         videos[1].style.width = "50%";
         videos[1].style.height = "50%";
         videos[1].style.objectFit = "cover";
-    } else if (video_count == 3) {
+    } else if (parseInt(video_count) === 3) {
         videos[0].style.width = "50%";
         videos[0].style.height = "50%";
         videos[0].style.objectFit = "cover";
@@ -294,7 +293,6 @@ function removeVideoElement(element_id) {
 
 const MeetingPage = () => {
     const location = useLocation();
-
     const [dataToServer, setDataToServer] = useState({});
 
     useEffect(() => {
@@ -305,15 +303,22 @@ const MeetingPage = () => {
     useEffect(() => {
         socket.on("connect", () => {
             console.log("socket connected from client");
-            console.log(location.state)
+
             let _dataToServer = {
                 "userNickname": location.state["room_nickname"],
                 "roomName": location.state["roomName"],
-                "roomCapacity":location.state["room_allowed"],
+                "roomCapacity": location.state["room_allowed"],
                 "roomPassword": location.state["room_pwd"]
             }
             setDataToServer(_dataToServer)
-            socket.emit("create-room", _dataToServer);
+
+            if(location.state["type"] === "join") {
+                socket.emit("join-room", _dataToServer)
+            }
+            else {
+                socket.emit("create-room", _dataToServer);
+            }
+            
         });
 
         // socket.on("join-request", () => {
@@ -324,6 +329,7 @@ const MeetingPage = () => {
             socket.off("connect")
             // socket.off("join-request")
         }
+        // eslint-disable-next-line
     }, []);
 
     // socket.on('disconnect', () => {
@@ -387,7 +393,7 @@ const MeetingPage = () => {
             if (track.kind === "audio") {
                 track.enabled = audioIcon;
             }
-    
+
         });
     }
 
@@ -399,21 +405,21 @@ const MeetingPage = () => {
             if (track.kind === "video") {
                 track.enabled = videoIcon;
             }
-    
+
         });
     }
 
-    const preventClose = (event) => {
-        event.preventDefault();
-        event.returnValue = "";
-      };
-      useEffect(() => {(() => {
-          window.addEventListener("beforeunload", preventClose);
-        })();
-        return () => {
-          window.removeEventListener("beforeunload", preventClose);
-        };
-      }, []);
+    // const preventClose = (event) => {
+    //     event.preventDefault();
+    //     event.returnValue = "";
+    //   };
+    //   useEffect(() => {(() => {
+    //       window.addEventListener("beforeunload", preventClose);
+    //     })();
+    //     return () => {
+    //       window.removeEventListener("beforeunload", preventClose);
+    //     };
+    //   }, []);
 
     return (
         <div className='fake-root'>

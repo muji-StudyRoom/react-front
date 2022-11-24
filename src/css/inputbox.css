@@ -1,10 +1,12 @@
 textarea {
     height: inherit;
-    width: 50%;
+    width: 100%;
+    box-sizing: border-box;
     border: solid 2px #ffffff;
     background-color: white;
     border-radius: 5px;
     resize: none;
+    font-size: 20px;
     /* color: gray;
     text-indent: 40px;
     font-size: 20px;
@@ -12,8 +14,9 @@ textarea {
 }
 
 
-button {
+.del_btn, .send_btn {
     padding: 6px 12px;
+    width: 50%;
     color: white;
     background-color: #505f98;
     border-radius: 5px;

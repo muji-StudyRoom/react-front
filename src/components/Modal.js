@@ -47,7 +47,7 @@ const Modal = (props) => {
   const navigate = useNavigate();
 
   const createRoom = () => {
-    if (createEnable == false) {
+    if (createEnable === false) {
       Toast.fire({
         icon: 'error',
         title: '확인 버튼을 먼저 눌러주세요.'
@@ -55,6 +55,7 @@ const Modal = (props) => {
     }
     else {
       let roomName = document.getElementById("room_id").value
+      console.log("Modal에서 찍는 값 :", roomName)
       let room_allowed = document.getElementById("room_allowed").value
       let room_nickname = document.getElementById("room_nickname").value
       let room_pwd = document.getElementById("room_password").value
@@ -67,6 +68,7 @@ const Modal = (props) => {
       })
       navigate("/meeting", {
         state: {
+          type: "create",
           roomName: roomName,
           room_allowed: room_allowed,
           room_nickname: room_nickname,
@@ -85,14 +87,14 @@ const Modal = (props) => {
     let room_nickname = document.getElementById("room_nickname").value
     let room_pwd = document.getElementById("room_password").value
 
-    if (room_id.length == 0 || room_id.length > 100) {
+    if (room_id.length === 0 || room_id.length > 100) {
       document.getElementById("room_id").focus()
       Toast.fire({
         icon: 'error',
         title: '방 제목은 0 초과 100 이하의 길이만 입력 가능합니다.'
       })
     }
-    else if (room_allowed == "" || isNaN(room_allowed)) {
+    else if (room_allowed === "" || isNaN(room_allowed)) {
       document.getElementById("room_allowed").focus()
       Toast.fire({
         icon: 'error',
@@ -106,14 +108,14 @@ const Modal = (props) => {
         title: '수용 인원은 2 이상 5 이하의 숫자만 입력 가능합니다.'
       })
     }
-    else if (room_nickname == "" || room_nickname.length > 10) {
+    else if (room_nickname === "" || room_nickname.length > 10) {
       document.getElementById("room_nickname").focus()
       Toast.fire({
         icon: 'error',
         title: '닉네임은 1이상 10 이하의 길이만 입력 가능합니다.'
       })
     }
-    else if (room_pwd == "" || room_pwd.length > 10) {
+    else if (room_pwd === "" || room_pwd.length > 10) {
       document.getElementById("room_password").focus()
       Toast.fire({
         icon: 'error',
@@ -122,23 +124,16 @@ const Modal = (props) => {
     }
 
     else {
-      let postData = {
-        room_id: room_id,
-        room_allowed: room_allowed,
-        room_nickname: room_nickname,
-        room_pwd: room_pwd,
-      }
       axios.post("http://127.0.0.1:8080/room/valid/create", {roomName: room_id})
         .then(response => {
           console.log(response)
-          if (response.data == true) {
+          if (response.data === true) {
             setCreateEnable(true)
             Toast.fire({
               icon: 'success',
               title: '생성 가능한 방 제목입니다.'
             })
           }
-
           else {
             Toast.fire({
               icon: 'error',
@@ -164,7 +159,7 @@ const Modal = (props) => {
           <main id="room-create">
             <div className='modal-text' >방 제목</div>
             <div>
-              <input className="modal-title" placeholder='방 제목을 입력주세요' id="room_id" required></input><button onClick={validCreate}>확인</button>
+              <input className="modal-title" placeholder='방 제목을 입력주세요' id="room_id" required></input><button onClick={validCreate} className="verify_btn">확인</button>
             </div>
             <div className='modal-text'>수용 인원</div>
             <div>
