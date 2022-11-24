@@ -1,7 +1,7 @@
 import Input from '../components/Input';
 import ChattingList from "../components/ChattingList";
-import React, { useState, useEffect, createContext, createElement } from 'react';
-import { Navigate, useNavigate, useLocation } from 'react-router-dom';
+import React, { useState, useEffect, createContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import { socket } from '../socket';
 import "../css/Meetingpage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,7 +9,6 @@ import { faMicrophone, faRightFromBracket } from '@fortawesome/free-solid-svg-ic
 import { faMicrophoneSlash } from '@fortawesome/free-solid-svg-icons';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import { faVideoSlash } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
 
 export const DataContext = createContext();
 
@@ -34,7 +33,6 @@ var PC_CONFIG = {
         },
     ]
 };
-
 // ===============[webrtc]=================
 function sendViaServer(data) {
     socket.emit("data", data);
@@ -128,6 +126,7 @@ function closeConnection(peer_id) {
 
 // ===============[Send Data]==============
 socket.on("data", (msg) => {
+    // eslint-disable-next-line
     switch (msg["type"]) {
         case "offer":
             handleOfferMsg(msg);
@@ -187,7 +186,7 @@ var mediaConstraints = {
         height: 360
     }
 };
-function startCamera() //카메라 시작
+function startCamera()
 {
     navigator.mediaDevices.getUserMedia(mediaConstraints)
         .then((stream) => {
@@ -224,34 +223,25 @@ function setVideoMuteState(flag) {
 function getMyVideo() {
     myVideo = document.getElementById("local_vid");
     myVideo.onloadeddata = () => { console.log("W,H: ", myVideo.videoWidth, ", ", myVideo.videoHeight); };
-
-    //var callEndBttn = document.getElementById("call_end");
-
-    // 종료버튼
-    // callEndBttn.addEventListener("click", (event)=>{
-    //     window.location.replace("/");
-    // });
-    //document.getElementById("room_link").innerHTML=`or the link: <span class="heading-mark">${window.location.href}</span>`;
-
 }
 function checkVideoLayout() {
     console.log("checkVideoLayout")
     const video_grid = document.getElementById("video_grid");
     const videos = video_grid.querySelectorAll("video");
     const video_count = videos.length;
-    if (video_count == 0) { }
-    else if (video_count == 1) {
+    if (parseInt(video_count) === 0) { }
+    else if (parseInt(video_count) === 1) {
         videos[0].style.width = "50%";
         videos[0].style.height = "50%";
         videos[0].style.objectFit = "cover";
-    } else if (video_count == 2) {
+    } else if (parseInt(video_count) === 2) {
         videos[0].style.width = "50%";
         videos[0].style.height = "50%";
         videos[0].style.objectFit = "cover";
         videos[1].style.width = "50%";
         videos[1].style.height = "50%";
         videos[1].style.objectFit = "cover";
-    } else if (video_count == 3) {
+    } else if (parseInt(video_count) === 3) {
         videos[0].style.width = "50%";
         videos[0].style.height = "50%";
         videos[0].style.objectFit = "cover";
@@ -303,41 +293,43 @@ function removeVideoElement(element_id) {
 
 const MeetingPage = () => {
     const location = useLocation();
-
     const [dataToServer, setDataToServer] = useState({});
 
     useEffect(() => {
         getMyVideo();
         startCamera();
-        // return () => {
-        //     console.log("getMyVideo active")
-        // }
     }, [])
 
     useEffect(() => {
         socket.on("connect", () => {
             console.log("socket connected from client");
-            console.log(location.state)
+
             let _dataToServer = {
                 "userNickname": location.state["room_nickname"],
-                "mute_audio": location.state["mute_audio"],
-                "mute_video": location.state["mute_video"],
-                "roomName": location.state["room_id"],
-                "roomCapacity":location.state["room_allowed"],
+                "roomName": location.state["roomName"],
+                "roomCapacity": location.state["room_allowed"],
                 "roomPassword": location.state["room_pwd"]
             }
             setDataToServer(_dataToServer)
-            socket.emit("create-room", _dataToServer);
+
+            if(location.state["type"] === "join") {
+                socket.emit("join-room", _dataToServer)
+            }
+            else {
+                socket.emit("create-room", _dataToServer);
+            }
+            
         });
 
-        socket.on("join-request", () => {
-            socket.emit("join-room", { "room_id": location.state["room_id"] })
-        })
+        // socket.on("join-request", () => {
+        //     socket.emit("join-room", { "room_id": location.state["room_id"] })
+        // })
 
         return () => {
             socket.off("connect")
-            socket.off("join-request")
+            // socket.off("join-request")
         }
+        // eslint-disable-next-line
     }, []);
 
     // socket.on('disconnect', () => {
@@ -386,13 +378,9 @@ const MeetingPage = () => {
         objectFit: "cover"
     }
 
-    useEffect(() => {
-        let mic_src = document.getElementById("mic_mute_btn")
-    }, [audioMuted])
-
-    
-    const navigate = useNavigate();
     const exitRoom = () => {
+        // let url = "https://127.0.0.1:8080/room/"
+        // axios.post("")
         window.location.replace("/")
         console.log("exit")
     }
@@ -405,7 +393,7 @@ const MeetingPage = () => {
             if (track.kind === "audio") {
                 track.enabled = audioIcon;
             }
-    
+
         });
     }
 
@@ -417,9 +405,21 @@ const MeetingPage = () => {
             if (track.kind === "video") {
                 track.enabled = videoIcon;
             }
-    
+
         });
     }
+
+    // const preventClose = (event) => {
+    //     event.preventDefault();
+    //     event.returnValue = "";
+    //   };
+    //   useEffect(() => {(() => {
+    //       window.addEventListener("beforeunload", preventClose);
+    //     })();
+    //     return () => {
+    //       window.removeEventListener("beforeunload", preventClose);
+    //     };
+    //   }, []);
 
     return (
         <div className='fake-root'>

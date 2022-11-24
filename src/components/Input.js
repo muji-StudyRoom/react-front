@@ -2,30 +2,43 @@ import React, { useContext } from 'react';
 import { DataContext } from '../page/MeetingPage';
 import { socket } from '../socket';
 import "../css/inputbox.css"
-
+import Swal from 'sweetalert2';
 const Input = () => {
     const roomData = useContext(DataContext);
     const sendMessage = () => { // chatting 보내기
         const data = {
-            "sender": roomData["display_name"],
-            "text": document.getElementById(roomData["display_name"]).value,
-            "room_id": roomData["room_id"]
+            "sender": roomData["userNickname"],
+            "text": document.getElementById(roomData["userNickname"]).value,
+            "room_id": roomData["roomName"]
         }
-        document.getElementById(roomData["display_name"]).value = "";
-        document.getElementById(roomData["display_name"]).focus();
-        socket.emit("chatting", data);
+        if(data["text"].length > 50 || data["text"].length === 0) {
+            document.getElementById(roomData["userNickname"]).focus();
+            Swal.fire({
+                position: 'bottom-end',
+                icon: 'warning',
+                title: '1자 이상 50자 이하만 전송 가능합니다.',
+                showConfirmButton: false,
+                timer: 1000
+              })
+        }
+        else {
+            document.getElementById(roomData["userNickname"]).focus();
+            document.getElementById(roomData["userNickname"]).value = '';
+            socket.emit("chatting", data);
+        }
+
     }
 
     const deleteMessage = () => {
-        document.getElementById(roomData["display_name"]).value = ""
-        document.getElementById(roomData["display_name"]).focus();
+        document.getElementById(roomData["userNickname"]).value = ""
+        document.getElementById(roomData["userNickname"]).focus();
     }
 
     return (
         <div className='input-box'>
             <div>
-                <textarea id={roomData["display_name"]} onKeyPress={(event) => {
-                    if (event.key == 'Enter') {
+                <textarea id={roomData["userNickname"]} onKeyPress={(event) => {
+                    if (event.key === 'Enter') {
                         sendMessage();
                     }
                 }} />

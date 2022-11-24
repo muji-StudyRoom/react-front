@@ -13,6 +13,7 @@
   outline: none;
   cursor: pointer;
   border: 0;
+  margin-left: 20px;
 }
 
 .modal>section {
@@ -74,6 +75,15 @@
   animation: modal-bg-show 0.3s;
 }
 
+.verify_btn {
+  padding: 6px 12px;
+  color: #fff;
+  background-color: #505f98;
+  border-radius: 5px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
 @keyframes modal-show {
   from {
     opacity: 0;
@@ -114,6 +124,23 @@
 }
 
 .modal-input:focus {
+  outline: 2px solid #505f98;
+}
+
+.modal-title {
+  width: 78%;
+  height: 40px;
+  border: solid 2px #ffffff;
+  background-color: #eaefff;
+  border-radius: 10px;
+  color: gray;
+  text-indent: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.modal-title:focus {
   outline: 2px solid #505f98;
 }
 

@@ -4,7 +4,7 @@ import {socket} from '../socket';
 
 const ChattingList = React.memo(() =>{
     let [chatList,setChatList] = useState([]);
-    let [chat,setChat] = useState("");
+    let chat = useState("");
     const chatbox = useRef()
     socket.on("chatting", (data)=>{  // chatting 받기
         chat = {
@@ -13,17 +13,19 @@ const ChattingList = React.memo(() =>{
             room_id : data["room_id"]
         }
         setChatList([...chatList,chat]);
+        document.getElementById("chat_scroll").scrollTop = document.getElementById("chat_scroll").scrollHeight;
+        console.log("scroll")
     })
 
 
-    useEffect(() => {
-        chatbox.current.scrollTop = chatbox.current.scrollHeight;
-        // chatbox.current.lastChild.focus()
-        // console.log("HI")
-    }, [chatList])
+    // useEffect(() => {
+    //     chatbox.current.scrollTop = chatbox.current.scrollHeight;
+    //     // chatbox.current.lastChild.focus()
+    //     // console.log("HI")
+    // }, [chatList])
 
     return (
-        <ul ref={chatbox}>
+        <ul ref={chatbox} id="chat_scroll">
             {chatList.length > 0
                 ? (chatList.map((chat, idx) => (<Chat key={idx} chat={chat}/>)))
                 : (<div></div>)
