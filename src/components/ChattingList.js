@@ -6,17 +6,15 @@ const ChattingList = React.memo(() =>{
     const [chatList,setChatList] = useState([]);
     let chat = useState("");
     const chatbox = useRef()
-    socket.on("chatting", (data)=>{  // chatting 받기
+    socket.on("chatting", (data)=>{
         chat = {
             sender : data["sender"],
             text : data["text"],
             room_id : data["room_id"]
         }
         setChatList([...chatList,chat]);
-        //document.getElementById("chatting-list").scrollTop = document.getElementById("chatting-list").scrollHeight;
         console.log("scroll")
     })
-
 
     // useEffect(() => {
     //     chatbox.current.scrollTop = chatbox.current.scrollHeight;

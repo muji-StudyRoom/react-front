@@ -231,8 +231,8 @@ function checkVideoLayout() {
     const video_count = videos.length;
     if (parseInt(video_count) === 0) { }
     else if (parseInt(video_count) === 1) {
-        videos[0].style.width = "50%";
-        videos[0].style.height = "50%";
+        videos[0].style.width = "100%";
+        videos[0].style.height = "100%";
         videos[0].style.objectFit = "cover";
     } else if (parseInt(video_count) === 2) {
         videos[0].style.width = "50%";
@@ -380,10 +380,7 @@ const MeetingPage = () => {
     }
 
     const exitRoom = () => {
-        // let url = "https://127.0.0.1:8080/room/"
-        // axios.post("")
         window.location.replace("/")
-        
         console.log("exit")
     }
 
