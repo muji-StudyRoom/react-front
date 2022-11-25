@@ -14,7 +14,7 @@ const Paging = () => {
     let roomList = [];
     useEffect(() => {
         async function getData() {
-            const response = await axios.get(process.env.REACT_APP_BACK_BASE_URL + "/room")
+            const response = await axios.get(process.env.REACT_APP_BACK_BASE_URL + "/room", {withCredentials: true})
             setResponseRoom(response.data)
             for (let i = response.data.length - 1; i >= 0; i--) {
                 roomList.push([

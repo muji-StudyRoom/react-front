@@ -7,7 +7,7 @@ import { useState } from 'react';
 import Modal from '../components/Modal';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-axios.defaults.withCredentials = true;
+
 const Header = () => {
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -46,7 +46,7 @@ const Search = () => {
       }
       else {
         let url = process.env.REACT_APP_BACK_BASE_URL + "/room/" + text
-        axios.get(url)
+        axios.get(url, {withCredentials: true})
           .then(response => {
             console.log(response)
           })
