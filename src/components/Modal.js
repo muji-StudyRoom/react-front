@@ -55,7 +55,6 @@ const Modal = (props) => {
     }
     else {
       let roomName = document.getElementById("room_id").value
-      console.log("Modal에서 찍는 값 :", roomName)
       let room_allowed = document.getElementById("room_allowed").value
       let room_nickname = document.getElementById("room_nickname").value
       let room_pwd = document.getElementById("room_password").value
@@ -124,9 +123,8 @@ const Modal = (props) => {
     }
 
     else {
-      axios.post("http://127.0.0.1:8080/room/valid/create", {roomName: room_id})
+      axios.post(process.env.REACT_APP_BACK_BASE_URL + "/room/valid/create", {roomName: room_id}, {withCredentials: true})
         .then(response => {
-          console.log(response)
           if (response.data === true) {
             setCreateEnable(true)
             Toast.fire({

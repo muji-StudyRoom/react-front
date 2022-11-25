@@ -59,7 +59,7 @@ const EnterModal = (props) => {
             })
             navigate("/meeting", {
                 state: {
-                    type : "join",
+                    type: "join",
                     roomName: roomInfo["roomName"],
                     room_allowed: roomInfo["roomCapacity"],
                     room_nickname: document.getElementById("room_nickname").value,
@@ -95,7 +95,7 @@ const EnterModal = (props) => {
                 roomId: roomInfo["roomId"],
                 roomPassword: password
             }
-            axios.post("http://127.0.0.1:8080/room/valid/enter", postData)
+            axios.post(process.env.REACT_APP_BACK_BASE_URL + "/room/valid/enter", postData, {withCredentials: true})
                 .then(response => {
                     if (parseInt(response.status) === 200) {
                         setEnterEnable(true)

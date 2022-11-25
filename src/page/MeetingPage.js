@@ -57,7 +57,6 @@ function handleNegotiationNeededEvent(peer_id) {
 
 function handleTrackEvent(event, peer_id) {
     console.log(`track event recieved from <${peer_id}>`);
-
     if (event.streams) {
         getVideoObj(peer_id).srcObject = event.streams[0];
     }
@@ -108,6 +107,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 function start_webrtc() {
     // send offer to all other members
+    console.log("start_webrtc")
     for (let peer_id in _peer_list) {
         invite(peer_id);
     }
@@ -194,7 +194,7 @@ function startCamera()
             //camera_allowed = true;
             setAudioMuteState(audioMuted);
             setVideoMuteState(videoMuted);
-            myVideo.autoPlay = true;
+            myVideo.autoplay = true;
             //start the socketio connection
             socket.connect();
         })
@@ -231,8 +231,8 @@ function checkVideoLayout() {
     const video_count = videos.length;
     if (parseInt(video_count) === 0) { }
     else if (parseInt(video_count) === 1) {
-        videos[0].style.width = "50%";
-        videos[0].style.height = "50%";
+        videos[0].style.width = "100%";
+        videos[0].style.height = "100%";
         videos[0].style.objectFit = "cover";
     } else if (parseInt(video_count) === 2) {
         videos[0].style.width = "50%";
@@ -273,7 +273,7 @@ function addVideoElement(element_id, display_name) {
 function makeVideoElementCustom(element_id, display_name) {
     let vid = document.createElement("video");
     vid.id = "vid_" + element_id;
-    vid.autoPlay = true;
+    vid.autoplay = true;
     return vid;
 }
 function getVideoObj(element_id) {
@@ -301,33 +301,34 @@ const MeetingPage = () => {
     }, [])
 
     useEffect(() => {
+        let _dataToServer
         socket.on("connect", () => {
             console.log("socket connected from client");
 
-            let _dataToServer = {
+            _dataToServer = {
                 "userNickname": location.state["room_nickname"],
                 "roomName": location.state["roomName"],
                 "roomCapacity": location.state["room_allowed"],
                 "roomPassword": location.state["room_pwd"]
             }
             setDataToServer(_dataToServer)
-
-            if(location.state["type"] === "join") {
-                socket.emit("join-room", _dataToServer)
-            }
-            else {
-                socket.emit("create-room", _dataToServer);
-            }
+            socket.emit("create-room", _dataToServer);
+            // if(location.state["type"] === "join") {
+            //     socket.emit("join-room", _dataToServer)
+            // }
+            // else {
+            //     socket.emit("create-room", _dataToServer);
+            // }
             
         });
 
-        // socket.on("join-request", () => {
-        //     socket.emit("join-room", { "room_id": location.state["room_id"] })
-        // })
+        socket.on("join-request", () => {
+            socket.emit("join-room", _dataToServer)
+        })
 
         return () => {
             socket.off("connect")
-            // socket.off("join-request")
+            socket.off("join-request")
         }
         // eslint-disable-next-line
     }, []);
@@ -379,8 +380,6 @@ const MeetingPage = () => {
     }
 
     const exitRoom = () => {
-        // let url = "https://127.0.0.1:8080/room/"
-        // axios.post("")
         window.location.replace("/")
         console.log("exit")
     }
@@ -409,24 +408,12 @@ const MeetingPage = () => {
         });
     }
 
-    // const preventClose = (event) => {
-    //     event.preventDefault();
-    //     event.returnValue = "";
-    //   };
-    //   useEffect(() => {(() => {
-    //       window.addEventListener("beforeunload", preventClose);
-    //     })();
-    //     return () => {
-    //       window.removeEventListener("beforeunload", preventClose);
-    //     };
-    //   }, []);
-
     return (
         <div className='fake-root'>
             <div className='meet-root'>
                 <div className='left'>
                     <div id="video_grid" className="video-grid" style={defaultStyle}>
-                        <video id="local_vid" autoPlay muted style={defaultStyle} className="vid-icon-1"></video>
+                        <video id="local_vid" autoplay muted style={defaultStyle} className="vid-icon-1"></video>
                         <div className='vid-icon-2'>
                             <div className='user_btns'>
                                 <FontAwesomeIcon icon={faRightFromBracket} onClick={exitRoom}></FontAwesomeIcon>

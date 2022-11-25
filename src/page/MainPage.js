@@ -6,8 +6,8 @@ import Paging from "../paging.js"
 import { useState } from 'react';
 import Modal from '../components/Modal';
 import axios from 'axios';
-import Swal
-  from 'sweetalert2';
+import Swal from 'sweetalert2';
+
 const Header = () => {
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -33,18 +33,6 @@ const Header = () => {
 const Search = () => {
   const [text, setText] = useState("");
 
-  // const Toast = Swal.mixin({
-  //   toast: true,
-  //   position: 'center',
-  //   showConfirmButton: false,
-  //   timer: 1500,
-  //   timerProgressBar: true,
-  //   didOpen: (toast) => {
-  //     toast.addEventListener('mouseenter', Swal.stopTimer)
-  //     toast.addEventListener('mouseleave', Swal.resumeTimer)
-  //   }
-  // })
-
   const searchRoom = (event) => {
     if (event.key === "Enter") {
       if (text === "") {
@@ -57,8 +45,8 @@ const Search = () => {
         })
       }
       else {
-        let url = "http://127.0.0.1:8080/room/" + text
-        axios.get(url)
+        let url = process.env.REACT_APP_BACK_BASE_URL + "/room/" + text
+        axios.get(url, {withCredentials: true})
           .then(response => {
             console.log(response)
           })
