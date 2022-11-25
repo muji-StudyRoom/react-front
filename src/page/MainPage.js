@@ -6,8 +6,8 @@ import Paging from "../paging.js"
 import { useState } from 'react';
 import Modal from '../components/Modal';
 import axios from 'axios';
-import Swal
-  from 'sweetalert2';
+import Swal from 'sweetalert2';
+axios.defaults.withCredentials = true;
 const Header = () => {
 
   const [modalOpen, setModalOpen] = useState(false);
