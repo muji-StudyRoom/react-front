@@ -6,7 +6,11 @@ ENV REACT_APP_SIG_BASE_URL "k8s-default-sigsvc-b3e52a2381-f33b10ad52a29fe5.elb.a
 RUN npm install && npm run build
 
 
-FROM nginx:stable-alpine
-COPY --from=build /app/build /usr/share/nginx/html
+FROM nginx:1.21.1-alpine
+
+RUN rm -rf /etc/nginx/conf.d/default.conf
+COPY default.conf /etc/nginx/conf.d/
+COPY —from=build /app/build /usr/share/nginx/html
+
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
