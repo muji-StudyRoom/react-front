@@ -45,8 +45,8 @@ const Search = () => {
         })
       }
       else {
-        let url = process.env.REACT_APP_BACK_BASE_URL + "/room/" + text
-        axios.get(url, {withCredentials: true})
+        let url = "/room/" + text
+        axios.get(url)
           .then(response => {
             console.log(response)
           })

@@ -123,7 +123,7 @@ const Modal = (props) => {
     }
 
     else {
-      axios.post(process.env.REACT_APP_BACK_BASE_URL + "/room/valid/create", {roomName: room_id}, {withCredentials: true})
+      axios.post("/room/valid/create", {roomName: room_id})
         .then(response => {
           if (response.data === true) {
             setCreateEnable(true)

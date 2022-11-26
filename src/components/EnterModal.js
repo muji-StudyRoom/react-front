@@ -95,7 +95,7 @@ const EnterModal = (props) => {
                 roomId: roomInfo["roomId"],
                 roomPassword: password
             }
-            axios.post(process.env.REACT_APP_BACK_BASE_URL + "/room/valid/enter", postData, {withCredentials: true})
+            axios.post("/room/valid/enter", postData)
                 .then(response => {
                     if (parseInt(response.status) === 200) {
                         setEnterEnable(true)
