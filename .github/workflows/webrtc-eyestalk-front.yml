@@ -61,8 +61,10 @@ jobs:
           cat kustomization.yaml
 
       # 수정된 kustomization.yaml 파일 commit push
-      - name: Commit minifest files
+      - name: Commit manifest files
         run: |
           cd eyestalk-manifest
+          git config --global user.email "kschoolteam4@gmail.com"
+          git config --global user.name "eyestalk"
           git commit -am "Update image tag ${{ steps.tag_version.outputs.new_tag }}"
           git push -u origin main
