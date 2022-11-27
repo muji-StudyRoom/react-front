@@ -66,6 +66,7 @@ jobs:
       - name: Commit manifest files
         run: |
           cd eyestalk-manifest
+          git remote set-url origin https://Jupiter-J@github.com/muji-StudyRoom/eyestalk-manifest.git
           git config --local credential.helper ""
           git config --global user.email "namju2912@github.com"
           git config --global user.name "Jupiter-J"
