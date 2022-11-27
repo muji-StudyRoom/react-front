@@ -52,7 +52,7 @@ jobs:
 
           # 새 이미지 버전으로 파일의 태그값 수정
           # cd path 수정
-          # kustomize 로 image tag 값 변경
+          # kustomize로 image tag 값 변경
       - name: Update Kubernetes resources
         run: |
           pwd
