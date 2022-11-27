@@ -1,6 +1,6 @@
 import io from "socket.io-client";
 
-export const socket = io(process.env.REACT_APP_SIG_BASE_URL, {
+export const socket = io("https://eyestalk.site:5000", {
     cors: {
         origin: "*",
     },
