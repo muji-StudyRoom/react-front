@@ -40,3 +40,29 @@ jobs:
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+              - name: Checkout for Kustomize repository
+          uses: actions/checkout@v2
+          with:
+            # kubernetes yaml 파일 저장
+            repository: muji-StudyRoom/eyestalk-manifest # k8s yaml 파일이 있는 repo
+            ref: main  # branch 이름
+            # 내 repository에 push 하기 위한 Personal Access Token이 필요
+            token: ${{ secrets.GITHUB_TOKEN }} # Github Action token을 발급받아서 repo secrect에 등록해줘야한다
+            path: eyestalk-manifest # 최상위 경로로 repository와 동일하게 설정
+
+          # 새 이미지 버전으로 파일의 태그값 수정
+          # cd path 수정
+          # kustomize 로 image tag 값 변경
+          - name: Update Kubernetes resources
+            run: |
+              pwd
+              cd eyestalk-manifest/overlays/prd/ 
+              kustomize edit set image \${{ steps.login-ecr.outputs.registry }}/eyestalk-react=\${{ steps.login-ecr.outputs.registry }}/eyestalk-react\$:\${{ steps.tag_version.outputs.new_tag }}
+              cat kustomization.yaml
+
+          # 수정된 kustomization.yaml 파일 commit push
+          - name: Commit minifest files
+            run: |
+            cd eyestalk-manifest
+            git commit -am "Update image tag ${{ steps.tag_version.outputs.new_tag }}"
+            git push -u origin main
