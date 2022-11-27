@@ -57,7 +57,7 @@ jobs:
             run: |
               pwd
               cd eyestalk-manifest/overlays/prd/ 
-              kustomize edit set image \${{ steps.login-ecr.outputs.registry }}/eyestalk-react=\${{ steps.login-ecr.outputs.registry }}/eyestalk-react\$:\${{ steps.tag_version.outputs.new_tag }}
+              kustomize edit set image ${{ steps.login-ecr.outputs.registry }}/eyestalk-react=${{ steps.login-ecr.outputs.registry }}/eyestalk-react:${{ steps.tag_version.outputs.new_tag }}
               cat kustomization.yaml
 
           # 수정된 kustomization.yaml 파일 commit push
