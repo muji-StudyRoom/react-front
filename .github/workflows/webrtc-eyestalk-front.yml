@@ -64,6 +64,7 @@ jobs:
       - name: Commit manifest files
         run: |
           cd eyestalk-manifest
+          git config --local credential.helper ""
           git config --global user.email "namju2912@github.com"
           git config --global user.name "Jupiter-J"
           git commit -am "Update image tag ${{ steps.tag_version.outputs.new_tag }}"
