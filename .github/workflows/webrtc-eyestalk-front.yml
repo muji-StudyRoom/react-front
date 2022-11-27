@@ -13,11 +13,11 @@ jobs:
         id: tag_version
         uses: mathieudutour/github-tag-action@v5.5 # 가져다 쓸 auto tagging 프로그램
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }} # secrets.GITHUB_TOKEN 는 자동생성됨
+          github_token: ${{ secrets.GITHUB_TOKEN }} # secrets.GITHUB_TOKEN는 자동생성됨
       - name: Create a GitHub release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
         with:
           tag_name: ${{ steps.tag_version.outputs.new_tag }}
           release_name: Release ${{ steps.tag_version.outputs.new_tag }}
@@ -47,24 +47,26 @@ jobs:
           repository: muji-StudyRoom/eyestalk-manifest # k8s yaml 파일이 있는 repo
           ref: main  # branch 이름
           # 내 repository에 push 하기 위한 Personal Access Token이 필요
-          token: ${{ secrets.GITHUB_TOKEN }} # Github Action token을 발급받아서 repo secrect에 등록해줘야한다
+          token: ${{ secrets.PAT }} # Github Action token을 발급받아서 repo secrect에 등록해줘야한다
           path: eyestalk-manifest # 최상위 경로로 repository와 동일하게 설정
 
           # 새 이미지 버전으로 파일의 태그값 수정
           # cd path 수정
-          # kustomize 로 image tag 값 변경
+          # kustomize로 image tag 값 변경
       - name: Update Kubernetes resources
         run: |
           pwd
           cd eyestalk-manifest/overlays/prd/ 
           kustomize edit set image ${{ steps.login-ecr.outputs.registry }}/eyestalk-react=${{ steps.login-ecr.outputs.registry }}/eyestalk-react:${{ steps.tag_version.outputs.new_tag }}
           cat kustomization.yaml
-
       # 수정된 kustomization.yaml 파일 commit push
       - name: Commit manifest files
+        env: 
+          GITHUB_TOKEN: ${{ secrets.PAT }}
         run: |
           cd eyestalk-manifest
-          git config --global user.email "kschoolteam4@gmail.com"
-          git config --global user.name "eyestalk"
+          git config --global user.email "namju2912@gmail.com"
+          git config --global user.name "Jupiter-J"
+          git config --global github.token ${{ secrets.PAT }}
           git commit -am "Update image tag ${{ steps.tag_version.outputs.new_tag }}"
           git push -u origin main
