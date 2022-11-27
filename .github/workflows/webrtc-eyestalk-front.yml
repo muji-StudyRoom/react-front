@@ -64,7 +64,7 @@ jobs:
       - name: Commit manifest files
         run: |
           cd eyestalk-manifest
-          git config --global user.email "kschoolteam4@gmail.com"
-          git config --global user.name "eyestalk"
+          git config --global user.email "namju2912@gmail.com"
+          git config --global user.name "Jupiter-J"
           git commit -am "Update image tag ${{ steps.tag_version.outputs.new_tag }}"
           git push -u origin main
