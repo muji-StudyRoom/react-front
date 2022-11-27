@@ -65,7 +65,7 @@ jobs:
         run: |
           cd eyestalk-manifest
           git config --local credential.helper ""
-          git config --global user.email "namju2912@github.com"
+          git config --global user.email "namju2912@gmail.com"
           git config --global user.name "Jupiter-J"
           git commit -am "Update image tag ${{ steps.tag_version.outputs.new_tag }}"
           git push -u origin main
