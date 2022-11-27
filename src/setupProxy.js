@@ -10,10 +10,7 @@ module.exports = function(app) {
         createProxyMiddleware('/room/valid/create', {
             target: BACK, // 비즈니스 서버 URL 설정
             changeOrigin: true
-        }),
-        createProxyMiddleware('/room/valid/create', {
-            target: SOCKET, // 비즈니스 서버 URL 설정
-            changeOrigin: true
         })
+
     );
 };
