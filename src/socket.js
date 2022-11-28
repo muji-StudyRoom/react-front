@@ -4,5 +4,6 @@ export const socket = io("https://rohee.tk:5000", {
     cors: {
         origin: "*",
     },
-    autoConnect: false
+    autoConnect: false,
+    withCredentials: true
 });
