@@ -22,11 +22,7 @@ var _peer_list = {};
 var display_name
 
 var PC_CONFIG = {
-    iceServers: [{
-            urls: "3.34.47.147:3478",
-            username: "eyestalk",
-            credential: "pass123#"
-        },
+    iceServers: [
         {
             urls: ['stun:stun.l.google.com:19302',
                 'stun:stun1.l.google.com:19302',
