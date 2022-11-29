@@ -6,5 +6,5 @@ export const socket = io("https://rohee.tk:5000", {
     },
     autoConnect: false,
     withCredentials: true,
-    transports: [ "websocket" ]
+    //transports: [ "websocket" ]
 });
