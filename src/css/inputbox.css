@@ -2,8 +2,8 @@ textarea {
     height: 100%;
     width: 100%;
     box-sizing: border-box;
-    border: solid 2px #ffffff;
-    background-color: white;
+    border: solid 6px #eaefff;
+    background-color: #ffffff;
     border-radius: 5px;
     resize: none;
     font-size: 20px;
@@ -13,8 +13,13 @@ textarea {
     font-weight: bold; */
 }
 
+textarea:focus {
+    outline-color: #eaefff;
+}
+
 #textarea-parent {
     height: 70%;
+    background-color: #eaefff;
 }
 
 #button-group {

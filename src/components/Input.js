@@ -8,10 +8,10 @@ const Input = () => {
     const sendMessage = () => { // chatting 보내기
         const data = {
             "sender": roomData["userNickname"],
-            "text": document.getElementById(roomData["userNickname"]).value,
+            "text": document.getElementById(roomData["userNickname"]).value.split("\n").join(""),
             "room_id": roomData["roomName"]
         }
-        if(data["text"].length > 50 || data["text"].length === 0) {
+        if(data["text"].length > 50 || data["text"].split("\n").join("").length === 0) {
             document.getElementById(roomData["userNickname"]).focus();
             document.getElementById(roomData["userNickname"]).value = null;
             Swal.fire({
@@ -23,8 +23,8 @@ const Input = () => {
               })
         }
         else {
+            document.getElementById(roomData["userNickname"]).value = "";
             document.getElementById(roomData["userNickname"]).focus();
-            document.getElementById(roomData["userNickname"]).value = null;
             socket.emit("chatting", data);
         }
 
@@ -40,9 +40,10 @@ const Input = () => {
             <div id='textarea-parent'>
                 <textarea id={roomData["userNickname"]} onKeyPress={(event) => {
                     if (event.key === 'Enter') {
+                        event.preventDefault();
                         sendMessage();
                     }
-                }} />
+                }}></textarea>
             </div>
             <div id='button-group'>
                 <button onClick={deleteMessage} className='del_btn'>삭제</button>

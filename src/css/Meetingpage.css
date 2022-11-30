@@ -39,7 +39,7 @@ video {
 
 .chatting-list {
     height: 80%;
-    background-color: #eaefff;
+    background-color: white;
     overflow: auto;
 }
 

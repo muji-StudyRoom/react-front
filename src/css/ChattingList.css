@@ -1,4 +1,17 @@
 #chat_scroll {
     height: 100%;
     margin: 0px;
-} 
+    overflow-y: scroll;
+}
+
+#chat_scroll::-webkit-scrollbar {
+    background-color: #505f98;
+}
+
+#chat_scroll::-webkit-scrollbar-thumb {
+    background-color: #505f98;
+}
+
+#chat_scroll::-webkit-scrollbar-track {
+    background-color: #eaefff;
+}
