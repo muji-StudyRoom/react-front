@@ -191,8 +191,7 @@ var mediaConstraints = {
         height: 360
     }
 };
-function startCamera()
-{
+function startCamera() {
     navigator.mediaDevices.getUserMedia(mediaConstraints)
         .then((stream) => {
             myVideo.srcObject = stream;
@@ -325,7 +324,7 @@ const MeetingPage = () => {
             // else {
             //     socket.emit("create-room", _dataToServer);
             // }
-            
+
         });
 
         socket.on("join-request", () => {
@@ -419,7 +418,7 @@ const MeetingPage = () => {
             <div className='meet-root'>
                 <div className='left'>
                     <div id="video_grid" className="video-grid" style={defaultStyle}>
-                        <video id="local_vid" autoplay muted style={defaultStyle} className="vid-icon-1"></video>
+                        <video id="local_vid" autoplay muted style={defaultStyle}></video>
                     </div>
                 </div>
                 <div className='right'>
@@ -429,22 +428,22 @@ const MeetingPage = () => {
                         </div>
                         <div className='chat-input'>
                             <Input />
-                            <div className='vid-icon-2'>
-                            <div className='user_btns'>
-                                <FontAwesomeIcon icon={faRightFromBracket} onClick={exitRoom}></FontAwesomeIcon>
-                            </div>
-                            <div className="user_btns" onClick={modAudioIcon}>
-                                {!audioIcon ? <FontAwesomeIcon icon={faMicrophone}></FontAwesomeIcon> : <FontAwesomeIcon icon={faMicrophoneSlash}></FontAwesomeIcon>}
-                            </div>
-                            <div className="user_btns" onClick={modVedioIcon}>
-                                {!videoIcon ? <FontAwesomeIcon icon={faVideo}></FontAwesomeIcon> : <FontAwesomeIcon icon={faVideoSlash}></FontAwesomeIcon>}
-                            </div>
-                        </div>
                         </div>
                     </DataContext.Provider>
                 </div>
             </div>
             <div className='meet-footer'>
+                <div className='vid-icon'>
+                    <div className='user_btns'>
+                        <FontAwesomeIcon icon={faRightFromBracket} onClick={exitRoom}></FontAwesomeIcon>
+                    </div>
+                    <div className="user_btns" onClick={modAudioIcon}>
+                        {!audioIcon ? <FontAwesomeIcon icon={faMicrophone}></FontAwesomeIcon> : <FontAwesomeIcon icon={faMicrophoneSlash}></FontAwesomeIcon>}
+                    </div>
+                    <div className="user_btns" onClick={modVedioIcon}>
+                        {!videoIcon ? <FontAwesomeIcon icon={faVideo}></FontAwesomeIcon> : <FontAwesomeIcon icon={faVideoSlash}></FontAwesomeIcon>}
+                    </div>
+                </div>
             </div>
         </div>
 

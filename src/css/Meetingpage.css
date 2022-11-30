@@ -3,7 +3,7 @@
     height: 100%;
     float: left;
     box-sizing: border-box;
-    background: #8977ad;
+    background: white;
 }
 
 .right {
@@ -11,7 +11,7 @@
     height: 100%;
     float: right;
     box-sizing: border-box;
-    background: #ece6cc;
+    background: white;
 }
 
 .fake-root {
@@ -33,11 +33,14 @@ video {
 .meet-footer {
     height: 20%;
     background-color: #eaefff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .chatting-list {
     height: 80%;
-    background-color: #8977ad;
+    background-color: white;
     overflow: auto;
 }
 
@@ -45,23 +48,14 @@ video {
     height: 20%;
 }
 
-.vid-icon-1 {
-    position: relative;
-    z-index: 1;
-}
-
-.vid-icon-2 {
-    position: relative;
-    z-index: 2;
-    bottom: 75px;
-    right: 10px;
-    float: right;
+.vid-icon {
 }
 
 .user_btns {
     font-size: 40px;
     background-color: white;
     margin-left: 10px;
+    margin-right: 10px;
     color: #505f98;
     display: inline-flex;
     width: 65px;

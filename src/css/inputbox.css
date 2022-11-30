@@ -25,4 +25,8 @@ textarea {
     outline: none;
     cursor: pointer;
     border: 0;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start
 }
