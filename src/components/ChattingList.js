@@ -13,7 +13,11 @@ const ChattingList = React.memo(() =>{
             text : data["text"],
             room_id : data["room_id"]
         }
-        setChatList([...chatList,chat]);
+        // setChatList([...chatList,chat]);
+        let chat_element = document.createElement("li");
+        chat_element.className = "chat_element";
+        chat_element.innerText = data["sender"] + " : " + data["text"];
+        document.getElementById("chat_scroll").appendChild(chat_element)
         console.log("scroll")
     })
 
@@ -25,10 +29,7 @@ const ChattingList = React.memo(() =>{
 
     return (
         <ul ref={chatbox} id="chat_scroll">
-            {chatList.length > 0
-                ? (chatList.map((chat, idx) => (<Chat key={idx} chat={chat}/>)))
-                : (<div></div>)
-            }
+
         </ul>
     );
 });
