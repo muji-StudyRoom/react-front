@@ -1,6 +1,7 @@
 import React, {useState, useRef} from 'react';
 import Chat from './Chat';
 import {socket} from '../socket';
+import '../css/ChattingList.css'
 
 const ChattingList = React.memo(() =>{
     const [chatList,setChatList] = useState([]);

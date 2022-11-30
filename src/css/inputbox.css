@@ -21,23 +21,23 @@ textarea {
     height: 30%;
     display: flex;
     justify-content: center;
+    background-color: #eaefff;
 }
 
 .input-box {
     width: 100%;
     height: 100%;
-    background-color: yellow;
+    background-color: white;
 }
 
 
 .del_btn, .send_btn {
     padding: 6px 12px;
     height: 100%;
-    width: 45%;
-    margin: 0px 5px 0px 5px;
+    width: 50%;
     color: white;
     background-color: #505f98;
-    border-radius: 5px;
+    border-radius: 10px;
     font-size: 22px;
     font-weight: 600;
     outline: none;
