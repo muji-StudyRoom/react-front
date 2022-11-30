@@ -53,7 +53,7 @@ const EnterModal = (props) => {
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
-                title: '방이 생성되었습니다.',
+                title: roomInfo["roomName"] + '방으로 입장합니다.',
                 showConfirmButton: false,
                 timer: 2000
             })
