@@ -279,6 +279,7 @@ function makeVideoElementCustom(element_id, display_name) {
     let vid = document.createElement("video");
     vid.id = "vid_" + element_id;
     vid.autoplay = true;
+    console.log(vid)
     return vid;
 }
 function getVideoObj(element_id) {
@@ -419,7 +420,16 @@ const MeetingPage = () => {
                 <div className='left'>
                     <div id="video_grid" className="video-grid" style={defaultStyle}>
                         <video id="local_vid" autoplay muted style={defaultStyle} className="vid-icon-1"></video>
-                        <div className='vid-icon-2'>
+                    </div>
+                </div>
+                <div className='right'>
+                    <DataContext.Provider value={dataToServer}>
+                        <div className='chatting-list'>
+                            <ChattingList />
+                        </div>
+                        <div className='chat-input'>
+                            <Input />
+                            <div className='vid-icon-2'>
                             <div className='user_btns'>
                                 <FontAwesomeIcon icon={faRightFromBracket} onClick={exitRoom}></FontAwesomeIcon>
                             </div>
@@ -430,15 +440,6 @@ const MeetingPage = () => {
                                 {!videoIcon ? <FontAwesomeIcon icon={faVideo}></FontAwesomeIcon> : <FontAwesomeIcon icon={faVideoSlash}></FontAwesomeIcon>}
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div className='right'>
-                    <DataContext.Provider value={dataToServer}>
-                        <div className='chatting-list'>
-                            <ChattingList />
-                        </div>
-                        <div className='chat-input'>
-                            <Input />
                         </div>
                     </DataContext.Provider>
                 </div>
