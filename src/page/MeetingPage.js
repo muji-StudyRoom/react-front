@@ -24,7 +24,7 @@ var display_name
 var PC_CONFIG = {
     iceServers: [
         {
-            urls: "turn:3.38.141.177:3478",
+            urls: "turn:3.38.141.177",
             username: "eyestalk",
             credential: "pass123#"
         },

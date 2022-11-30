@@ -25,6 +25,7 @@ const Input = () => {
         else {
             document.getElementById(roomData["userNickname"]).focus();
             document.getElementById(roomData["userNickname"]).value = null;
+            console.log("emit chatting event")
             socket.emit("chatting", data);
         }
 

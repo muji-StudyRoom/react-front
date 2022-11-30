@@ -13,7 +13,6 @@ const ChattingList = React.memo(() =>{
             text : data["text"],
             room_id : data["room_id"]
         }
-        console.log(data)
         setChatList([...chatList,chat]);
         console.log("scroll")
     })
