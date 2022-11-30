@@ -15,3 +15,7 @@
 #chat_scroll::-webkit-scrollbar-track {
     background-color: #eaefff;
 }
+
+.chat_element {
+    word-break: break-all;
+}

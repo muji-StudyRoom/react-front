@@ -7,10 +7,6 @@ textarea {
     border-radius: 5px;
     resize: none;
     font-size: 20px;
-    /* color: gray;
-    text-indent: 40px;
-    font-size: 20px;
-    font-weight: bold; */
 }
 
 textarea:focus {

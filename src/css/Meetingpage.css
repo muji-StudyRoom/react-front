@@ -40,7 +40,6 @@ video {
 .chatting-list {
     height: 80%;
     background-color: white;
-    overflow: auto;
 }
 
 .chat-input {
