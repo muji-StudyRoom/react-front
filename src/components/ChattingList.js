@@ -7,12 +7,12 @@ const ChattingList = React.memo(() =>{
     socket.on("chatting", (data)=>{
         let chat_element = document.createElement("li");
 
-        if("disconnect" in data) {
+        if(data["type"] === "disconnect") {
             chat_element.className = "notice_element"
             chat_element.innerText = data["text"];
             document.getElementById("chat_scroll").appendChild(chat_element)
         }
-        else if("join" in data) {
+        else if(data["type"] === "join") {
             chat_element.className = "notice_element"
             chat_element.innerText = data["text"];
             document.getElementById("chat_scroll").appendChild(chat_element)
