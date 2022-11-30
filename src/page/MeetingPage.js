@@ -124,7 +124,6 @@ function closeConnection(peer_id) {
         _peer_list[peer_id].onicecandidate = null;
         _peer_list[peer_id].ontrack = null;
         _peer_list[peer_id].onnegotiationneeded = null;
-
         delete _peer_list[peer_id]; // remove user from user list
     }
 }
@@ -318,12 +317,6 @@ const MeetingPage = () => {
             }
             setDataToServer(_dataToServer)
             socket.emit("create-room", _dataToServer);
-            // if(location.state["type"] === "join") {
-            //     socket.emit("join-room", _dataToServer)
-            // }
-            // else {
-            //     socket.emit("create-room", _dataToServer);
-            // }
 
         });
 
@@ -337,9 +330,6 @@ const MeetingPage = () => {
         }
         // eslint-disable-next-line
     }, []);
-
-    // socket.on('disconnect', () => {
-    // });
 
     useEffect(() => {
         socket.on("user-connect", (data) => {

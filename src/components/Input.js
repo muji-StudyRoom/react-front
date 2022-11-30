@@ -21,7 +21,7 @@ const Input = () => {
                 showConfirmButton: false,
                 timer: 1000
               })
-        }
+        } 
         else {
             document.getElementById(roomData["userNickname"]).value = "";
             document.getElementById(roomData["userNickname"]).focus();

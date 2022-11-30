@@ -6,9 +6,23 @@ const ChattingList = React.memo(() =>{
     const chatbox = useRef()
     socket.on("chatting", (data)=>{
         let chat_element = document.createElement("li");
-        chat_element.className = "chat_element";
-        chat_element.innerText = data["sender"] + " : " + data["text"];
-        document.getElementById("chat_scroll").appendChild(chat_element)
+
+        if("disconnect" in data) {
+            chat_element.className = "notice_element"
+            chat_element.innerText = data["text"];
+            document.getElementById("chat_scroll").appendChild(chat_element)
+        }
+        else if("join" in data) {
+            chat_element.className = "notice_element"
+            chat_element.innerText = data["text"];
+            document.getElementById("chat_scroll").appendChild(chat_element)
+        }
+        else {
+            chat_element.className = "chat_element";
+            chat_element.innerText = data["sender"] + " : " + data["text"];
+            document.getElementById("chat_scroll").appendChild(chat_element)
+        }
+ 
         document.getElementById("chat_scroll").scroll({top: document.getElementById("chat_scroll").scrollHeight, behavior:'smooth'})
     })
 
