@@ -98,7 +98,7 @@ async function invite(peer_id) {
     else {
         console.log(`Creating peer connection for <${peer_id}> ...`);
         createPeerConnection(peer_id);
-        await sleep(1000);  // 기존 2000
+        await sleep(2000);  // 기존 2000
         let local_stream = myVideo.srcObject;
         local_stream.getTracks().forEach((track) => {
             _peer_list[peer_id].addTrack(track, local_stream);
