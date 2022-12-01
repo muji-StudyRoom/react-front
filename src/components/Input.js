@@ -37,6 +37,10 @@ const Input = () => {
 
     return (
         <div className='input-box'>
+            <select>
+                <option value="test1">test1</option>
+                <option value="test2">test2</option>
+            </select>
             <div id='textarea-parent'>
                 <textarea id={roomData["userNickname"]} onKeyPress={(event) => {
                     if (event.key === 'Enter') {

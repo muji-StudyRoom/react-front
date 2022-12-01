@@ -114,7 +114,7 @@ function start_webrtc() {
     // send offer to all other members
     console.log("start_webrtc")
     for (let peer_id in _peer_list) {
-        invite(peer_id).then(()=> console.log(`invite ${peer_id}`));
+        invite(peer_id);
     }
 }
 
@@ -173,7 +173,7 @@ function handleAnswerMsg(msg) {
     let peer_id = msg['sender_id'];
     console.log(`answer recieved from <${peer_id}>`);
     let desc = new RTCSessionDescription(msg['sdp']);
-    _peer_list[peer_id].setRemoteDescription(desc).then(() => console.log('handleAnswerMsgEnd'));
+    _peer_list[peer_id].setRemoteDescription(desc);
 }
 function handleNewICECandidateMsg(msg) {
     let peer_id = msg['sender_id'];
