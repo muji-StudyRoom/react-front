@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
 textarea {
+    font-family: 'Jua', sans-serif;
     height: 100%;
     width: 100%;
     box-sizing: border-box;

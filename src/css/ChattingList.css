@@ -1,7 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
 #chat_scroll {
     height: 100%;
     margin: 0px;
     overflow-y: scroll;
+    font-family: 'Jua', sans-serif;
+}
+
+.notice_element {
+    color: #505f98;
 }
 
 #chat_scroll::-webkit-scrollbar {
