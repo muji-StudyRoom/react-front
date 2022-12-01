@@ -281,7 +281,6 @@ function makeVideoElementCustom(element_id, display_name) {
     let vid = document.createElement("video");
     vid.id = "vid_" + element_id;
     vid.autoplay = true;
-    console.log(vid)
     return vid;
 }
 function getVideoObj(element_id) {
