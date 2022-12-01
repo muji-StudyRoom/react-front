@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { socket } from '../socket';
 import "../css/Meetingpage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMicrophone, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faDisplay, faMicrophone, faRightFromBracket, faSmile } from '@fortawesome/free-solid-svg-icons';
 import { faMicrophoneSlash } from '@fortawesome/free-solid-svg-icons';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import { faVideoSlash } from '@fortawesome/free-solid-svg-icons';
@@ -15,7 +15,7 @@ export const DataContext = createContext();
 var myVideo;
 var audioMuted = false;
 var videoMuted = false;
-
+var selectCamera = true;
 var myID;
 var _peer_list = {};
 
@@ -190,6 +190,9 @@ var mediaConstraints = {
         height: 360
     }
 };
+
+
+
 function startCamera() {
     navigator.mediaDevices.getUserMedia(mediaConstraints)
         .then((stream) => {
@@ -205,6 +208,7 @@ function startCamera() {
             console.log("getUserMedia Error! ", e);
         });
 }
+
 function setAudioMuteState(flag) {
     let local_stream = myVideo.srcObject;
     local_stream.getAudioTracks().forEach((track) => {
@@ -368,11 +372,6 @@ const MeetingPage = () => {
             }
         });
     }, [])
-    let defaultStyle = {
-        width: "100%",
-        height: "100%",
-        objectFit: "cover"
-    }
 
     const exitRoom = () => {
         window.location.replace("/")
@@ -403,12 +402,63 @@ const MeetingPage = () => {
         });
     }
 
+    function shareVideo() {
+        navigator.mediaDevices.getDisplayMedia({
+            audio: true,
+            video: true
+        })
+        .then(screenStream => {
+            //스크린 공유 스트림을 얻어내고 여기에 오디오 스트림을 결합함 
+            myVideo.srcObject.getTracks().forEach((track) => { track.stop();}); // 기존 스트림 중지
+            myVideo.srcObject = screenStream
+        }).catch(function (e) {
+            console.log("getUserMedia Error! ", e);
+        });
+    }
+
+    const [selectIcon, setSelectIcon] = useState(selectCamera);
+    const modeModify = () => {
+        if(selectIcon) {
+            shareVideo();
+            setSelectIcon(!selectIcon);
+        }
+        else {
+            startCamera();
+            setSelectIcon(!selectIcon);
+        }
+    }
+
+    let defaultStyle = {
+        width: "100%",
+        height: "100%",
+        objectFit: "cover"
+    }
+
+    const camera_style = {
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+        transform : "scaleX(-1)",
+        webkitTransform: "rotateY(180deg)",
+        /* Safari and Chrome */
+        mozTransform: "rotateY(180deg)"
+        /* Firefox */
+    } 
+    const display_style = {
+        width: "100%",
+        objectFit: "cover",
+        transform : "scaleX(1)",
+        webkitTransform: "rotateY(0deg)",
+        /* Safari and Chrome */
+        mozTransform: "rotateY(0deg)"
+        /* Firefox */
+    }
     return (
         <div className='fake-root'>
             <div className='meet-root'>
                 <div className='left'>
                     <div id="video_grid" className="video-grid" style={defaultStyle}>
-                        <video id="local_vid" autoplay muted style={defaultStyle}></video>
+                        <video id="local_vid" className={selectIcon ? "camera_video" : "display_video"} autoplay muted></video>
                     </div>
                 </div>
                 <div className='right'>
@@ -432,6 +482,9 @@ const MeetingPage = () => {
                     </div>
                     <div className="user_btns" onClick={modVedioIcon}>
                         {!videoIcon ? <FontAwesomeIcon icon={faVideo}></FontAwesomeIcon> : <FontAwesomeIcon icon={faVideoSlash}></FontAwesomeIcon>}
+                    </div>
+                    <div className='user_btns' onClick={modeModify}>
+                        {!selectIcon ? <FontAwesomeIcon icon={faSmile}></FontAwesomeIcon> : <FontAwesomeIcon icon={faDisplay}></FontAwesomeIcon>}
                     </div>
                 </div>
             </div>

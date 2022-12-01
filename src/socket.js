@@ -1,6 +1,6 @@
 import io from "socket.io-client";
 
-export const socket = io("https://rohee.tk:5000", {
+export const socket = io("https://rohee.tk", {
     cors: {
         origin: "*",
     },

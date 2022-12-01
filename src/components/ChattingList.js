@@ -6,7 +6,7 @@ const ChattingList = React.memo(() =>{
     const chatbox = useRef()
     socket.on("chatting", (data)=>{
         let chat_element = document.createElement("li");
-
+        console.log(typeof(data))
         if(data["type"] === "disconnect") {
             chat_element.className = "notice_element"
             chat_element.innerText = data["text"];
