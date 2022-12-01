@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 const Input = () => {
     const roomData = useContext(DataContext);
     const sendMessage = () => { // chatting 보내기
-        const data = {
+        let data = {
             "sender": roomData["userNickname"],
             "text": document.getElementById(roomData["userNickname"]).value.split("\n").join(""),
             "room_id": roomData["roomName"]
@@ -25,6 +25,16 @@ const Input = () => {
         else {
             document.getElementById(roomData["userNickname"]).value = "";
             document.getElementById(roomData["userNickname"]).focus();
+            let chat_select = document.getElementById("dm-select").value // 소켓 아이디 가져오기
+            if(chat_select === "all") {
+                // 브로드캐스팅임을 알리는 키워드를 포함하여 파이썬에 보내기 (emit)
+                data["direct"] = false;
+            }
+            else {
+                // DM임을 알리는 키워드와 소켓 아이디를 포함하여 파이썬에 보내기 (emit)
+                data["direct"] = true;
+                data["dest"] = chat_select; // 상대방의 소켓 아이디
+            }
             socket.emit("chatting", data);
         }
 

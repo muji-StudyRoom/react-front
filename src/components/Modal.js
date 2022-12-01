@@ -100,11 +100,11 @@ const Modal = (props) => {
         title: '수용 인원은 2 이상 5 이하의 숫자만 입력 가능합니다.'
       })
     }
-    else if (parseInt(room_allowed) > 5 || parseInt(room_allowed) < 2) {
+    else if (parseInt(room_allowed) > 4 || parseInt(room_allowed) < 2) {
       document.getElementById("room_allowed").focus()
       Toast.fire({
         icon: 'error',
-        title: '수용 인원은 2 이상 5 이하의 숫자만 입력 가능합니다.'
+        title: '수용 인원은 2 이상 4 이하의 숫자만 입력 가능합니다.'
       })
     }
     else if (room_nickname === "" || room_nickname.length > 10) {
