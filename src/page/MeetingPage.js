@@ -449,7 +449,7 @@ const MeetingPage = () => {
                         <div id="dm-select-div">
                             <select id='dm-select'>
                                 <option value="all">모두</option>
-                            </select> 에게 메시지를 보냅니다.
+                            </select>에게 메시지를 보냅니다.
                         </div>
                         <div className='chat-input'>
                             <Input />

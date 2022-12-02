@@ -11,8 +11,7 @@ const ChattingList = React.memo(() => {
         let space_element = document.createElement("li");
         let chat_scroll = document.getElementById("chat_scroll");
         space_element.innerText = "\n"
-        
-        console.log(typeof (data))
+
         if (data["type"] === "disconnect") {
             name_element.className = "name_element";
             chat_element.className = "notice_element"
@@ -57,10 +56,7 @@ const ChattingList = React.memo(() => {
             <ul ref={chatbox} id="chat_scroll">
             </ul>
         </>
-
     );
 });
-
-
 
 export default ChattingList;

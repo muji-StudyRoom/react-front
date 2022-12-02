@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 const Input = () => {
     const roomData = useContext(DataContext);
     const sendMessage = () => { // chatting 보내기
-        const data = {
+        let data = {
             "sender": roomData["userNickname"],
             "text": document.getElementById(roomData["userNickname"]).value.split("\n").join(""),
             "room_id": roomData["roomName"]

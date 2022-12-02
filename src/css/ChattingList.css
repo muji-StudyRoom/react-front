@@ -31,8 +31,8 @@
     margin: 5px 0px 5px 23px;
 }
 
-.chat_element {
-    height: 40px;
+.chat_element, .notice_element {
+    min-height: 20px;
     word-break: break-all;
     margin-left: 20px;
     margin-right: 20px;
@@ -42,7 +42,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 0px 10px 0px 10px;
+    padding: 10px 10px 10px 10px;
 }
 
 .chat_element::after {
