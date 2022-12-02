@@ -281,6 +281,7 @@ function makeVideoElementCustom(element_id, display_name) {
     let vid = document.createElement("video");
     vid.id = "vid_" + element_id;
     vid.autoplay = true;
+    vid.className = "camera_video"
     return vid;
 }
 function getVideoObj(element_id) {
@@ -438,7 +439,7 @@ const MeetingPage = () => {
             <div className='meet-root'>
                 <div className='left'>
                     <div id="video_grid" className="video-grid" style={defaultStyle}>
-                        <video id="local_vid" className={selectIcon ? "camera_video" : "display_video"} autoplay muted></video>
+                        <video id="local_vid" className={selectIcon ? "camera_video" : "display_video"} autoplay muted style={defaultStyle}></video>
                     </div>
                 </div>
                 <div className='right'>
