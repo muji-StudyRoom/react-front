@@ -16,11 +16,12 @@ const Paging = () => {
         async function getData() {
             const response = await axios.get("/room")
             setResponseRoom(response.data)
+            // console.log(response.data.length)
             for (let i = response.data.length - 1; i >= 0; i--) {
-                // var imgStyle = { backgroundImage: 'url("../img/box/kakao"' + (10 % i + 1) + '".jpg")' }
+                console.log(parseInt(i) % 10 + 1)
                 roomList.push([
                     <div className="room" key={response.data[i].roomId}>
-                        <div className='room-header' onClick={openModal} id={response.data[i].roomId} style={{backgroundImage: `url(/box/kakao${ 10 % parseInt(i) + 1}.jpg)`}}></div>
+                        <div className='room-header' onClick={openModal} id={response.data[i].roomId} style={{backgroundImage: `url(/box/kakao${ parseInt(i) % 10 + 1}.jpg)`}}></div>
                         <div className='room-body'>{response.data[i].roomName}</div>
                         <div className='room-footer'>
                             <FontAwesomeIcon icon={faEye} /> {response.data[i].roomEnterUser}
