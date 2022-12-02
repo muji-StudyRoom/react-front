@@ -91,14 +91,12 @@
     font-family: 'Jua', sans-serif;
     display: flex;
     align-items: center;
-    justify-content: start;
 }
 
 select {
     -webkit-appearance: none;  /* 네이티브 외형 감추기 */
     -moz-appearance: none;
     appearance: none;
-    /* background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%; */
     font-family: 'Jua', sans-serif;
     margin-right: 5px;
     font-size: 18px;
