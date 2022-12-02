@@ -433,25 +433,6 @@ const MeetingPage = () => {
         objectFit: "cover"
     }
 
-    const camera_style = {
-        width: "100%",
-        height: "100%",
-        objectFit: "cover",
-        transform : "scaleX(-1)",
-        webkitTransform: "rotateY(180deg)",
-        /* Safari and Chrome */
-        mozTransform: "rotateY(180deg)"
-        /* Firefox */
-    } 
-    const display_style = {
-        width: "100%",
-        objectFit: "cover",
-        transform : "scaleX(1)",
-        webkitTransform: "rotateY(0deg)",
-        /* Safari and Chrome */
-        mozTransform: "rotateY(0deg)"
-        /* Firefox */
-    }
     return (
         <div className='fake-root'>
             <div className='meet-root'>

@@ -23,7 +23,7 @@
     background-color: #eaefff;
 }
 
-li {
+.name_element, .notice_element, .chat_element {
     margin-left: 23px;
 }
 
@@ -31,7 +31,7 @@ li {
     margin: 5px 0px 5px 23px;
 }
 
-.chat_element, .notice_element {
+.chat_element {
     height: 40px;
     word-break: break-all;
     margin-left: 20px;
@@ -45,7 +45,36 @@ li {
     padding: 0px 10px 0px 10px;
 }
 
-.chat_element::after, .notice_element::after {
+.chat_element::after {
+    margin-left: 20px;
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 8px solid transparent;
+	border-right-color: #eaefff;
+	border-left: 0;
+	margin-top: -8px;
+	margin-left: -8px;
+}
+
+.notice_element {
+    height: 40px;
+    word-break: break-all;
+    margin-left: 20px;
+    margin-right: 20px;
+	position: relative;
+	background: #eaefff;
+	border-radius: .4em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px 10px 0px 10px;
+}
+
+.notice_element::after {
     margin-left: 20px;
 	content: '';
 	position: absolute;
