@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-solid-svg-icons"
+import { faCalendarDays, faEye, faUser } from "@fortawesome/free-solid-svg-icons"
 import './css/paging.css';
 import './css/App.css';
 import Pagination from "react-js-pagination"
@@ -15,16 +15,23 @@ const Paging = () => {
     useEffect(() => {
         async function getData() {
             const response = await axios.get("/room")
+            console.log(response)
             setResponseRoom(response.data)
             // console.log(response.data.length)
             for (let i = response.data.length - 1; i >= 0; i--) {
-                console.log(parseInt(i) % 10 + 1)
+                let createAt = response.data[i].roomCreateAt
+                let displayCreate = createAt.substring(0, 4) + "년 " + createAt.substring(5, 7) + "월 " + createAt.substring(8, 10) + "일 " + createAt.substring(11, 13) + "시 " + createAt.substring(14, 16) + "분"
                 roomList.push([
                     <div className="room" key={response.data[i].roomId}>
-                        <div className='room-header' onClick={openModal} id={response.data[i].roomId} style={{backgroundImage: `url(/box/kakao${ parseInt(i) % 10 + 1}.jpg)`}}></div>
+                        <div className='room-header' onClick={openModal} id={response.data[i].roomId} style={{ backgroundImage: `url(/box/kakao${parseInt(i) % 10 + 1}.jpg)` }}></div>
                         <div className='room-body'>{response.data[i].roomName}</div>
                         <div className='room-footer'>
-                            <FontAwesomeIcon icon={faEye} /> {response.data[i].roomEnterUser}
+                            <div>
+                                <FontAwesomeIcon icon={faUser} /> {response.data[i].roomEnterUser}
+                            </div>
+                            <div>
+                                <FontAwesomeIcon icon={faCalendarDays} /> {displayCreate}
+                            </div>
                         </div>
                         <div style={{ display: 'none' }} className={response.data[i].roomCapacity}></div>
                     </div>

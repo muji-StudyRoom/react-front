@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
 #header-app {
   background-image: url(../img/world_map.png);
   background-position: top left;
@@ -96,8 +98,9 @@ input[id=search-input]::placeholder {
 }
 
 .room {
+  font-family: 'Jua', sans-serif;
   background-color: #eaefff;
-  height: 350px;
+  height: 370px;
   width: 300px;
   border-radius: 15px;
   display: inline-block;

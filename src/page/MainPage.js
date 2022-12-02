@@ -50,6 +50,15 @@ const Search = () => {
           .then(response => {
             console.log(response)
           })
+          .catch(e => {
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: '검색어와 일치하는 방이 없습니다.',
+              showConfirmButton: false,
+              timer: 1000
+            })
+          })
       }
     }
   }
