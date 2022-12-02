@@ -37,26 +37,29 @@ const ChattingList = React.memo(() => {
             dm_select.innerText = data["name"]
             document.getElementById("dm-select").appendChild(dm_select);
         }
-        else { // dm을 받을 경우
+        else { 
             name_element.className = "name_element";
-            dm_element.className = "dm_element";
             if (data["direct"] === false) {
                 name_element.innerText = data["sender"];
-                dm_element.innerText = data["text"];
-
+                chat_element.innerText = data["text"];
+                chat_element.className = "chat_element";
+                chat_scroll.appendChild(name_element)
+                chat_scroll.appendChild(chat_element)
+                chat_scroll.appendChild(space_element)
             }
-            else {
+            else { // dm을 받을 경우
                 if(data["target"] === "self") {
                     name_element.innerText =  document.getElementById(document.getElementById("dm-select").value).innerText + "에게 보냄(DM)"
                 }
                 else {
                     name_element.innerText = data["sender"] + "에게 받음(DM)"
                 }
+                dm_element.className = "dm_element"
                 dm_element.innerText = data["text"];
+                chat_scroll.appendChild(name_element)
+                chat_scroll.appendChild(dm_element)
+                chat_scroll.appendChild(space_element)
             }
-            chat_scroll.appendChild(name_element)
-            chat_scroll.appendChild(dm_element)
-            chat_scroll.appendChild(space_element)
         }
         document.getElementById("chat_scroll").scroll({ top: document.getElementById("chat_scroll").scrollHeight, behavior: 'smooth' })
     })
