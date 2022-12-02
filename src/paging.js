@@ -1,54 +1,101 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarDays, faEye, faUser } from "@fortawesome/free-solid-svg-icons"
+import { faCalendarDays, faUser } from "@fortawesome/free-solid-svg-icons"
 import './css/paging.css';
 import './css/App.css';
 import Pagination from "react-js-pagination"
 import EnterModal from './components/EnterModal';
 import axios from "axios";
 
-const Paging = () => {
+function Paging(props) {
     const [responseRoom, setResponseRoom] = useState();
     const [modalOpen, setModalOpen] = useState(false);
     const [propRoomInfo, setPropRoomInfo] = useState({});
     let roomList = [];
+
     useEffect(() => {
         async function getData() {
-            const response = await axios.get("/room")
-            console.log(response)
-            setResponseRoom(response.data)
-            // console.log(response.data.length)
-            for (let i = response.data.length - 1; i >= 0; i--) {
-                let createAt = response.data[i].roomCreateAt
+            if (props.target === "all") {
+                console.log("나는 all")
+                const response = await axios.get("/room")
+                setResponseRoom(response.data)
+                // console.log(response.data.length)
+                for (let i = response.data.length - 1; i >= 0; i--) {
+                    let createAt = response.data[i].roomCreateAt
+                    let displayCreate = createAt.substring(0, 4) + "년 " + createAt.substring(5, 7) + "월 " + createAt.substring(8, 10) + "일 " + createAt.substring(11, 13) + "시 " + createAt.substring(14, 16) + "분"
+                    roomList.push([
+                        <div className="room" key={response.data[i].roomId}>
+                            <div className='room-header' onClick={openModal} id={response.data[i].roomId} style={{ backgroundImage: `url(/box/kakao${parseInt(i) % 10 + 1}.jpg)` }}></div>
+                            <div className='room-body'>{response.data[i].roomName}</div>
+                            <div className='room-footer'>
+                                <div>
+                                    <FontAwesomeIcon icon={faUser} /> {response.data[i].roomEnterUser} 명
+                                </div>
+                                <div>
+                                    <FontAwesomeIcon icon={faCalendarDays} /> {displayCreate}
+                                </div>
+                            </div>
+                            <div style={{ display: 'none' }} className={response.data[i].roomCapacity}></div>
+                        </div>
+                    ])
+                }
+            }
+
+            else {
+                setResponseRoom(props.searchData)
+                console.log("search에 의해 실행")
+                // for (let i = props.searchData.length - 1; i >= 0; i--) {
+                //     let createAt = props.searchData[i].roomCreateAt
+                //     console.log(createAt)
+                //     let displayCreate = createAt.substring(0, 4) + "년 " + createAt.substring(5, 7) + "월 " + createAt.substring(8, 10) + "일 " + createAt.substring(11, 13) + "시 " + createAt.substring(14, 16) + "분"
+                //     roomList.push([
+                //         <div className="room" key={props.searchData[i].roomId}>
+                //             <div className='room-header' onClick={openModal} id={props.searchData[i].roomId} style={{ backgroundImage: `url(/box/kakao${parseInt(i) % 10 + 1}.jpg)` }}></div>
+                //             <div className='room-body'>{props.searchData[i].roomName}</div>
+                //             <div className='room-footer'>
+                //                 <div>
+                //                     <FontAwesomeIcon icon={faUser} /> {props.searchData[i].roomEnterUser} 명
+                //                 </div>
+                //                 <div>
+                //                     <FontAwesomeIcon icon={faCalendarDays} /> {displayCreate}
+                //                 </div>
+                //             </div>
+                //             <div style={{ display: 'none' }} className={props.searchData[i].roomCapacity}></div>
+                //         </div>
+                //     ])
+                // }
+
+                let createAt = props.searchData.roomCreateAt
+                console.log(createAt)
                 let displayCreate = createAt.substring(0, 4) + "년 " + createAt.substring(5, 7) + "월 " + createAt.substring(8, 10) + "일 " + createAt.substring(11, 13) + "시 " + createAt.substring(14, 16) + "분"
                 roomList.push([
-                    <div className="room" key={response.data[i].roomId}>
-                        <div className='room-header' onClick={openModal} id={response.data[i].roomId} style={{ backgroundImage: `url(/box/kakao${parseInt(i) % 10 + 1}.jpg)` }}></div>
-                        <div className='room-body'>{response.data[i].roomName}</div>
+                    <div className="room" key={props.searchData.roomId}>
+                        <div className='room-header' onClick={openModal} id={props.searchData.roomId} style={{ backgroundImage: `url(/box/kakao${1}.jpg)` }}></div>
+                        <div className='room-body'>{props.searchData.roomName}</div>
                         <div className='room-footer'>
                             <div>
-                                <FontAwesomeIcon icon={faUser} /> {response.data[i].roomEnterUser}
+                                <FontAwesomeIcon icon={faUser} /> {props.searchData.roomEnterUser} 명
                             </div>
                             <div>
                                 <FontAwesomeIcon icon={faCalendarDays} /> {displayCreate}
                             </div>
                         </div>
-                        <div style={{ display: 'none' }} className={response.data[i].roomCapacity}></div>
+                        <div style={{ display: 'none' }} className={props.searchData.roomCapacity}></div>
                     </div>
                 ])
+                console.log(roomList)
             }
         }
         getData();
         // eslint-disable-next-line
-    }, [])
+    }, [props])
 
     const openModal = (event) => {
-        console.log("roomName : ", document.getElementById(event.target.id).nextSibling.innerText)
+        // console.log("roomName : ", document.getElementById(event.target.id).nextSibling.innerText)
         setPropRoomInfo({ roomName: document.getElementById(event.target.id).nextSibling.innerText, roomId: event.target.id, roomCapacity: document.getElementById(event.target.id).nextSibling.nextSibling.nextSibling.className })
         setModalOpen(true);
     };
     const closeModal = () => {
-        //console.log("close")
         setModalOpen(false);
     };
 
@@ -68,12 +115,12 @@ const Paging = () => {
         setCurrentRooms(rooms.slice(indexOfFirstRoom, indexOfLastRoom))
     }, [indexOfFirstRoom, indexOfLastRoom, page, rooms, responseRoom])
 
-
+    // rooms가 안바뀌고 있음
     return (<>
         <EnterModal open={modalOpen ? true : false} close={closeModal} roomInfo={propRoomInfo}></EnterModal>
         <div id="rooms">
             {currentRooms}
-        </div>
+        </div>{console.log("roooooms",rooms)}
         <Pagination
             activePage={page}
             itemsCountPerPage={roomPerPage}
@@ -87,7 +134,6 @@ const Paging = () => {
         />
     </>
     );
-};
-
+}
 
 export default Paging;

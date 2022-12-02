@@ -32,6 +32,8 @@ const Header = () => {
 
 const Search = () => {
   const [text, setText] = useState("");
+  const [completed, setCompleted] = useState(false);
+  const [responseData, setResponseData] = useState({});
 
   const searchRoom = (event) => {
     if (event.key === "Enter") {
@@ -48,7 +50,8 @@ const Search = () => {
         let url = "/room/" + text
         axios.get(url)
           .then(response => {
-            console.log(response)
+            setCompleted(true);
+            setResponseData(response.data)
           })
           .catch(e => {
             Swal.fire({
@@ -63,21 +66,26 @@ const Search = () => {
     }
   }
 
-  return <div id="search-box">
-    <input type="text" id="search-input" placeholder='검색어를 입력하세요' value={text} onKeyPress={searchRoom} onChange={event => {
-      setText(event.target.value)
-    }}></input>
-    <div id='icon'>
-      <div id='search'>
-        <FontAwesomeIcon icon={faMagnifyingGlass} />
-      </div>
-      <div id='delete'>
-        <FontAwesomeIcon icon={faX} onClick={() => {
-          setText("")
-        }} />
+  return <>
+    <div id="search-box">
+      <input type="text" id="search-input" placeholder='검색어를 입력하세요' value={text} onKeyPress={searchRoom} onChange={event => {
+        setText(event.target.value)
+      }}></input>
+      <div id='icon'>
+        <div id='search'>
+          <FontAwesomeIcon icon={faMagnifyingGlass} />
+        </div>
+        <div id='delete'>
+          <FontAwesomeIcon icon={faX} onClick={() => {
+            setText("")
+          }} />
+        </div>
       </div>
     </div>
-  </div>
+    {console.log(completed)}
+    {console.log(responseData)}
+    {completed ? <Paging target="search" searchData={responseData}>{console.log("ddddd")}</Paging> : <Paging target="all"></Paging>}
+  </>
 }
 
 const App = () => {
@@ -86,7 +94,6 @@ const App = () => {
     <div className="App">
       <Header></Header>
       <Search></Search>
-      <Paging></Paging>
       <footer id="first-footer"></footer>
       <div>
       </div>
