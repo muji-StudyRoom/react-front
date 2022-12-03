@@ -86,11 +86,11 @@ const Modal = (props) => {
     let room_nickname = document.getElementById("room_nickname").value
     let room_pwd = document.getElementById("room_password").value
 
-    if (room_id.length === 0 || room_id.length > 100) {
+    if (room_id.length < 4 || room_id.length > 15) {
       document.getElementById("room_id").focus()
       Toast.fire({
         icon: 'error',
-        title: '방 제목은 0 초과 100 이하의 길이만 입력 가능합니다.'
+        title: '방 제목은 3 이상 15 이하의 길이만 입력 가능합니다.'
       })
     }
     else if (room_allowed === "" || isNaN(room_allowed)) {
