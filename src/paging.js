@@ -98,7 +98,7 @@ function Paging(props) {
         <EnterModal open={modalOpen ? true : false} close={closeModal} roomInfo={propRoomInfo}></EnterModal>
         <div id="rooms">
             {currentRooms}
-        </div>{console.log(currentRooms)}
+        </div>
         <Pagination
             activePage={page}
             itemsCountPerPage={roomPerPage}

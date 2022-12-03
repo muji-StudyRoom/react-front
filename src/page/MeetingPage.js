@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { socket } from '../socket';
 import "../css/Meetingpage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDisplay, faMicrophone, faRightFromBracket, faSmile } from '@fortawesome/free-solid-svg-icons';
+import { faDisplay, faL, faMicrophone, faRightFromBracket, faSmile } from '@fortawesome/free-solid-svg-icons';
 import { faMicrophoneSlash } from '@fortawesome/free-solid-svg-icons';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import { faVideoSlash } from '@fortawesome/free-solid-svg-icons';
@@ -414,6 +414,8 @@ const MeetingPage = () => {
             //스크린 공유 스트림을 얻어내고 여기에 오디오 스트림을 결합함 
             myVideo.srcObject.getTracks().forEach((track) => { track.stop();}); // 기존 스트림 중지
             myVideo.srcObject = screenStream
+            setVideoIcon(false)
+            setAudioIcon(true)
         }).catch(function (e) {
             console.log("getUserMedia Error! ", e);
         });
@@ -426,7 +428,9 @@ const MeetingPage = () => {
             setSelectIcon(!selectIcon);
         }
         else {
-            startCamera(false, false);
+            startCamera(false, true);
+            setVideoIcon(false)
+            setAudioIcon(true)
             setSelectIcon(!selectIcon);
         }
     }
