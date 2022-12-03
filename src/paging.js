@@ -16,9 +16,9 @@ function Paging(props) {
     useEffect(() => {
         async function getData() {
             if (props.target === "all") {
-                console.log("나는 all")
                 const response = await axios.get("/room")
                 setResponseRoom(response.data)
+                console.log("all : ", typeof(response.data))
                 // console.log(response.data.length)
                 for (let i = response.data.length - 1; i >= 0; i--) {
                     let createAt = response.data[i].roomCreateAt
@@ -66,7 +66,7 @@ function Paging(props) {
                 // }
 
                 let createAt = props.searchData.roomCreateAt
-                console.log(createAt)
+                console.log("create",createAt)
                 let displayCreate = createAt.substring(0, 4) + "년 " + createAt.substring(5, 7) + "월 " + createAt.substring(8, 10) + "일 " + createAt.substring(11, 13) + "시 " + createAt.substring(14, 16) + "분"
                 roomList.push([
                     <div className="room" key={props.searchData.roomId}>
@@ -120,7 +120,7 @@ function Paging(props) {
         <EnterModal open={modalOpen ? true : false} close={closeModal} roomInfo={propRoomInfo}></EnterModal>
         <div id="rooms">
             {currentRooms}
-        </div>{console.log("roooooms",rooms)}
+        </div>
         <Pagination
             activePage={page}
             itemsCountPerPage={roomPerPage}

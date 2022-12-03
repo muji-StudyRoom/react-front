@@ -51,6 +51,7 @@ const Search = () => {
         axios.get(url)
           .then(response => {
             setCompleted(true);
+            console.log("response : ", typeof(response.data))
             setResponseData(response.data)
           })
           .catch(e => {
