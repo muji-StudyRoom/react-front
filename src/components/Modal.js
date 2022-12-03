@@ -86,7 +86,7 @@ const Modal = (props) => {
     let room_nickname = document.getElementById("room_nickname").value
     let room_pwd = document.getElementById("room_password").value
 
-    if (room_id.length < 4 || room_id.length > 15) {
+    if (room_id.length < 3 || room_id.length > 15) {
       document.getElementById("room_id").focus()
       Toast.fire({
         icon: 'error',

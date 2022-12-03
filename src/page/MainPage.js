@@ -31,13 +31,12 @@ const Header = () => {
 }
 
 const Search = () => {
-  const [text, setText] = useState("");
   const [completed, setCompleted] = useState(false);
-  const [responseData, setResponseData] = useState({});
+  const [searchResponse, setSearchResponse] = useState({});
 
   const searchRoom = (event) => {
     if (event.key === "Enter") {
-      if (text === "") {
+      if (document.getElementById("search-input").value === "") {
         Swal.fire({
           position: 'center',
           icon: 'warning',
@@ -47,12 +46,14 @@ const Search = () => {
         })
       }
       else {
-        let url = "/room/" + text
+        let url = "/room/" + document.getElementById("search-input").value
+        document.getElementById("search-input").value = "";
         axios.get(url)
           .then(response => {
             setCompleted(true);
-            console.log("response : ", typeof(response.data))
-            setResponseData(response.data)
+            console.log("response : ", response)
+            setSearchResponse(response.data)
+            console.log("setresponse : ", searchResponse)
           })
           .catch(e => {
             Swal.fire({
@@ -69,23 +70,19 @@ const Search = () => {
 
   return <>
     <div id="search-box">
-      <input type="text" id="search-input" placeholder='검색어를 입력하세요' value={text} onKeyPress={searchRoom} onChange={event => {
-        setText(event.target.value)
-      }}></input>
+      <input type="text" id="search-input" placeholder='검색어를 입력하세요' onKeyPress={searchRoom}></input>
       <div id='icon'>
         <div id='search'>
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </div>
         <div id='delete'>
           <FontAwesomeIcon icon={faX} onClick={() => {
-            setText("")
+            document.getElementById("search-input").value = "";
           }} />
         </div>
       </div>
     </div>
-    {console.log(completed)}
-    {console.log(responseData)}
-    {completed ? <Paging target="search" searchData={responseData}>{console.log("ddddd")}</Paging> : <Paging target="all"></Paging>}
+    {completed ? <Paging target="search" searchData={searchResponse}></Paging> : <Paging target="all"></Paging>}
   </>
 }
 

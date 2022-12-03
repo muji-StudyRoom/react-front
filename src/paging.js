@@ -18,8 +18,6 @@ function Paging(props) {
             if (props.target === "all") {
                 const response = await axios.get("/room")
                 setResponseRoom(response.data)
-                console.log("all : ", typeof(response.data))
-                // console.log(response.data.length)
                 for (let i = response.data.length - 1; i >= 0; i--) {
                     let createAt = response.data[i].roomCreateAt
                     let displayCreate = createAt.substring(0, 4) + "년 " + createAt.substring(5, 7) + "월 " + createAt.substring(8, 10) + "일 " + createAt.substring(11, 13) + "시 " + createAt.substring(14, 16) + "분"
@@ -44,46 +42,27 @@ function Paging(props) {
             else {
                 setResponseRoom(props.searchData)
                 console.log("search에 의해 실행")
-                // for (let i = props.searchData.length - 1; i >= 0; i--) {
-                //     let createAt = props.searchData[i].roomCreateAt
-                //     console.log(createAt)
-                //     let displayCreate = createAt.substring(0, 4) + "년 " + createAt.substring(5, 7) + "월 " + createAt.substring(8, 10) + "일 " + createAt.substring(11, 13) + "시 " + createAt.substring(14, 16) + "분"
-                //     roomList.push([
-                //         <div className="room" key={props.searchData[i].roomId}>
-                //             <div className='room-header' onClick={openModal} id={props.searchData[i].roomId} style={{ backgroundImage: `url(/box/kakao${parseInt(i) % 10 + 1}.jpg)` }}></div>
-                //             <div className='room-body'>{props.searchData[i].roomName}</div>
-                //             <div className='room-footer'>
-                //                 <div>
-                //                     <FontAwesomeIcon icon={faUser} /> {props.searchData[i].roomEnterUser} 명
-                //                 </div>
-                //                 <div>
-                //                     <FontAwesomeIcon icon={faCalendarDays} /> {displayCreate}
-                //                 </div>
-                //             </div>
-                //             <div style={{ display: 'none' }} className={props.searchData[i].roomCapacity}></div>
-                //         </div>
-                //     ])
-                // }
-
-                let createAt = props.searchData.roomCreateAt
-                console.log("create",createAt)
-                let displayCreate = createAt.substring(0, 4) + "년 " + createAt.substring(5, 7) + "월 " + createAt.substring(8, 10) + "일 " + createAt.substring(11, 13) + "시 " + createAt.substring(14, 16) + "분"
-                roomList.push([
-                    <div className="room" key={props.searchData.roomId}>
-                        <div className='room-header' onClick={openModal} id={props.searchData.roomId} style={{ backgroundImage: `url(/box/kakao${1}.jpg)` }}></div>
-                        <div className='room-body'>{props.searchData.roomName}</div>
-                        <div className='room-footer'>
-                            <div>
-                                <FontAwesomeIcon icon={faUser} /> {props.searchData.roomEnterUser} 명
+                for (let i = props.searchData.length - 1; i >= 0; i--) {
+                    let createAt = props.searchData[i].roomCreateAt
+                    // console.log(createAt)
+                    let displayCreate = createAt.substring(0, 4) + "년 " + createAt.substring(5, 7) + "월 " + createAt.substring(8, 10) + "일 " + createAt.substring(11, 13) + "시 " + createAt.substring(14, 16) + "분"
+                    console.log(displayCreate)
+                    roomList.push([
+                        <div className="room" key={props.searchData[i].roomId}>
+                            <div className='room-header' onClick={openModal} id={props.searchData[i].roomId} style={{ backgroundImage: `url(/box/kakao${parseInt(i) % 10 + 1}.jpg)` }}></div>
+                            <div className='room-body'>{props.searchData[i].roomName}</div>
+                            <div className='room-footer'>
+                                <div>
+                                    <FontAwesomeIcon icon={faUser} /> {props.searchData[i].roomEnterUser} 명
+                                </div>
+                                <div>
+                                    <FontAwesomeIcon icon={faCalendarDays} /> {displayCreate}
+                                </div>
                             </div>
-                            <div>
-                                <FontAwesomeIcon icon={faCalendarDays} /> {displayCreate}
-                            </div>
+                            <div style={{ display: 'none' }} className={props.searchData[i].roomCapacity}></div>
                         </div>
-                        <div style={{ display: 'none' }} className={props.searchData.roomCapacity}></div>
-                    </div>
-                ])
-                console.log(roomList)
+                    ])
+                }
             }
         }
         getData();
