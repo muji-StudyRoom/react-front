@@ -66,8 +66,8 @@ const Search = () => {
       }
     }
   }
-  console.log("rendering active");
-  console.log(completed)
+  // console.log("rendering active");
+  // console.log(completed)
   return <>
     <div id="search-box">
       <input type="text" id="search-input" placeholder='검색어를 입력하세요' onKeyPress={searchRoom}></input>
@@ -94,7 +94,7 @@ const App = () => {
       <Search></Search>
       <footer id="first-footer">
         <div id='footer-all'>
-          <div id="footer-title">Eyes talk</div>
+          <div id="footer-title">Eyes Talk</div>
           <div>
             <div className='footer-mail'>노희재 rhj0830@gmail.com</div>
             <div className='footer-mail'>김남주 jupitern404@gmail.com</div>
