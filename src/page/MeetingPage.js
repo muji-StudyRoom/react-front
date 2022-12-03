@@ -197,8 +197,6 @@ function startCamera(mute_video, mute_audio) {
     navigator.mediaDevices.getUserMedia(mediaConstraints)
         .then((stream) => {
             myVideo.srcObject = stream;
-            //camera_allowed = true;
-            console.log(mute_video, mute_audio)
             setAudioMuteState(mute_audio);
             setVideoMuteState(mute_video);
             myVideo.autoplay = true;
@@ -223,7 +221,6 @@ function setVideoMuteState(flag) {
     let local_stream = myVideo.srcObject;
     local_stream.getVideoTracks().forEach((track) => {
         if (track.kind === "video") {
-            console.log("setvideomute", !flag)
             track.enabled = !flag;
         }
 
@@ -303,7 +300,6 @@ function removeVideoElement(element_id) {
 
 const MeetingPage = () => {
     const location = useLocation();
-    console.log(location)
     const [dataToServer, setDataToServer] = useState({});
 
     useEffect(() => {
@@ -369,6 +365,13 @@ const MeetingPage = () => {
                     display_name = recvd_list[peer_id];
                     _peer_list[peer_id] = undefined;
                     addVideoElement(peer_id, display_name);
+                    if(peer_id != myID) {
+                        let dm_select = document.createElement("option");
+                        dm_select.id = peer_id
+                        dm_select.value = peer_id
+                        dm_select.innerText = recvd_list[peer_id]
+                        document.getElementById("dm-select").appendChild(dm_select);
+                    }
                 }
                 console.log("_peer_list : ", _peer_list)
                 start_webrtc();
