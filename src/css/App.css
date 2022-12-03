@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&display=swap');
 #header-app {
   background-image: url(../img/world_map.png);
   background-position: top left;
@@ -16,6 +15,7 @@
   font-weight: 700;
   color: #00184a;
   margin-bottom: 30px;
+  font-family: 'Black Han Sans', sans-serif;
 }
 
 #header-text {
