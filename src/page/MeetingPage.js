@@ -193,13 +193,14 @@ var mediaConstraints = {
 
 
 
-function startCamera() {
+function startCamera(mute_video, mute_audio) {
     navigator.mediaDevices.getUserMedia(mediaConstraints)
         .then((stream) => {
             myVideo.srcObject = stream;
             //camera_allowed = true;
-            setAudioMuteState(audioMuted);
-            setVideoMuteState(videoMuted);
+            console.log(mute_video, mute_audio)
+            setAudioMuteState(mute_audio);
+            setVideoMuteState(mute_video);
             myVideo.autoplay = true;
             //start the socketio connection
             socket.connect();
@@ -222,6 +223,7 @@ function setVideoMuteState(flag) {
     let local_stream = myVideo.srcObject;
     local_stream.getVideoTracks().forEach((track) => {
         if (track.kind === "video") {
+            console.log("setvideomute", !flag)
             track.enabled = !flag;
         }
 
@@ -301,11 +303,12 @@ function removeVideoElement(element_id) {
 
 const MeetingPage = () => {
     const location = useLocation();
+    console.log(location)
     const [dataToServer, setDataToServer] = useState({});
 
     useEffect(() => {
         getMyVideo();
-        startCamera();
+        startCamera(!!parseInt(location.state.mute_video), !!parseInt(location.state.mute_audio));
     }, [])
 
     useEffect(() => {
@@ -378,7 +381,7 @@ const MeetingPage = () => {
         console.log("exit")
     }
 
-    const [audioIcon, setAudioIcon] = useState(audioMuted);
+    const [audioIcon, setAudioIcon] = useState(!!parseInt(location.state.mute_audio));
     const modAudioIcon = () => {
         setAudioIcon(!audioIcon);
         let local_stream = myVideo.srcObject;
@@ -390,7 +393,7 @@ const MeetingPage = () => {
         });
     }
 
-    const [videoIcon, setVideoIcon] = useState(videoMuted);
+    const [videoIcon, setVideoIcon] = useState(!!parseInt(location.state.mute_video));
     const modVedioIcon = () => {
         setVideoIcon(!videoIcon);
         let local_stream = myVideo.srcObject;
@@ -423,7 +426,7 @@ const MeetingPage = () => {
             setSelectIcon(!selectIcon);
         }
         else {
-            startCamera();
+            startCamera(false, false);
             setSelectIcon(!selectIcon);
         }
     }

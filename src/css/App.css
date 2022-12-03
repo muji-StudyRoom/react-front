@@ -137,6 +137,17 @@ input[id=search-input]::placeholder {
 }
 
 #first-footer {
-  height: 150px;
+  height: 200px;
   background-color: #eaefff;
+  font-family:'Jua', sans-serif;
+  padding: 50px 0px 0px 80px;
+}
+
+#footer-title {
+  margin-bottom: 15px;
+  font-size: 25px;
+}
+
+.footer-mail {
+  margin-bottom: 10px;
 }

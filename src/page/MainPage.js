@@ -50,10 +50,9 @@ const Search = () => {
         document.getElementById("search-input").value = "";
         axios.get(url)
           .then(response => {
-            setCompleted(true);
             console.log("response : ", response)
+            setCompleted(true);
             setSearchResponse(response.data)
-            console.log("setresponse : ", searchResponse)
           })
           .catch(e => {
             Swal.fire({
@@ -67,7 +66,8 @@ const Search = () => {
       }
     }
   }
-
+  console.log("rendering active");
+  console.log(completed)
   return <>
     <div id="search-box">
       <input type="text" id="search-input" placeholder='검색어를 입력하세요' onKeyPress={searchRoom}></input>
@@ -92,7 +92,17 @@ const App = () => {
     <div className="App">
       <Header></Header>
       <Search></Search>
-      <footer id="first-footer"></footer>
+      <footer id="first-footer">
+        <div id='footer-all'>
+          <div id="footer-title">Eyes talk</div>
+          <div>
+            <div className='footer-mail'>노희재 rhj0830@gmail.com</div>
+            <div className='footer-mail'>김남주 jupitern404@gmail.com</div>
+            <div className='footer-mail'>이현지 dleeh197@gmail.com</div>
+            <div className='footer-mail'>이기빈 lkb980316@gmail.com</div>
+          </div>
+        </div>
+      </footer>
       <div>
       </div>
     </div>

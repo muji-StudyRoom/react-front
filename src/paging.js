@@ -44,7 +44,6 @@ function Paging(props) {
                 console.log("search에 의해 실행")
                 for (let i = props.searchData.length - 1; i >= 0; i--) {
                     let createAt = props.searchData[i].roomCreateAt
-                    // console.log(createAt)
                     let displayCreate = createAt.substring(0, 4) + "년 " + createAt.substring(5, 7) + "월 " + createAt.substring(8, 10) + "일 " + createAt.substring(11, 13) + "시 " + createAt.substring(14, 16) + "분"
                     console.log(displayCreate)
                     roomList.push([
@@ -99,7 +98,7 @@ function Paging(props) {
         <EnterModal open={modalOpen ? true : false} close={closeModal} roomInfo={propRoomInfo}></EnterModal>
         <div id="rooms">
             {currentRooms}
-        </div>
+        </div>{console.log(currentRooms)}
         <Pagination
             activePage={page}
             itemsCountPerPage={roomPerPage}
