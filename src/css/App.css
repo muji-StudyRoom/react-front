@@ -40,6 +40,7 @@
 }
 
 #search-box {
+  display: inline-block;
   position: relative;
   width: 500px;
   height: 50px;
@@ -150,4 +151,21 @@ input[id=search-input]::placeholder {
 
 .footer-mail {
   margin-bottom: 10px;
+}
+
+#all-btn-div {
+  display: inline-flex;
+}
+
+#all-btn {
+  margin-left: 40px;
+  padding: 6px 12px;
+  color: #fff;
+  background-color: #505f98;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  outline: none;
+  cursor: pointer;
+  border: 0;
 }

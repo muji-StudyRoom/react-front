@@ -12,7 +12,6 @@ function Paging(props) {
     const [modalOpen, setModalOpen] = useState(false);
     const [propRoomInfo, setPropRoomInfo] = useState({});
     const [rooms, setRooms] = useState([])
-    console.log("rooms : ", rooms)
     let roomList = [];
 
     useEffect(() => {
@@ -48,7 +47,6 @@ function Paging(props) {
 
             else {
                 setResponseRoom(props.searchData)
-                console.log("search에 의해 실행", props.searchData)
                 for (let i = props.searchData.length - 1; i >= 0; i--) {
                     let createAt = props.searchData[i].roomCreateAt
                     let displayCreate = createAt.substring(0, 4) + "년 " +
@@ -56,8 +54,6 @@ function Paging(props) {
                         createAt.substring(8, 10) + "일 " +
                         createAt.substring(11, 13) + "시 " +
                         createAt.substring(14, 16) + "분";
-
-                    // console.log(displayCreate)
                     roomList.push([
                         <div className="room" key={props.searchData[i].roomId}>
                             <div className='room-header' onClick={openModal} id={props.searchData[i].roomId} style={{ backgroundImage: `url(/box/kakao${parseInt(i) % 10 + 1}.jpg)` }}></div>
@@ -82,7 +78,6 @@ function Paging(props) {
     }, [props])
 
     const openModal = (event) => {
-        // console.log("roomName : ", document.getElementById(event.target.id).nextSibling.innerText)
         setPropRoomInfo({
             roomName: document.getElementById(event.target.id).nextSibling.innerText,
             roomId: event.target.id,

@@ -1,6 +1,6 @@
 import '../css/App.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faReplyAll } from "@fortawesome/free-solid-svg-icons";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import Paging from "../paging.js"
 import { useState } from 'react';
@@ -66,11 +66,16 @@ const Search = () => {
       }
     }
   }
-  // console.log("rendering active");
-  // console.log(completed)
+
+  const viewAll = () => {
+    setCompleted(false);
+  }
+
   return <>
     <div id="search-box">
-      <input type="text" id="search-input" placeholder='검색어를 입력하세요' onKeyPress={searchRoom}></input>
+      <span>
+        <input type="text" id="search-input" placeholder='검색어를 입력하세요' onKeyPress={searchRoom}></input>
+      </span>
       <div id='icon'>
         <div id='search'>
           <FontAwesomeIcon icon={faMagnifyingGlass} />
@@ -81,6 +86,9 @@ const Search = () => {
           }} />
         </div>
       </div>
+    </div>
+    <div id='all-btn-div'>
+      <button id='all-btn' onClick={viewAll}>전체보기</button>
     </div>
     {completed ? <Paging target="search" searchData={searchResponse}></Paging> : <Paging target="all"></Paging>}
   </>

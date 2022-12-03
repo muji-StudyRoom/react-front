@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { socket } from '../socket';
 import "../css/Meetingpage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDisplay, faL, faMicrophone, faRightFromBracket, faSmile } from '@fortawesome/free-solid-svg-icons';
+import { faDisplay, faMicrophone, faRightFromBracket, faSmile } from '@fortawesome/free-solid-svg-icons';
 import { faMicrophoneSlash } from '@fortawesome/free-solid-svg-icons';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import { faVideoSlash } from '@fortawesome/free-solid-svg-icons';
@@ -13,8 +13,6 @@ import { faVideoSlash } from '@fortawesome/free-solid-svg-icons';
 export const DataContext = createContext();
 
 var myVideo;
-var audioMuted = false;
-var videoMuted = false;
 var selectCamera = true;
 var myID;
 var _peer_list = {};
@@ -305,6 +303,7 @@ const MeetingPage = () => {
     useEffect(() => {
         getMyVideo();
         startCamera(!!parseInt(location.state.mute_video), !!parseInt(location.state.mute_audio));
+        // eslint-disable-next-line
     }, [])
 
     useEffect(() => {
@@ -365,7 +364,7 @@ const MeetingPage = () => {
                     display_name = recvd_list[peer_id];
                     _peer_list[peer_id] = undefined;
                     addVideoElement(peer_id, display_name);
-                    if(peer_id != myID) {
+                    if(peer_id !== myID) {
                         let dm_select = document.createElement("option");
                         dm_select.id = peer_id
                         dm_select.value = peer_id
