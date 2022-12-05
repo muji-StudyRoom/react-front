@@ -11,24 +11,24 @@ jobs:
         uses: actions/checkout@v2
       - name: Bump version and push tag
         id: tag_version
-        uses: mathieudutour/github-tag-action@v5.5 # 가져다 쓸 auto tagging 프로그램
+        uses: mathieudutour/github-tag-action@v5.5 # auto tagging 프로그램
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }} # secrets.GITHUB_TOKEN는 자동생성됨
+          github_token: ${{ secrets.GITHUB_TOKEN }} # secrets.GITHUB_TOKEN는 자동생성된다
       - name: Create a GitHub release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          GITHUB_TOKEN: ${{ secrets.PAT }} # 공유하기위해 등록한 GithubToken
         with:
           tag_name: ${{ steps.tag_version.outputs.new_tag }}
           release_name: Release ${{ steps.tag_version.outputs.new_tag }}
           body: ${{ steps.tag_version.outputs.changelog }}
-      - name: Configure AWS credentials
+      - name: Configure AWS credentials # AWS 정보 등록
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-2
-      - name: Login to Amazon ECR
+      - name: Login to Amazon ECR  # ECR 로그인 
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
       - name: Build, tag, and push image to Amazon ECR
@@ -40,7 +40,7 @@ jobs:
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-      - name: Checkout for Kustomize repository
+      - name: Checkout for Kustomize repository # kustomize로 이미지 태그 동기화
         uses: actions/checkout@v2
         with:
           # kubernetes yaml 파일 저장
