@@ -71,12 +71,16 @@ const Search = () => {
     setCompleted(false);
   }
 
+  const iconClick = () => {
+    document.getElementById("search-input").focus()
+  }
+
   return <>
     <div id="search-box">
       <span>
         <input type="text" id="search-input" placeholder='검색어를 입력하세요' onKeyPress={searchRoom}></input>
       </span>
-      <div id='icon'>
+      <div id='icon' onClick={iconClick}>
         <div id='search'>
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </div>

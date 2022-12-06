@@ -73,6 +73,10 @@ input[id=search-input]:focus {
   left: 20px;
 }
 
+#icon:hover {
+  cursor:text;
+}
+
 #search {
   color: #00184a;
 }
