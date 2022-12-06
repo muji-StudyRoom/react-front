@@ -5,7 +5,6 @@ import '../css/ChattingList.css'
 const ChattingList = React.memo(() => {
     const chatbox = useRef()
     socket.on("chatting", (data) => {
-        console.log(data)
         let name_element = document.createElement("li");
         let chat_element = document.createElement("li");
         let space_element = document.createElement("li");

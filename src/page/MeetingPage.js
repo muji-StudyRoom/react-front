@@ -342,7 +342,7 @@ const MeetingPage = () => {
             _peer_list[peer_id] = undefined; // add new user to user list
             addVideoElement(peer_id, display_name);
         });
-    })
+    }, []) // 어레이 추가
 
 
     socket.on("user-disconnect", (data) => {
