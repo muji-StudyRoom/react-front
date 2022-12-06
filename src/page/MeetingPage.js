@@ -272,6 +272,7 @@ function checkVideoLayout() {
 }
 function addVideoElement(element_id, display_name) {
     document.getElementById("video_grid").appendChild(makeVideoElementCustom(element_id, display_name));
+    console.log("addVideoElement 실행")
     checkVideoLayout();
 }
 function makeVideoElementCustom(element_id, display_name) {
