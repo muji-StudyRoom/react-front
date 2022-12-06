@@ -32,7 +32,7 @@ function Paging(props) {
                             <div className='room-body'>{response.data[i].roomName}</div>
                             <div className='room-footer'>
                                 <div>
-                                    <FontAwesomeIcon icon={faUser} /> {response.data[i].roomEnterUser} 명
+                                    <FontAwesomeIcon icon={faUser} /> {response.data[i].roomEnterUser} / {response.data[i].roomCapacity}{" 명"}
                                 </div>
                                 <div>
                                     <FontAwesomeIcon icon={faCalendarDays} /> {displayCreate}

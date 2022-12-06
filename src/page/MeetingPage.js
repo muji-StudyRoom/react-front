@@ -54,6 +54,7 @@ function handleNegotiationNeededEvent(peer_id) {
                 "type": "offer",
                 "sdp": _peer_list[peer_id].localDescription
             });
+            console.log(_peer_list[peer_id].localDescription)
         })
         .catch(log_error);
 }
@@ -66,9 +67,8 @@ function handleTrackEvent(event, peer_id) {
 }
 
 function handleICECandidateEvent(event, peer_id) {
-    console.log("handleICECandidateEvent If out")
     if (event.candidate) {
-        console.log("handleICECandidateEvent If in")
+        console.log("handleICECandidateEvent")
         sendViaServer({
             "sender_id": myID,
             "target_id": peer_id,
@@ -100,9 +100,8 @@ async function invite(peer_id) {
         let local_stream = myVideo.srcObject;
         local_stream.getTracks().forEach((track) => {
             _peer_list[peer_id].addTrack(track, local_stream);
+            console.log(peer_id)
         });
-        console.log("addTrack after : ", _peer_list)
-
     }
 }
 
@@ -127,20 +126,8 @@ function closeConnection(peer_id) {
 }
 
 // ===============[Send Data]==============
-socket.on("data", (msg) => {
-    // eslint-disable-next-line
-    switch (msg["type"]) {
-        case "offer":
-            handleOfferMsg(msg);
-            break;
-        case "answer":
-            handleAnswerMsg(msg);
-            break;
-        case "new-ice-candidate":
-            handleNewICECandidateMsg(msg);
-            break;
-    }
-});
+
+
 
 function handleOfferMsg(msg) {
     let peer_id = msg['sender_id'];
@@ -152,7 +139,7 @@ function handleOfferMsg(msg) {
     _peer_list[peer_id].setRemoteDescription(desc)
         .then(() => {
             let local_stream = myVideo.srcObject;
-            local_stream.getTracks().forEach((track) => { _peer_list[peer_id].addTrack(track, local_stream); });
+            local_stream.getTracks().forEach((track) => { _peer_list[peer_id].addTrack(track, local_stream); console.log(_peer_list)});
         })
         .then(() => { return _peer_list[peer_id].createAnswer(); })
         .then((answer) => { return _peer_list[peer_id].setLocalDescription(answer); })
@@ -195,6 +182,7 @@ function startCamera(mute_video, mute_audio) {
     navigator.mediaDevices.getUserMedia(mediaConstraints)
         .then((stream) => {
             myVideo.srcObject = stream;
+            console.log(myVideo.srcObject.getTracks())
             setAudioMuteState(mute_audio);
             setVideoMuteState(mute_video);
             myVideo.autoplay = true;
@@ -308,6 +296,24 @@ const MeetingPage = () => {
     }, [])
 
     useEffect(() => {
+        socket.on("data", (msg) => {
+            // eslint-disable-next-line
+            switch (msg["type"]) {
+                case "offer":
+                    handleOfferMsg(msg);
+                    break;
+                case "answer":
+                    handleAnswerMsg(msg);
+                    break;
+                case "new-ice-candidate":
+                    handleNewICECandidateMsg(msg);
+                    break;
+            }
+        });
+
+    }, [])
+
+    useEffect(() => {
         let _dataToServer
         socket.on("connect", () => {
             console.log("socket connected from client");
@@ -342,7 +348,7 @@ const MeetingPage = () => {
             _peer_list[peer_id] = undefined; // add new user to user list
             addVideoElement(peer_id, display_name);
         });
-    }, []) // 어레이 추가
+    }, [])
 
 
     socket.on("user-disconnect", (data) => {
@@ -365,7 +371,7 @@ const MeetingPage = () => {
                     display_name = recvd_list[peer_id];
                     _peer_list[peer_id] = undefined;
                     addVideoElement(peer_id, display_name);
-                    if(peer_id !== myID) {
+                    if (peer_id !== myID) {
                         let dm_select = document.createElement("option");
                         dm_select.id = peer_id
                         dm_select.value = peer_id
@@ -409,24 +415,28 @@ const MeetingPage = () => {
     }
 
     function shareVideo() {
+        console.log(myVideo.srcObject.getTracks())
         navigator.mediaDevices.getDisplayMedia({
             audio: true,
             video: true
         })
         .then(screenStream => {
             //스크린 공유 스트림을 얻어내고 여기에 오디오 스트림을 결합함 
-            myVideo.srcObject.getTracks().forEach((track) => { track.stop();}); // 기존 스트림 중지
+            myVideo.srcObject.getTracks().forEach((track) => { 
+                track.stop(); 
+            }); // 기존 스트림 중지
             myVideo.srcObject = screenStream
+            console.log(myVideo.srcObject.getTracks())
             setVideoIcon(false)
             setAudioIcon(true)
         }).catch(function (e) {
-            console.log("getUserMedia Error! ", e);
+            console.log("getDisplayMedia Error! ", e);
         });
     }
 
     const [selectIcon, setSelectIcon] = useState(selectCamera);
     const modeModify = () => {
-        if(selectIcon) {
+        if (selectIcon) {
             shareVideo();
             setSelectIcon(!selectIcon);
         }
@@ -443,7 +453,6 @@ const MeetingPage = () => {
         height: "100%",
         objectFit: "cover"
     }
-
     return (
         <div className='fake-root'>
             <div className='meet-root'>

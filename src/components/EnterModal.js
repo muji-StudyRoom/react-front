@@ -143,7 +143,7 @@ const EnterModal = (props) => {
                     <main id="room-enter">
                         <div className='modal-text'>닉네임</div>
                         <div>
-                            <input className="modal-title" placeholder='닉네임을 입력해주세요' id="room_nickname"></input><button onClick={validInfo} className="verify_btn">확인</button>
+                            <input className="modal-title" placeholder='닉네임을 입력해주세요' id="room_nickname"></input>
                         </div>
                         <div className='modal-text'>비밀번호</div>
                         <div>
@@ -173,9 +173,8 @@ const EnterModal = (props) => {
                         </div>
                     </main>
                     <footer>
-                        <button className="close" onClick={createRoom}>
-                            입장
-                        </button>
+                        <button onClick={validInfo} className="verify_btn">확인</button>
+                        <button className="close" onClick={createRoom}>입장</button>
                     </footer>
                 </section>
             ) : null}

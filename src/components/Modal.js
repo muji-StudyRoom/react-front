@@ -123,7 +123,7 @@ const Modal = (props) => {
     }
 
     else {
-      axios.post("/room/valid/create", {roomName: room_id})
+      axios.post("/room/valid/create", { roomName: room_id })
         .then(response => {
           if (response.data === true) {
             setCreateEnable(true)
@@ -157,7 +157,7 @@ const Modal = (props) => {
           <main id="room-create">
             <div className='modal-text' >방 제목</div>
             <div>
-              <input className="modal-title" placeholder='방 제목을 입력주세요' id="room_id" required></input><button onClick={validCreate} className="verify_btn">확인</button>
+              <input className="modal-title" placeholder='방 제목을 입력주세요' id="room_id" required></input>
             </div>
             <div className='modal-text'>수용 인원</div>
             <div>
@@ -195,9 +195,8 @@ const Modal = (props) => {
             </div>
           </main>
           <footer>
-            <button className="close" onClick={createRoom}>
-              생성
-            </button>
+            <button onClick={validCreate} className="verify_btn">확인</button>
+            <button className="close" onClick={createRoom}>생성</button>
           </footer>
         </section>
       ) : null}
