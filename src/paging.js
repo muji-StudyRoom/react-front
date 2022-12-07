@@ -60,7 +60,7 @@ function Paging(props) {
                             <div className='room-body'>{props.searchData[i].roomName}</div>
                             <div className='room-footer'>
                                 <div>
-                                    <FontAwesomeIcon icon={faUser} /> {props.searchData[i].roomEnterUser} 명
+                                    <FontAwesomeIcon icon={faUser} /> {props.searchData[i].roomEnterUser} / {props.searchData[i].roomCapacity}{" 명"}
                                 </div>
                                 <div>
                                     <FontAwesomeIcon icon={faCalendarDays} /> {displayCreate}
@@ -71,6 +71,7 @@ function Paging(props) {
                     ])
                 }
                 setRooms(roomList)
+                setPage(1)
             }
         }
         getData();
