@@ -105,14 +105,21 @@ const App = () => {
       <Header></Header>
       <Search></Search>
       <footer id="first-footer">
-        <div id='footer-all'>
-          <div id="footer-title">Eyes Talk</div>
-          <div>
-            <div className='footer-mail'>노희재 rhj0830@gmail.com</div>
-            <div className='footer-mail'>김남주 jupitern404@gmail.com</div>
-            <div className='footer-mail'>이현지 dleeh197@gmail.com</div>
-            <div className='footer-mail'>이기빈 lkb980316@gmail.com</div>
+        <div id='desc-all'>
+          <img src='logo-nobackground.png' id="title-logo"></img>
+          <div className='desc-box'>
+            <div className='desc-name'>노희재</div><div className='desc-mail'>rhj0830@gmail.com</div>
           </div>
+          <div className='desc-box'>
+            <div className='desc-name'>김남주</div><div className='desc-mail'>jupitern404@gmail.com</div>
+          </div>
+          <div className='desc-box'>
+            <div className='desc-name'>이현지</div><div className='desc-mail'>dleeh197@gmail.com</div>
+          </div>
+          <div className='desc-box'>
+            <div className='desc-name'>이기빈</div><div className='desc-mail'>lkb980316@gmail.com</div>
+          </div>
+          <img src="github-logo.png" id="github-logo"></img>
         </div>
       </footer>
       <div>

@@ -476,6 +476,18 @@ const MeetingPage = () => {
         }
     }
 
+    window.addEventListener('keydown', (event) => {
+        if (event.keyCode == 116) {
+            event.preventDefault();
+            event.returnValue = '';
+            Swal.fire({
+                icon: 'warning',
+                title: '새로고침을 권장하지 않습니다.',
+                showConfirmButton: false,
+                timer: 1000
+            })
+        }
+    })
     let defaultStyle = {
         width: "100%",
         height: "100%",

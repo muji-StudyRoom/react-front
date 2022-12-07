@@ -153,8 +153,34 @@ input[id=search-input]::placeholder {
   font-size: 25px;
 }
 
-.footer-mail {
-  margin-bottom: 10px;
+#desc-all {
+  margin-top: 20px;
+  display: flex;
+}
+
+.desc-box {
+  box-sizing: border-box;
+  margin-right: 30px;
+  padding-left: 30px;
+  min-width: 200px;
+  color: #555555;
+  border-left: 3px solid rgb(167, 167, 167);
+}
+
+.desc-name {
+  font-size: 25px;
+  margin-top: 30px;
+}
+
+.desc-mail {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+#title-logo {
+  width: 150px;
+  height: 120px;
+  margin-right: 60px;
 }
 
 #all-btn-div {
@@ -172,4 +198,9 @@ input[id=search-input]::placeholder {
   outline: none;
   cursor: pointer;
   border: 0;
+}
+
+#github-logo {
+  width: 100px;
+  height: 100px;
 }
