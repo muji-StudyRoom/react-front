@@ -119,7 +119,14 @@ const App = () => {
           <div className='desc-box'>
             <div className='desc-name'>이기빈</div><div className='desc-mail'>lkb980316@gmail.com</div>
           </div>
-          <img src="github-logo.png" id="github-logo"></img>
+        </div>
+        <div id="logo-box">
+          <a href='https://github.com/muji-StudyRoom' target="_blank">
+            <img src="github-logo.png" id="github-logo" ></img>
+          </a>
+          <a href='https://www.notion.so/6b262eea2f9c4036a9aea58e1718650e' target="_blank">
+            <img src="notion-logo.png" id="notion-logo" ></img>
+          </a>
         </div>
       </footer>
       <div>

@@ -142,7 +142,7 @@ input[id=search-input]::placeholder {
 }
 
 #first-footer {
-  height: 200px;
+  height: 300px;
   background-color: #eaefff;
   font-family:'Jua', sans-serif;
   padding: 50px 0px 0px 80px;
@@ -156,6 +156,8 @@ input[id=search-input]::placeholder {
 #desc-all {
   margin-top: 20px;
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .desc-box {
@@ -175,6 +177,7 @@ input[id=search-input]::placeholder {
 .desc-mail {
   font-size: 18px;
   margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 #title-logo {
@@ -203,4 +206,19 @@ input[id=search-input]::placeholder {
 #github-logo {
   width: 100px;
   height: 100px;
+  margin-right: 20px;
+}
+
+#notion-logo {
+  width: 80px;
+  height: 80px;
+  margin-left: 20px;
+}
+
+#logo-box {
+  margin-top: 20px;
+  margin-right: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
