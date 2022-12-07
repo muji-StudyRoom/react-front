@@ -9,6 +9,7 @@ import { faDisplay, faMicrophone, faRightFromBracket, faSmile } from '@fortaweso
 import { faMicrophoneSlash } from '@fortawesome/free-solid-svg-icons';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import { faVideoSlash } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 
 export const DataContext = createContext();
 
@@ -139,7 +140,7 @@ function handleOfferMsg(msg) {
     _peer_list[peer_id].setRemoteDescription(desc)
         .then(() => {
             let local_stream = myVideo.srcObject;
-            local_stream.getTracks().forEach((track) => { _peer_list[peer_id].addTrack(track, local_stream); console.log(_peer_list)});
+            local_stream.getTracks().forEach((track) => { _peer_list[peer_id].addTrack(track, local_stream); console.log(_peer_list) });
         })
         .then(() => { return _peer_list[peer_id].createAnswer(); })
         .then((answer) => { return _peer_list[peer_id].setLocalDescription(answer); })
@@ -386,8 +387,35 @@ const MeetingPage = () => {
     }, [])
 
     const exitRoom = () => {
-        window.location.replace("/")
-        console.log("exit")
+        Swal.fire({
+            title: '퇴장하시겠습니까?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#505f98',
+            confirmButtonText: '퇴장하기',
+            cancelButtonText: '머무르기'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    icon: 'success',
+                    title: '방에서 퇴장합니다.',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+                window.location.replace("/")
+                console.log("exit")
+            }
+            else {
+                Swal.fire({
+                    icon: 'success',
+                    title: '대화를 더 즐겨보세요!',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+            }
+        })
+
     }
 
     const [audioIcon, setAudioIcon] = useState(!!parseInt(location.state.mute_audio));
@@ -420,18 +448,18 @@ const MeetingPage = () => {
             audio: true,
             video: true
         })
-        .then(screenStream => {
-            //스크린 공유 스트림을 얻어내고 여기에 오디오 스트림을 결합함 
-            myVideo.srcObject.getTracks().forEach((track) => { 
-                track.stop(); 
-            }); // 기존 스트림 중지
-            myVideo.srcObject = screenStream
-            console.log(myVideo.srcObject.getTracks())
-            setVideoIcon(false)
-            setAudioIcon(true)
-        }).catch(function (e) {
-            console.log("getDisplayMedia Error! ", e);
-        });
+            .then(screenStream => {
+                //스크린 공유 스트림을 얻어내고 여기에 오디오 스트림을 결합함 
+                myVideo.srcObject.getTracks().forEach((track) => {
+                    track.stop();
+                }); // 기존 스트림 중지
+                myVideo.srcObject = screenStream
+                console.log(myVideo.srcObject.getTracks())
+                setVideoIcon(false)
+                setAudioIcon(true)
+            }).catch(function (e) {
+                console.log("getDisplayMedia Error! ", e);
+            });
     }
 
     const [selectIcon, setSelectIcon] = useState(selectCamera);
