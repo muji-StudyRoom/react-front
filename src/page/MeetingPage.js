@@ -177,8 +177,6 @@ var mediaConstraints = {
     }
 };
 
-
-
 function startCamera(mute_video, mute_audio) {
     navigator.mediaDevices.getUserMedia(mediaConstraints)
         .then((stream) => {
@@ -186,6 +184,7 @@ function startCamera(mute_video, mute_audio) {
             setAudioMuteState(mute_audio);
             setVideoMuteState(mute_video);
             myVideo.autoplay = true;
+            myVideo.onclick = (e) => screenExpend(e);
             //start the socketio connection
             socket.connect();
         })
@@ -212,12 +211,40 @@ function setVideoMuteState(flag) {
 
     });
 }
+
 function getMyVideo() {
     myVideo = document.getElementById("local_vid");
     myVideo.onloadeddata = () => { console.log("W,H: ", myVideo.videoWidth, ", ", myVideo.videoHeight); };
 }
+
+function screenReduce(videoId) {
+    console.log("screenReduce start");
+    console.log(videoId);
+    document.getElementById(videoId).onclick = (e) => screenExpend(e);
+    checkVideoLayout();
+}
+
+function screenExpend(event) {
+    console.log("screenExpend start");
+    const video_grid = document.getElementById("video_grid");
+    const videos = video_grid.querySelectorAll("video");
+    const video_count = videos.length;
+    for(let i = 0; i < video_count; i++) {
+        videos[i].style.width = "0%";
+        videos[i].style.height = "0%";
+        videos[i].style.objectFit = "cover";
+    }
+    
+    let targetVideo = document.getElementById(event.target.id)
+    targetVideo.style.width = "100%";
+    targetVideo.style.height = "100%";
+    targetVideo.style.objectFit = "cover";
+
+    targetVideo.onclick = () => screenReduce(event.target.id);
+}
+
 function checkVideoLayout() {
-    console.log("checkVideoLayout")
+    console.log("checkVideoLayout");
     const video_grid = document.getElementById("video_grid");
     const videos = video_grid.querySelectorAll("video");
     const video_count = videos.length;
@@ -267,6 +294,7 @@ function makeVideoElementCustom(element_id, display_name) {
     vid.id = "vid_" + element_id;
     vid.autoplay = true;
     vid.className = "camera_video"
+    vid.onclick = screenExpend;
     return vid;
 }
 function getVideoObj(element_id) {
@@ -459,7 +487,7 @@ const MeetingPage = () => {
                     let senderList = [];
                     for (let i = 0; i < peerLength; i++) {
                         var sender = _peer_list[Object.keys(_peer_list)[i]].getSenders().find(function (s) {
-                            return s.track.kind == videoTrack.kind
+                            return s.track.kind === videoTrack.kind
                         });
                         senderList.push(sender);
                         sender.replaceTrack(videoTrack);

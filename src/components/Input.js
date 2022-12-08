@@ -40,10 +40,10 @@ const Input = () => {
 
     }
 
-    const deleteMessage = () => {
-        document.getElementById(roomData["userNickname"]).value = ""
-        document.getElementById(roomData["userNickname"]).focus();
-    }
+    // const deleteMessage = () => {
+    //     document.getElementById(roomData["userNickname"]).value = ""
+    //     document.getElementById(roomData["userNickname"]).focus();
+    // }
 
     return (
         <div className='input-box'>
