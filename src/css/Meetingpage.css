@@ -86,6 +86,7 @@
     font-family: 'Jua', sans-serif;
     display: flex;
     align-items: center;
+    background-color: #ffffff;
 }
 
 select {

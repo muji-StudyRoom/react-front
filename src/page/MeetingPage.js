@@ -183,7 +183,6 @@ function startCamera(mute_video, mute_audio) {
     navigator.mediaDevices.getUserMedia(mediaConstraints)
         .then((stream) => {
             myVideo.srcObject = stream;
-            console.log(myVideo.srcObject.getTracks())
             setAudioMuteState(mute_audio);
             setVideoMuteState(mute_video);
             myVideo.autoplay = true;
@@ -261,7 +260,6 @@ function checkVideoLayout() {
 }
 function addVideoElement(element_id, display_name) {
     document.getElementById("video_grid").appendChild(makeVideoElementCustom(element_id, display_name));
-    console.log("addVideoElement 실행")
     checkVideoLayout();
 }
 function makeVideoElementCustom(element_id, display_name) {
@@ -442,42 +440,70 @@ const MeetingPage = () => {
         });
     }
 
+    const [selectIcon, setSelectIcon] = useState(selectCamera);
+
     function shareVideo() {
-        console.log(myVideo.srcObject.getTracks())
         navigator.mediaDevices.getDisplayMedia({
             audio: true,
             video: true
         })
             .then(screenStream => {
-                //스크린 공유 스트림을 얻어내고 여기에 오디오 스트림을 결합함 
-                myVideo.srcObject.getTracks().forEach((track) => {
-                    track.stop();
-                }); // 기존 스트림 중지
-                myVideo.srcObject = screenStream
-                console.log(myVideo.srcObject.getTracks())
-                setVideoIcon(false)
-                setAudioIcon(true)
+                setSelectIcon(false);
+                console.log(_peer_list.hasOwnProperty.length)
+                let peerLength = _peer_list.hasOwnProperty.length; // _peer_list의 길이
+                let localStream = myVideo.srcObject; // 로컬 스트림
+                let videoTrack = screenStream.getVideoTracks()[0]; // 로컬 스트림의 비디오트랙
+                myVideo.srcObject = screenStream; // 본인의 화면을 공유화면으로 전환
+
+                if (peerLength > 0) { // RTC 연결이 된 상대가 있을 시
+                    let senderList = [];
+                    for(let i = 0; i < peerLength; i++) {
+                        var sender = _peer_list[Object.keys(_peer_list)[i]].getSenders().find(function (s) {
+                            return s.track.kind == videoTrack.kind
+                        });
+                        senderList.push(sender);
+                        sender.replaceTrack(videoTrack);
+                    }
+                    videoTrack.onended = function () {
+                        setSelectIcon(true);
+                        for(let i = 0; i < peerLength; i++) {
+                        senderList[i].replaceTrack(localStream.getTracks()[1]);
+                        }
+                        myVideo.srcObject = localStream
+                    }
+                    setVideoIcon(false)
+                    setAudioIcon(true)
+                }
+
+                else { // 방에 혼자 있을 시
+
+                }
+
             }).catch(function (e) {
                 console.log("getDisplayMedia Error! ", e);
             });
     }
 
-    const [selectIcon, setSelectIcon] = useState(selectCamera);
     const modeModify = () => {
         if (selectIcon) {
             shareVideo();
-            setSelectIcon(!selectIcon);
         }
         else {
-            startCamera(false, true);
-            setVideoIcon(false)
-            setAudioIcon(true)
-            setSelectIcon(!selectIcon);
+            // startCamera(false, true);
+            // setVideoIcon(false)
+            // setAudioIcon(true)
+            // setSelectIcon(!selectIcon);
+            Swal.fire({
+                icon: 'warning',
+                titleText: '브라우저의 "공유 중지"\n버튼을 눌러주세요.',
+                showConfirmButton: false,
+                timer: 1000
+            })
         }
     }
 
     window.addEventListener('keydown', (event) => {
-        if (event.keyCode == 116) {
+        if (parseInt(event.keyCode) === 116) {
             event.preventDefault();
             event.returnValue = '';
             Swal.fire({

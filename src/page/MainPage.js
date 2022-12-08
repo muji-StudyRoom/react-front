@@ -1,6 +1,6 @@
 import '../css/App.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass, faReplyAll } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import Paging from "../paging.js"
 import { useState } from 'react';
@@ -106,7 +106,7 @@ const App = () => {
       <Search></Search>
       <footer id="first-footer">
         <div id='desc-all'>
-          <img src='logo-nobackground.png' id="title-logo"></img>
+          <img src='logo-nobackground.png' id="title-logo" alt="title-logo"></img>
           <div className='desc-box'>
             <div className='desc-name'>노희재</div><div className='desc-mail'>rhj0830@gmail.com</div>
           </div>
@@ -121,11 +121,11 @@ const App = () => {
           </div>
         </div>
         <div id="logo-box">
-          <a href='https://github.com/muji-StudyRoom' target="_blank">
-            <img src="github-logo.png" id="github-logo" ></img>
+          <a href='https://github.com/muji-StudyRoom' target="_blank" rel="noreferrer">
+            <img src="github-logo.png" id="github-logo" alt='github-logo'></img>
           </a>
-          <a href='https://www.notion.so/6b262eea2f9c4036a9aea58e1718650e' target="_blank">
-            <img src="notion-logo.png" id="notion-logo" ></img>
+          <a href='https://www.notion.so/6b262eea2f9c4036a9aea58e1718650e' target="_blank" rel="noreferrer">
+            <img src="notion-logo.png" id="notion-logo" alt='notion-logo'></img>
           </a>
         </div>
       </footer>

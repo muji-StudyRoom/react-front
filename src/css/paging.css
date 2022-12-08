@@ -10,6 +10,10 @@
     padding: 0;
   }
   
+  ul > li {
+    background-color: white;
+  }
+
   ul.pagination li {
     display: flex;
     width: 30px;
