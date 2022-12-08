@@ -36,19 +36,21 @@ textarea:focus {
 
 
 .del_btn, .send_btn {
+    font-family: 'Jua', sans-serif;
     padding: 6px 12px;
+    padding-top: 10px;
     height: 100%;
-    width: 50%;
+    width: 100%;
     color: white;
     background-color: #505f98;
     border-radius: 10px;
     font-size: 22px;
-    font-weight: 600;
+    font-weight: 500;
     outline: none;
     cursor: pointer;
     border: 0px;
     display: inline-flex;
     flex-direction: column;
     align-items: center; /* 가로 - 중앙으로 */
-    justify-content: center; /* 세로 - 상단으로 */
+    justify-content:center; /* 세로 - 상단으로 */
 }

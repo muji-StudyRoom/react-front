@@ -56,7 +56,7 @@ const Input = () => {
                 }}></textarea>
             </div>
             <div id='button-group'>
-                <button onClick={deleteMessage} className='del_btn'>삭제</button>
+                {/* <button onClick={deleteMessage} className='del_btn'>삭제</button> */}
                 <button onClick={sendMessage} className="send_btn">전송</button>
             </div>
         </div>

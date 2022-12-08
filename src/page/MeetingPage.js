@@ -449,13 +449,12 @@ const MeetingPage = () => {
         })
             .then(screenStream => {
                 setSelectIcon(false);
-                console.log(_peer_list)
-                console.log(_peer_list.hasOwnProperty.length)
                 let peerLength = Object.keys(_peer_list).length; // _peer_list의 길이
                 let localStream = myVideo.srcObject; // 로컬 스트림
                 let videoTrack = screenStream.getVideoTracks()[0]; // 로컬 스트림의 비디오트랙
                 myVideo.srcObject = screenStream; // 본인의 화면을 공유화면으로 전환
 
+                socket.emit("share-start", { "roomName": location.state.roomName })
                 if (peerLength > 0) { // RTC 연결이 된 상대가 있을 시
                     let senderList = [];
                     for (let i = 0; i < peerLength; i++) {
@@ -467,6 +466,7 @@ const MeetingPage = () => {
                     }
                     videoTrack.onended = function () {
                         setSelectIcon(true);
+                        socket.emit("share-end", { "roomName": location.state.roomName })
                         for (let i = 0; i < peerLength; i++) {
                             senderList[i].replaceTrack(localStream.getTracks()[1]);
                         }
@@ -476,26 +476,35 @@ const MeetingPage = () => {
                 else { // 방에 혼자 있을 시
                     videoTrack.onended = function () {
                         setSelectIcon(true);
+                        socket.emit("share-end", { "roomName": location.state.roomName })
                         myVideo.srcObject = localStream
                     }
                 }
                 setVideoIcon(false)
                 setAudioIcon(true)
-
-            }).catch(function (e) {
+            })
+            .catch(function (e) {
                 console.log("getDisplayMedia Error! ", e);
             });
     }
+
+    useEffect(() => {
+        socket.on("share-start", (data) => {
+            console.log(data)
+            document.getElementById("vid_" + data.sid).className = "display_video";
+        })
+
+        socket.on("share-end", (data) => {
+            console.log(data)
+            document.getElementById("vid_" + data.sid).className = "camera_video";
+        })
+    })
 
     const modeModify = () => {
         if (selectIcon) {
             shareVideo();
         }
         else {
-            // startCamera(false, true);
-            // setVideoIcon(false)
-            // setAudioIcon(true)
-            // setSelectIcon(!selectIcon);
             Swal.fire({
                 icon: 'warning',
                 titleText: '브라우저의 "공유 중지"\n버튼을 눌러주세요.',
