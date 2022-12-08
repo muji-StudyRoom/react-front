@@ -449,15 +449,16 @@ const MeetingPage = () => {
         })
             .then(screenStream => {
                 setSelectIcon(false);
+                console.log(_peer_list)
                 console.log(_peer_list.hasOwnProperty.length)
-                let peerLength = _peer_list.hasOwnProperty.length; // _peer_list의 길이
+                let peerLength = Object.keys(_peer_list).length; // _peer_list의 길이
                 let localStream = myVideo.srcObject; // 로컬 스트림
                 let videoTrack = screenStream.getVideoTracks()[0]; // 로컬 스트림의 비디오트랙
                 myVideo.srcObject = screenStream; // 본인의 화면을 공유화면으로 전환
 
                 if (peerLength > 0) { // RTC 연결이 된 상대가 있을 시
                     let senderList = [];
-                    for(let i = 0; i < peerLength; i++) {
+                    for (let i = 0; i < peerLength; i++) {
                         var sender = _peer_list[Object.keys(_peer_list)[i]].getSenders().find(function (s) {
                             return s.track.kind == videoTrack.kind
                         });
@@ -466,18 +467,20 @@ const MeetingPage = () => {
                     }
                     videoTrack.onended = function () {
                         setSelectIcon(true);
-                        for(let i = 0; i < peerLength; i++) {
-                        senderList[i].replaceTrack(localStream.getTracks()[1]);
+                        for (let i = 0; i < peerLength; i++) {
+                            senderList[i].replaceTrack(localStream.getTracks()[1]);
                         }
                         myVideo.srcObject = localStream
                     }
-                    setVideoIcon(false)
-                    setAudioIcon(true)
                 }
-
                 else { // 방에 혼자 있을 시
-
+                    videoTrack.onended = function () {
+                        setSelectIcon(true);
+                        myVideo.srcObject = localStream
+                    }
                 }
+                setVideoIcon(false)
+                setAudioIcon(true)
 
             }).catch(function (e) {
                 console.log("getDisplayMedia Error! ", e);

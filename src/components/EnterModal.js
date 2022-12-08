@@ -143,11 +143,11 @@ const EnterModal = (props) => {
                     <main id="room-enter">
                         <div className='modal-text'>닉네임</div>
                         <div>
-                            <input className="modal-title" placeholder='닉네임을 입력해주세요' id="room_nickname"></input>
+                            <input className="modal-title" placeholder='닉네임을 입력해주세요 (1~10자)' id="room_nickname"></input>
                         </div>
                         <div className='modal-text'>비밀번호</div>
                         <div>
-                            <input type="password" className="modal-input" placeholder='비밀번호를 입력해주세요' id="room_password"></input>
+                            <input type="password" className="modal-input" placeholder='비밀번호를 입력해주세요 (1~10자)' id="room_password"></input>
                         </div>
                         <div className='modal-text'>비디오</div>
                         <div className='radios'>
