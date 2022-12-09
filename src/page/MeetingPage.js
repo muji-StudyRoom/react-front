@@ -37,6 +37,7 @@ var PC_CONFIG = {
         },
     ]
 };
+
 // ===============[webrtc]=================
 function sendViaServer(data) {
     socket.emit("data", data);
@@ -55,7 +56,6 @@ function handleNegotiationNeededEvent(peer_id) {
                 "type": "offer",
                 "sdp": _peer_list[peer_id].localDescription
             });
-            console.log(_peer_list[peer_id].localDescription)
         })
         .catch(log_error);
 }
@@ -97,7 +97,7 @@ async function invite(peer_id) {
     else {
         console.log(`Creating peer connection for <${peer_id}> ...`);
         createPeerConnection(peer_id);
-        await sleep(2000);  // 기존 2000
+        await sleep(3000);  // 기존 2000
         let local_stream = myVideo.srcObject;
         local_stream.getTracks().forEach((track) => {
             _peer_list[peer_id].addTrack(track, local_stream);
@@ -219,7 +219,6 @@ function getMyVideo() {
 
 function screenReduce(videoId) {
     console.log("screenReduce start");
-    console.log(videoId);
     document.getElementById(videoId).onclick = (e) => screenExpend(e);
     checkVideoLayout();
 }
@@ -227,62 +226,40 @@ function screenReduce(videoId) {
 function screenExpend(event) {
     console.log("screenExpend start");
     const video_grid = document.getElementById("video_grid");
-    const videos = video_grid.querySelectorAll("video");
+    const videos = video_grid.getElementsByClassName("video-group")
     const video_count = videos.length;
-    for(let i = 0; i < video_count; i++) {
+    for (let i = 0; i < video_count; i++) {
         videos[i].style.width = "0%";
         videos[i].style.height = "0%";
         videos[i].style.objectFit = "cover";
+        videos[i].lastChild.style.display = "none"
     }
-    
-    let targetVideo = document.getElementById(event.target.id)
-    targetVideo.style.width = "100%";
-    targetVideo.style.height = "100%";
-    targetVideo.style.objectFit = "cover";
-
+    let targetVideo = document.getElementById(event.target.id);
+    targetVideo.parentElement.parentElement.style.width = "100%";
+    targetVideo.parentElement.parentElement.style.height = "100%";
+    targetVideo.parentElement.parentElement.style.objectFit = "cover";
+    targetVideo.parentNode.nextSibling.style.display = "";
     targetVideo.onclick = () => screenReduce(event.target.id);
 }
 
 function checkVideoLayout() {
     console.log("checkVideoLayout");
     const video_grid = document.getElementById("video_grid");
-    const videos = video_grid.querySelectorAll("video");
+    const videos = video_grid.getElementsByClassName("video-group")
     const video_count = videos.length;
     if (parseInt(video_count) === 0) { }
     else if (parseInt(video_count) === 1) {
         videos[0].style.width = "100%";
         videos[0].style.height = "100%";
         videos[0].style.objectFit = "cover";
-    } else if (parseInt(video_count) === 2) {
-        videos[0].style.width = "50%";
-        videos[0].style.height = "50%";
-        videos[0].style.objectFit = "cover";
-        videos[1].style.width = "50%";
-        videos[1].style.height = "50%";
-        videos[1].style.objectFit = "cover";
-    } else if (parseInt(video_count) === 3) {
-        videos[0].style.width = "50%";
-        videos[0].style.height = "50%";
-        videos[0].style.objectFit = "cover";
-        videos[1].style.width = "50%";
-        videos[1].style.height = "50%";
-        videos[1].style.objectFit = "cover";
-        videos[2].style.width = "50%";
-        videos[2].style.height = "50%";
-        videos[2].style.objectFit = "cover";
+        videos[0].lastChild.style.display = ""
     } else {
-        videos[0].style.width = "50%";
-        videos[0].style.height = "50%";
-        videos[0].style.objectFit = "cover";
-        videos[1].style.width = "50%";
-        videos[1].style.height = "50%";
-        videos[1].style.objectFit = "cover";
-        videos[2].style.width = "50%";
-        videos[2].style.height = "50%";
-        videos[2].style.objectFit = "cover";
-        videos[3].style.width = "50%";
-        videos[3].style.height = "50%";
-        videos[3].style.objectFit = "cover";
+        for (let i = 0; i < video_count; i++) {
+            videos[i].style.width = "50%";
+            videos[i].style.height = "50%";
+            videos[i].style.objectFit = "cover";
+            videos[i].lastChild.style.display = ""
+        }
     }
 }
 function addVideoElement(element_id, display_name) {
@@ -290,12 +267,30 @@ function addVideoElement(element_id, display_name) {
     checkVideoLayout();
 }
 function makeVideoElementCustom(element_id, display_name) {
+    let videoGroup = document.createElement("div")
+    videoGroup.className = "video-group";
+    videoGroup.id = "vg_" + element_id;
+
+    let videoBox = document.createElement("div")
+    videoBox.className = "video-box";
+    videoBox.id = "vb_" + element_id;
+
+    let upperName = document.createElement("div");
+    upperName.className = "upper-name";
+    upperName.innerText = display_name;
+
     let vid = document.createElement("video");
     vid.id = "vid_" + element_id;
     vid.autoplay = true;
     vid.className = "camera_video"
     vid.onclick = screenExpend;
-    return vid;
+
+    videoBox.appendChild(vid);
+
+    videoGroup.appendChild(videoBox);
+    videoGroup.appendChild(upperName);
+
+    return videoGroup;
 }
 function getVideoObj(element_id) {
     return document.getElementById("vid_" + element_id);
@@ -308,7 +303,7 @@ function removeVideoElement(element_id) {
     v.removeAttribute("srcObject");
     v.removeAttribute("src");
 
-    document.getElementById("vid_" + element_id).remove();
+    document.getElementById("vg_" + element_id).remove();
     checkVideoLayout();
 }
 
@@ -554,17 +549,27 @@ const MeetingPage = () => {
             })
         }
     })
+
     let defaultStyle = {
         width: "100%",
         height: "100%",
-        objectFit: "cover"
+        objectFit: "cover",
+        position: "relative"
     }
+
     return (
         <div className='fake-root'>
             <div className='meet-root'>
                 <div className='left'>
                     <div id="video_grid" className="video-grid" style={defaultStyle}>
-                        <video id="local_vid" className={selectIcon ? "camera_video" : "display_video"} autoplay muted style={defaultStyle}></video>
+                        <div className='video-group'>
+                            <div className='video-box'>
+                                <video id="local_vid" className={selectIcon ? "camera_video" : "display_video"} autoplay muted style={defaultStyle}></video>
+                            </div>
+                            <div className='upper-name'>
+                                {location.state["room_nickname"]}
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className='right'>

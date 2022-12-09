@@ -45,12 +45,22 @@
 }
 
 #search-box {
-  display: inline-block;
+  display: flex;
   position: relative;
   width: 500px;
   height: 50px;
   margin-top: 0px;
   margin-left: 80px;
+  justify-content: center;
+  align-items: center;
+}
+
+#search-box > span {
+  width: 500px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 input[id=search-input] {
