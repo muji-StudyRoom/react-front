@@ -76,23 +76,25 @@ const Search = () => {
   }
 
   return <>
-    <div id="search-box">
-      <span>
-        <input type="text" id="search-input" placeholder='검색어를 입력하세요' onKeyPress={searchRoom}></input>
-      </span>
-      <div id='icon' onClick={iconClick}>
-        <div id='search'>
-          <FontAwesomeIcon icon={faMagnifyingGlass} />
-        </div>
-        <div id='delete'>
-          <FontAwesomeIcon icon={faX} onClick={() => {
-            document.getElementById("search-input").value = "";
-          }} />
+    <div>
+      <div id="search-box">
+        <span>
+          <input type="text" id="search-input" placeholder='검색어를 입력하세요' onKeyPress={searchRoom}></input>
+        </span>
+        <div id='icon' onClick={iconClick}>
+          <div id='search'>
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          </div>
+          <div id='delete'>
+            <FontAwesomeIcon icon={faX} onClick={() => {
+              document.getElementById("search-input").value = "";
+            }} />
+          </div>
         </div>
       </div>
-    </div>
-    <div id='all-btn-div'>
-      <button id='all-btn' onClick={viewAll}>전체보기</button>
+      <div id='all-btn-div'>
+        <button id='all-btn' onClick={viewAll}>전체보기</button>
+      </div>
     </div>
     {completed ? <Paging target="search" searchData={searchResponse}></Paging> : <Paging target="all"></Paging>}
   </>
