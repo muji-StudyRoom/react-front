@@ -76,7 +76,7 @@ const Search = () => {
   }
 
   return <>
-    <div>
+    <div id='middle-box'>
       <div id="search-box">
         <span>
           <input type="text" id="search-input" placeholder='검색어를 입력하세요' onKeyPress={searchRoom}></input>

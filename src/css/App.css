@@ -63,6 +63,7 @@ input[id=search-input] {
   text-indent: 40px;
   font-size: 20px;
   font-weight: bold;
+  box-sizing: border-box;
 }
 
 input[id=search-input]:focus {
@@ -197,7 +198,9 @@ input[id=search-input]::placeholder {
 }
 
 #all-btn-div {
-  display: inline-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #all-btn {
@@ -231,4 +234,8 @@ input[id=search-input]::placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+#middle-box {
+  display: flex;
 }
