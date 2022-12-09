@@ -22,7 +22,7 @@
 
 #header-text {
   font-size: 25px;
-  font-weight: 400;
+  font-weight:lighter;
   color: #505f98;
   margin-bottom: 50px;
   font-family: 'Jua', sans-serif;
@@ -62,8 +62,9 @@ input[id=search-input] {
   color: gray;
   text-indent: 40px;
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 400;
   box-sizing: border-box;
+  font-family: 'Jua', sans-serif;
 }
 
 input[id=search-input]:focus {
@@ -209,11 +210,12 @@ input[id=search-input]::placeholder {
   color: #fff;
   background-color: #505f98;
   border-radius: 10px;
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 25px;
+  font-weight: 400;
   outline: none;
   cursor: pointer;
   border: 0;
+  font-family: 'Jua', sans-serif;
 }
 
 #github-logo {

@@ -10,7 +10,7 @@
     padding: 0;
   }
   
-  ul > li {
+  ul[class="pagination"] > li {
     background-color: white;
     display: flex;
     justify-content: center;
