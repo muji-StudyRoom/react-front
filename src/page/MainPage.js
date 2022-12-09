@@ -126,7 +126,7 @@ const App = () => {
           <a href='https://github.com/muji-StudyRoom' target="_blank" rel="noreferrer">
             <img src="github-logo.png" id="github-logo" alt='github-logo'></img>
           </a>
-          <a href='https://www.notion.so/6b262eea2f9c4036a9aea58e1718650e' target="_blank" rel="noreferrer">
+          <a href='https://coffee-postbox-de5.notion.site/Eyes-Talk-ed419e57aee84b92b156f954eabaf212' target="_blank" rel="noreferrer">
             <img src="notion-logo.png" id="notion-logo" alt='notion-logo'></img>
           </a>
         </div>
