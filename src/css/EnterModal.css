@@ -15,7 +15,7 @@
   border: 0;
 }
 
-.modal>section {
+.modal > section {
   width: 90%;
   max-width: 500px;
   margin: 0 auto;
@@ -26,7 +26,7 @@
   overflow: hidden;
 }
 
-.modal>section>header {
+.modal > section > header {
   position: relative;
   padding: 16px 64px 16px 16px;
   background-color: #505f98;
@@ -35,7 +35,7 @@
   color: white;
 }
 
-.modal>section>header button {
+.modal > section > header button {
   position: absolute;
   top: 15px;
   right: 15px;
@@ -47,18 +47,18 @@
   background-color: transparent;
 }
 
-.modal>section>main {
+.modal > section > main {
   padding: 16px;
   border-bottom: 1px solid #dee2e6;
   border-top: 1px solid #dee2e6;
 }
 
-.modal>section>footer {
+.modal > section > footer {
   padding: 12px 16px;
   text-align: right;
 }
 
-.modal>section>footer button {
+.modal > section > footer button {
   padding: 6px 12px;
   color: #fff;
   background-color: #505f98;
@@ -97,7 +97,7 @@
 }
 
 #room-create {
-  height:350px;
+  height: 350px;
 }
 
 .modal-input {
@@ -137,7 +137,7 @@
 label {
   font-size: 18px;
   line-height: 2rem;
-  padding-right: 1.0em;
+  padding-right: 1em;
 }
 
 span {

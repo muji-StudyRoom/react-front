@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&display=swap");
 #header-app {
   height: 400px;
   padding-left: 120px;
@@ -17,15 +17,15 @@
   font-weight: 700;
   color: #00184a;
   margin-bottom: 30px;
-  font-family: 'Black Han Sans', sans-serif;
+  font-family: "Black Han Sans", sans-serif;
 }
 
 #header-text {
   font-size: 25px;
-  font-weight:lighter;
+  font-weight: lighter;
   color: #505f98;
   margin-bottom: 50px;
-  font-family: 'Jua', sans-serif;
+  font-family: "Jua", sans-serif;
 }
 
 #start-button {
@@ -36,7 +36,7 @@
   font-weight: 500;
   height: 50px;
   width: 200px;
-  font-family: 'Jua', sans-serif;
+  font-family: "Jua", sans-serif;
   border-radius: 15px;
 }
 
@@ -63,21 +63,21 @@
   align-items: center;
 }
 
-input[id=search-input] {
+input[id="search-input"] {
   width: 100%;
   height: 100%;
-  border: solid 2px #EDEDF0;
-  background-color: #EDEDF0;
+  border: solid 2px #ededf0;
+  background-color: #ededf0;
   border-radius: 20px;
   color: gray;
   text-indent: 40px;
   font-size: 20px;
   font-weight: 400;
   box-sizing: border-box;
-  font-family: 'Jua', sans-serif;
+  font-family: "Jua", sans-serif;
 }
 
-input[id=search-input]:focus {
+input[id="search-input"]:focus {
   outline: 4px solid #505f98;
 }
 
@@ -91,7 +91,7 @@ input[id=search-input]:focus {
 }
 
 #icon:hover {
-  cursor:text;
+  cursor: text;
 }
 
 #search {
@@ -108,7 +108,7 @@ input[id=search-input]:focus {
   cursor: pointer;
 }
 
-input[id=search-input]::placeholder {
+input[id="search-input"]::placeholder {
   color: gray;
   font-size: 20px;
   font-weight: bold;
@@ -121,7 +121,7 @@ input[id=search-input]::placeholder {
 }
 
 .room {
-  font-family: 'Jua', sans-serif;
+  font-family: "Jua", sans-serif;
   background-color: #eaefff;
   height: 370px;
   width: 300px;
@@ -166,7 +166,7 @@ input[id=search-input]::placeholder {
   background-size: cover;
   background-repeat: space;
   background-position: 0 65%;
-  font-family:'Jua', sans-serif;
+  font-family: "Jua", sans-serif;
   padding: 50px 0px 0px 80px;
   margin-top: 0px;
 }
@@ -225,7 +225,7 @@ input[id=search-input]::placeholder {
   outline: none;
   cursor: pointer;
   border: 0;
-  font-family: 'Jua', sans-serif;
+  font-family: "Jua", sans-serif;
 }
 
 #github-logo {

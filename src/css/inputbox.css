@@ -1,56 +1,56 @@
-@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
 
 textarea {
-    font-family: 'Jua', sans-serif;
-    height: 100%;
-    width: 100%;
-    box-sizing: border-box;
-    border: solid 6px #eaefff;
-    background-color: #ffffff;
-    border-radius: 5px;
-    resize: none;
-    font-size: 20px;
+  font-family: "Jua", sans-serif;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  border: solid 6px #eaefff;
+  background-color: #ffffff;
+  border-radius: 5px;
+  resize: none;
+  font-size: 20px;
 }
 
 textarea:focus {
-    outline-color: #eaefff;
+  outline-color: #eaefff;
 }
 
 #textarea-parent {
-    height: 70%;
-    background-color: #eaefff;
+  height: 70%;
+  background-color: #eaefff;
 }
 
 #button-group {
-    height: 30%;
-    display: flex;
-    justify-content: center;
-    background-color: #eaefff;
+  height: 30%;
+  display: flex;
+  justify-content: center;
+  background-color: #eaefff;
 }
 
 .input-box {
-    width: 100%;
-    height: 100%;
-    background-color: white;
+  width: 100%;
+  height: 100%;
+  background-color: white;
 }
 
-
-.del_btn, .send_btn {
-    font-family: 'Jua', sans-serif;
-    padding: 6px 12px;
-    padding-top: 10px;
-    height: 100%;
-    width: 100%;
-    color: white;
-    background-color: #505f98;
-    border-radius: 10px;
-    font-size: 22px;
-    font-weight: 500;
-    outline: none;
-    cursor: pointer;
-    border: 0px;
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center; /* 가로 - 중앙으로 */
-    justify-content:center; /* 세로 - 상단으로 */
+.del_btn,
+.send_btn {
+  font-family: "Jua", sans-serif;
+  padding: 6px 12px;
+  padding-top: 10px;
+  height: 100%;
+  width: 100%;
+  color: white;
+  background-color: #505f98;
+  border-radius: 10px;
+  font-size: 22px;
+  font-weight: 500;
+  outline: none;
+  cursor: pointer;
+  border: 0px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center; /* 가로 - 중앙으로 */
+  justify-content: center; /* 세로 - 상단으로 */
 }

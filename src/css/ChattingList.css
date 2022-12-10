@@ -1,115 +1,117 @@
-@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
 
 #chat_scroll {
-    height: 100%;
-    margin: 0px;
-    overflow-y: scroll;
-    font-family: 'Jua', sans-serif;
+  height: 100%;
+  margin: 0px;
+  overflow-y: scroll;
+  font-family: "Jua", sans-serif;
 }
 
 #chat_scroll::-webkit-scrollbar {
-    background-color: #505f98;
+  background-color: #505f98;
 }
 
 #chat_scroll::-webkit-scrollbar-thumb {
-    background-color: #505f98;
+  background-color: #505f98;
 }
 
 #chat_scroll::-webkit-scrollbar-track {
-    background-color: #eaefff;
+  background-color: #eaefff;
 }
 
-.name_element, .notice_element, .chat_element {
-    margin-left: 23px;
+.name_element,
+.notice_element,
+.chat_element {
+  margin-left: 23px;
 }
 
 .name_element {
-    margin: 5px 0px 5px 23px;
+  margin: 5px 0px 5px 23px;
 }
 
 .chat_element {
-    min-height: 20px;
-    word-break: break-all;
-    margin-left: 20px;
-    margin-right: 20px;
-	position: relative;
-	background: #eaefff;
-	border-radius: .4em;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 10px 10px 10px 10px;
+  min-height: 20px;
+  word-break: break-all;
+  margin-left: 20px;
+  margin-right: 20px;
+  position: relative;
+  background: #eaefff;
+  border-radius: 0.4em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 10px 10px 10px;
 }
 
 .chat_element::after {
-    margin-left: 20px;
-	content: '';
-	position: absolute;
-	left: 0;
-	top: 50%;
-	width: 0;
-	height: 0;
-	border: 8px solid transparent;
-	border-right-color: #eaefff;
-	border-left: 0;
-	margin-top: -8px;
-	margin-left: -8px;
+  margin-left: 20px;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+  border-right-color: #eaefff;
+  border-left: 0;
+  margin-top: -8px;
+  margin-left: -8px;
 }
 
 .notice_element {
-    min-height: 20px;
-    word-break: break-all;
-    margin-left: 20px;
-    margin-right: 20px;
-	position: relative;
-	background: #ffeaea;
-	border-radius: .4em;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 10px 10px 10px 10px;
+  min-height: 20px;
+  word-break: break-all;
+  margin-left: 20px;
+  margin-right: 20px;
+  position: relative;
+  background: #ffeaea;
+  border-radius: 0.4em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 10px 10px 10px;
 }
 
 .notice_element::after {
-    margin-left: 20px;
-	content: '';
-	position: absolute;
-	left: 0;
-	top: 50%;
-	width: 0;
-	height: 0;
-	border: 8px solid transparent;
-	border-right-color: #ffeaea;
-	border-left: 0;
-	margin-top: -8px;
-	margin-left: -8px;
+  margin-left: 20px;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+  border-right-color: #ffeaea;
+  border-left: 0;
+  margin-top: -8px;
+  margin-left: -8px;
 }
 
 .dm_element {
-    min-height: 20px;
-    word-break: break-all;
-    margin-left: 20px;
-    margin-right: 20px;
-	position: relative;
-	background: #e4e4e4;
-	border-radius: .4em;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 10px 10px 10px 10px;
+  min-height: 20px;
+  word-break: break-all;
+  margin-left: 20px;
+  margin-right: 20px;
+  position: relative;
+  background: #e4e4e4;
+  border-radius: 0.4em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 10px 10px 10px;
 }
 
 .dm_element::after {
-    margin-left: 20px;
-	content: '';
-	position: absolute;
-	left: 0;
-	top: 50%;
-	width: 0;
-	height: 0;
-	border: 8px solid transparent;
-	border-right-color: #e4e4e4;
-	border-left: 0;
-	margin-top: -8px;
-	margin-left: -8px;
+  margin-left: 20px;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+  border-right-color: #e4e4e4;
+  border-left: 0;
+  margin-top: -8px;
+  margin-left: -8px;
 }

@@ -1,139 +1,138 @@
-@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
 
 .left {
-    width: 70%;
-    height: 100%;
-    float: left;
-    box-sizing: border-box;
-    background: white;
+  width: 70%;
+  height: 100%;
+  float: left;
+  box-sizing: border-box;
+  background: white;
 }
 
 .right {
-    width: 30%;
-    height: 100%;
-    float: right;
-    box-sizing: border-box;
+  width: 30%;
+  height: 100%;
+  float: right;
+  box-sizing: border-box;
 }
 
 .fake-root {
-    height: 100vh;
+  height: 100vh;
 }
 
 .meet-root {
-    height: 80%;
+  height: 80%;
 }
 
 .display_video {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: scaleX(1);
-    -webkit-transform: rotateY(0deg);
-    /* Safari and Chrome */
-    -moz-transform: rotateY(0deg);
-    /* Firefox */
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(1);
+  -webkit-transform: rotateY(0deg);
+  /* Safari and Chrome */
+  -moz-transform: rotateY(0deg);
+  /* Firefox */
 }
 
 .camera_video {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: scaleX(-1);
-    -webkit-transform: rotateY(180deg);
-    /* Safari and Chrome */
-    -moz-transform: rotateY(180deg);
-    /* Firefox */
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+  -webkit-transform: rotateY(180deg);
+  /* Safari and Chrome */
+  -moz-transform: rotateY(180deg);
+  /* Firefox */
 }
 
 .meet-footer {
-    height: 20%;
-    background-color: #eaefff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 500;
+  height: 20%;
+  background-color: #eaefff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 500;
 }
 
 .chatting-list {
-    height: 75%;
-    background-color: white;
+  height: 75%;
+  background-color: white;
 }
 
 .chat-input {
-    height: 20%;
-    display: flex;
+  height: 20%;
+  display: flex;
 }
 
 .user_btns {
-    font-size: 40px;
-    background-color: white;
-    margin-left: 10px;
-    margin-right: 10px;
-    color: #505f98;
-    display: inline-flex;
-    width: 65px;
-    height: 65px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 65px;
+  font-size: 40px;
+  background-color: white;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #505f98;
+  display: inline-flex;
+  width: 65px;
+  height: 65px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 65px;
 }
 
 .user_btns:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 #dm-select-div {
-    padding-left: 10px;
-    font-size: 20px;
-    height: 5%;
-    font-family: 'Jua', sans-serif;
-    display: flex;
-    align-items: center;
-    background-color: #ffffff;
+  padding-left: 10px;
+  font-size: 20px;
+  height: 5%;
+  font-family: "Jua", sans-serif;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
 }
 
 select {
-    -webkit-appearance: none;  /* 네이티브 외형 감추기 */
-    -moz-appearance: none;
-    appearance: none;
-    font-family: 'Jua', sans-serif;
-    margin-right: 5px;
-    font-size: 18px;
-    width: 100px;
-    text-align: center;
-    display: flex;
-    border: solid 4px #505f98;
-    border-radius: 8px;
+  -webkit-appearance: none; /* 네이티브 외형 감추기 */
+  -moz-appearance: none;
+  appearance: none;
+  font-family: "Jua", sans-serif;
+  margin-right: 5px;
+  font-size: 18px;
+  width: 100px;
+  text-align: center;
+  display: flex;
+  border: solid 4px #505f98;
+  border-radius: 8px;
 }
 
 .upper-name {
-    position: absolute;
-    z-index: 1000;
-    font-family: 'jua', sans-serif;
-    font-size: 25px;
-    margin: 15px 0px 0px 15px;
-    background-color: rgba(255, 255, 255, 0.6);
-    border-radius: 5px;
-    padding: 3px 8px 3px 8px;
-
+  position: absolute;
+  z-index: 1000;
+  font-family: "jua", sans-serif;
+  font-size: 25px;
+  margin: 15px 0px 0px 15px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 5px;
+  padding: 3px 8px 3px 8px;
 }
 
 .video-group {
-    width: inherit;
-    height: inherit;
-    object-fit: cover;
-    display: inline-block;
+  width: inherit;
+  height: inherit;
+  object-fit: cover;
+  display: inline-block;
 }
 
 .video-box {
-    width: inherit;
-    height: inherit;
-    object-fit: cover;
-    position: absolute;
-    z-index: 1;
+  width: inherit;
+  height: inherit;
+  object-fit: cover;
+  position: absolute;
+  z-index: 1;
 }
